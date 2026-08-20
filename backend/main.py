@@ -1,6 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import cube_engine
 
 app = FastAPI(title="Rubik's Cube Solver API")
 
@@ -28,12 +29,14 @@ def read_root():
 @app.post("/solve")
 def solve_cube(cube: CubeState):
     """
-    Dummy endpoint for Phase 1 to verify connectivity.
-    In Phase 2, this will pass the state_string to the Kociemba solver.
+    Endpoint that accepts a 54-char string and returns the shortest solution.
     """
-    # For now, just return a dummy move sequence
-    return {
-        "status": "success",
-        "solution": ["U", "R2", "F'", "D", "L2", "B'"],
-        "received_state": cube.state_string
-    }
+    try:
+        solution = cube_engine.solve_cube(cube.state_string)
+        return {
+            "status": "success",
+            "solution": solution,
+            "received_state": cube.state_string
+        }
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
