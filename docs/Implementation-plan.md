@@ -36,13 +36,22 @@ This document outlines the step-by-step implementation strategy for the Rubik's 
 
 ---
 
-## Phase 2B: Core Algorithmic Solvers
+## Phase 2B: Solver Architecture & Abstraction
+**Status**: `IMPLEMENTED`
+
+*   **Step 2B.1 (BaseSolver Abstraction)**: Built `BaseSolver` ABC in `backend/solver/base.py` defining standard solve lifecycle, validation gate, already-solved handling, timing, and error handling.
+*   **Step 2B.2 (Standardized Solution Models)**: Implemented `SolutionResult`, `SolverStatus`, and `VerificationResult` in `backend/solver/models.py`.
+*   **Step 2B.3 (Automated Solution Verification)**: Built `SolutionVerifier` in `backend/solver/verifier.py` executing candidate move sequences on cloned state instances to prove reachability of the solved state.
+*   **Step 2B.4 (Test Suite & Documentation)**: Comprehensive unit tests in `backend/test_solver_architecture.py` and architectural specification in `docs/solver_architecture.md`.
+
+---
+
+## Phase 2C: Concrete Solvers & Optimization
 **Status**: `PLANNED`
 
-*   **Step 2B.1 (Solver Interface)**: Define abstract `BaseSolver` interface in `backend/solver/` to isolate solving strategies from the Cube Core.
-*   **Step 2B.2 (Kociemba Two-Phase Solver Integration)**: Integrate Kociemba Two-Phase solving algorithm behind the `BaseSolver` interface with cross-platform fallback and calculation timeouts.
-*   **Step 2B.3 (Beginner / CFOP Solver)**: Implement human-readable Layer-by-Layer / CFOP solving pipeline for teaching mode.
-*   **Step 2B.4 (Solver Test Suite & Benchmarking)**: Unit test suite verifying solution optimality, move validity, and calculation time.
+*   **Step 2C.1 (Kociemba Two-Phase Solver)**: Concrete `KociembaSolver` implementation wrapped behind `BaseSolver` with fallback and calculation timeouts.
+*   **Step 2C.2 (Beginner / Layer-by-Layer Solver)**: Human-readable solving pipeline for teaching mode (Cross, F2L/Corners, Middle Layer, OLL, PLL).
+*   **Step 2C.3 (Move Optimizer & Benchmarking)**: Redundant move cancellation, move compression, and solver performance comparison lab.
 
 ---
 

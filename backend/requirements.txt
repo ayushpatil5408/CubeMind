@@ -5,5 +5,6 @@ pydantic>=2.4.2
 pytest>=7.4.2
 httpx>=0.28.0
 
-# Planned Phase 2 Dependencies:
-# kociemba (Two-Phase Algorithm solver module - isolated behind solver interface in Phase 2)
+# Phase 2 Dependencies:
+rubik-solver>=0.2.0
+future>=1.0.0
