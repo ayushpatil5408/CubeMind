@@ -1,5 +1,9 @@
-fastapi==0.103.2
-uvicorn==0.23.2
-pydantic==2.4.2
-kociemba==1.2.1
-pytest==7.4.2
+# Phase 1 Core Backend Dependencies
+fastapi>=0.103.2
+uvicorn>=0.23.2
+pydantic>=2.4.2
+pytest>=7.4.2
+httpx>=0.28.0
+
+# Planned Phase 2 Dependencies:
+# kociemba (Two-Phase Algorithm solver module - isolated behind solver interface in Phase 2)

@@ -1,51 +1,76 @@
-# Phase-Wise Implementation Plan: Rubik's Cube Solver
+# Phase-Wise Implementation Plan: Rubik's Cube Solver (CubeMind)
 
-This document outlines the step-by-step implementation strategy for the Rubik's Cube Solver, based on the system architecture.
+This document outlines the step-by-step implementation strategy for the Rubik's Cube Solver, based on the system architecture and problem statement.
 
-## Phase 1: Project Setup and Foundation
-**Goal**: Initialize the project repositories and establish the basic communication between the frontend and backend (if using a separated stack).
+---
 
-*   **Step 1.1**: Initialize the version control system (Git) and establish the project directory structure.
-*   **Step 1.2**: Set up the backend framework (e.g., Python with FastAPI or Node.js with Express).
-*   **Step 1.3**: Set up the frontend framework (e.g., React.js or Vue.js) using modern build tools (like Vite).
-*   **Step 1.4**: Define the state representation string format (e.g., UDFBLR format string of 54 characters).
-*   **Step 1.5**: Create basic API endpoints (e.g., a dummy `/solve` endpoint to verify connectivity).
+## Phase 1: Cube Core Foundation & Project Setup
+**Status**: `IMPLEMENTED`
 
-## Phase 2: Core Algorithmic Engine & Validation
-**Goal**: Implement the logic to validate a Rubik's Cube state and calculate the shortest solution.
+*   **Step 1.1 (Repository & Structure)**: Initialized Git version control and established independent backend and frontend directory trees.
+*   **Step 1.2 (Backend Core Framework)**: Configured FastAPI service with CORS middleware, health check `/`, `/validate`, `/scramble`, and connectivity endpoints.
+*   **Step 1.3 (Frontend Scaffold)**: Initialized React 19 + Vite frontend application with linting (`oxlint`) and connectivity verification component.
+*   **Step 1.4 (Cube State Contract)**: Formally specified 54-facelet canonical `URFDLB` ordering, 0-53 index mappings, color conventions, and serialization formats in `docs/cube_state_contract.md`.
+*   **Step 1.5 (Pure-Python Cube Engine)**: Built deterministic pure-Python Cube Engine in `backend/cube_engine.py` supporting:
+    *   3x3 Cube state model (54 facelets)
+    *   All 18 standard moves ($U, D, L, R, F, B$, prime `'`, double `2`)
+    *   Algorithm parser and mathematical inverter
+    *   State comparison, clone, reset, and solved-state detection
+    *   State serialization to 54-char string and JSON dict
+    *   WCA-compliant reproducible Scramble Generator
+    *   Basic state validation (length, character set, color counts)
+*   **Step 1.6 (Automated Test Suite)**: Comprehensive unit tests in `backend/test_cube_engine.py` and `backend/test_api.py` achieving 99% test coverage across all core operations.
 
-*   **Step 2.1**: Implement the State Validator module. Ensure it can detect:
-    *   Invalid color counts.
-    *   Impossible edge/corner flips.
-    *   Permutation parity errors.
-*   **Step 2.2**: Integrate the solving algorithm (e.g., Kociemba's Two-Phase Algorithm library in Python/JS).
-*   **Step 2.3**: Map the validated 54-character state string to the solver input.
-*   **Step 2.4**: Parse the solver's output (standard move notation) into an array/JSON format that can be easily consumed by the frontend.
-*   **Step 2.5**: Write unit tests for the validator and solver modules to ensure edge cases are handled correctly.
+---
+
+## Phase 2A: Cube State Validation Engine
+**Status**: `IMPLEMENTED`
+
+*   **Step 2A.1 (Structured Validator Architecture)**: Built `CubeValidator` in `backend/validator.py` returning `ValidationResult` with explicit `ValidationStatus` enum codes.
+*   **Step 2A.2 (Structure & Sticker Distribution)**: Validates exact 54-character string format, character sets $\in \{U, R, F, D, L, B\}$, and exact 9-count distribution per color.
+*   **Step 2A.3 (Center Alignment)**: Enforces fixed center configuration matching canonical Western color scheme (U=White, R=Red, F=Green, D=Yellow, L=Orange, B=Blue).
+*   **Step 2A.4 (Physical Edge Integrity & Orientation)**: Validates presence and uniqueness of all 12 canonical physical edge cubies, rejecting duplicate edges or impossible opposing color pairs. Enforces edge flip parity ($\sum \text{flip} \equiv 0 \pmod 2$).
+*   **Step 2A.5 (Physical Corner Integrity & Orientation)**: Validates presence and uniqueness of all 8 canonical physical corner cubies, rejecting duplicate corners or impossible opposing color triplets. Enforces corner twist parity ($\sum \text{twist} \equiv 0 \pmod 3$).
+*   **Step 2A.6 (Permutation Parity)**: Computes signature of corner permutation $\pi_c$ and edge permutation $\pi_e$ via inversion count, rejecting parity mismatch errors ($\text{sgn}(\pi_c) = \text{sgn}(\pi_e)$).
+*   **Step 2A.7 (Validation Test Suite & Documentation)**: Comprehensive unit test suite in `backend/test_validator.py` and mathematical specification in `docs/validation_rules.md`.
+
+---
+
+## Phase 2B: Core Algorithmic Solvers
+**Status**: `PLANNED`
+
+*   **Step 2B.1 (Solver Interface)**: Define abstract `BaseSolver` interface in `backend/solver/` to isolate solving strategies from the Cube Core.
+*   **Step 2B.2 (Kociemba Two-Phase Solver Integration)**: Integrate Kociemba Two-Phase solving algorithm behind the `BaseSolver` interface with cross-platform fallback and calculation timeouts.
+*   **Step 2B.3 (Beginner / CFOP Solver)**: Implement human-readable Layer-by-Layer / CFOP solving pipeline for teaching mode.
+*   **Step 2B.4 (Solver Test Suite & Benchmarking)**: Unit test suite verifying solution optimality, move validity, and calculation time.
+
+---
 
 ## Phase 3: Interactive 3D Frontend & Manual Input
-**Goal**: Build the user interface for manually inputting the cube state and visualizing the solution.
+**Status**: `PLANNED`
 
-*   **Step 3.1**: Integrate Three.js (or React Three Fiber) into the frontend.
-*   **Step 3.2**: Render a basic 3D Rubik's Cube model with standard colors.
-*   **Step 3.3**: Implement the "Manual Input Interface" allowing users to paint or select colors on a 2D layout or directly on the 3D cube.
-*   **Step 3.4**: Build the Animation Controller. Map the standard notations (U, R', F2, etc.) to 3D rotation animations.
-*   **Step 3.5**: Create playback controls (Play, Pause, Step Forward, Step Back) to guide the user through the solution.
+*   **Step 3.1**: Integrate Three.js / React Three Fiber into frontend.
+*   **Step 3.2**: Render interactive 3D Rubik's Cube model with standard materials and colors.
+*   **Step 3.3**: Implement Manual Input Interface (2D net color picker and direct 3D sticker painting).
+*   **Step 3.4**: Build Animation Controller mapping move tokens to smooth 3D rotation animations.
+*   **Step 3.5**: Implement playback controls (Play, Pause, Step Forward, Step Back, Speed controls).
 
-## Phase 4: Computer Vision (CV) Integration
-**Goal**: Allow users to scan their physical Rubik's Cube using a webcam.
+---
 
-*   **Step 4.1**: Set up OpenCV (if using backend processing) or TensorFlow.js/Canvas API (if client-side processing) for camera feed access.
-*   **Step 4.2**: Implement face detection using edge/contour detection to identify the 3x3 grid on a Rubik's Cube face.
-*   **Step 4.3**: Apply color recognition to extract the specific colors of the 9 stickers per face, handling lighting variations.
-*   **Step 4.4**: Implement a UI flow instructing the user to show all 6 faces of the cube to the camera sequentially.
-*   **Step 4.5**: Map the 6 captured faces to the 54-character state string and send it to the State Validator.
+## Phase 4: Computer Vision (CV) Scanning
+**Status**: `PLANNED`
 
-## Phase 5: Integration, Optimization, and Polish
-**Goal**: Connect all pieces seamlessly, ensure robust error handling, and polish the user experience.
+*   **Step 4.1**: Set up camera feed capture (OpenCV / Canvas API).
+*   **Step 4.2**: Implement face grid contour detection for 3x3 stickers.
+*   **Step 4.3**: Color segmentation and classification resilient to lighting variations.
+*   **Step 4.4**: Guided 6-face scanning user flow.
+*   **Step 4.5**: Reconstruct captured stickers into canonical 54-char state string.
 
-*   **Step 5.1**: Integrate the CV output with the 3D Frontend so the virtual cube matches the scanned physical cube.
-*   **Step 5.2**: Implement comprehensive error handling (e.g., guiding the user if they mis-scanned a face or if lighting is too poor).
-*   **Step 5.3**: Optimize performance, ensuring smooth 60FPS 3D animations and fast algorithm calculation times.
-*   **Step 5.4**: Apply UI/UX polishing (Tailwind CSS styling, responsive design for mobile and desktop, intuitive layout).
-*   **Step 5.5**: Final end-to-end testing and deployment setup (e.g., Dockerization, Vercel/Render hosting).
+---
+
+## Phase 5: Advanced AI, Optimization, and Polish
+**Status**: `PLANNED` / `EXPERIMENTAL`
+
+*   **Step 5.1 (Optimization Engine)**: Redundant move cancellation and solution compression.
+*   **Step 5.2 (AI Coach & Analytics)**: Explainable solve steps, move efficiency ratings, practice modes.
+*   **Step 5.3 (Production Hardening)**: Full end-to-end integration tests, security audit, Dockerization, and deployment.
