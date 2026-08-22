@@ -3,31 +3,43 @@
 Since the `Problem_Statement.md` was empty, I have generated a comprehensive architecture for a standard Rubik's Cube Solver application. This architecture supports both automated camera-based scanning and manual input, alongside a 3D visualization of the solution.
 
 ## 1. High-Level Overview
-The system is designed to take the current state of a scrambled Rubik's Cube as input, process the state to ensure it's valid, compute the optimal sequence of moves to solve it, and present the solution to the user in an interactive format.
+The system is designed to take the current state of a scrambled Rubik's Cube as input, validate the physical and mathematical state, compute the near-optimal sequence of moves to solve it, mathematically verify the solution, and expose it via structured REST API endpoints.
 
-## 2. Core Modules
+## 2. Core Modules & Phase Status
 
-### A. Input & State Capture
-1. **Computer Vision (CV) Module**: 
-   - Uses a camera feed to detect the colors of the Rubik's Cube faces.
-   - Applies image processing (color thresholding, contour detection) to map the 9 stickers on each of the 6 faces.
-2. **Manual Input Interface**: 
-   - A fallback UI where users can manually click and paint the colors onto a 2D net of the cube.
+### A. Cube Core Engine (`backend/cube_engine.py`) — Phase 1 (IMPLEMENTED)
+- Deterministic 54-facelet representation.
+- 18 standard WCA moves ($U, D, L, R, F, B$, primes, double turns).
+- State serialization (canonical string & dictionary) and scramble generator.
 
-### B. State Representation & Validation
-- **State Model**: Maps the detected colors to a standard notation (e.g., UDFBLR format string of 54 characters).
-- **Validation Engine**: Ensures the captured state is physically possible:
-  - Correct number of colors (9 of each).
-  - Valid corner and edge piece orientations (checks for flipped edges/twisted corners).
-  - Permutation parity check to ensure the cube can be solved without disassembling it.
+### B. Mathematical State Validator (`backend/validator.py`) — Phase 2A (IMPLEMENTED)
+- Format & sticker count validation.
+- Fixed center piece verification.
+- 12 physical edge piece pairings & orientation orbit checks ($\sum \text{flips} \equiv 0 \pmod 2$).
+- 8 physical corner piece triplets & twist orbit checks ($\sum \text{twists} \equiv 0 \pmod 3$).
+- Permutation parity validation ($\text{sign}(\text{edges}) == \text{sign}(\text{corners})$).
 
-### C. Solving Engine (Algorithmic Core)
-- **Primary Algorithm (Kociemba's Two-Phase Algorithm)**: Finds an optimal or near-optimal solution, typically in 20 moves or less.
-- **Secondary Algorithm (CFOP / Layer-by-Layer)**: Optional module that provides a human-readable, step-by-step solution for beginners who want to learn how to solve it themselves rather than just getting the fastest solution.
+### C. Solver Abstraction & Verification (`backend/solver/`) — Phase 2B (IMPLEMENTED)
+- `BaseSolver` abstract base class with template lifecycle method.
+- Standardized `SolutionResult`, `SolverStatus`, and `VerificationResult` models.
+- Independent `SolutionVerifier` proving move sequence execution on cloned states.
 
-### D. Output & Visualization
-- **3D Render Engine**: Displays an interactive 3D model of the Rubik's Cube.
-- **Animation Controller**: Animates the sequence of moves (e.g., U, R', F2) required to solve the cube, allowing the user to play, pause, and step through the solution at their own pace.
+### D. Kociemba Two-Phase Solver (`backend/solver/kociemba.py`) — Phase 2C (IMPLEMENTED)
+- Pure-Python Herbert Kociemba Two-Phase Algorithm solver.
+- Bidirectional state and move mapping (`kociemba_mapping.py`).
+- Sub-second solves ($\le 21$ moves) for full 20-move scrambles.
+
+### E. End-to-End Solver Pipeline & REST API (`backend/main.py`, `backend/solver/pipeline.py`) — Phase 2D (IMPLEMENTED)
+- `SolverRegistry`: Dynamic algorithm registration and lookup.
+- `SolverService`: Orchestration pipeline managing validation, execution, and verification.
+- FastAPI endpoints: `POST /solve`, `POST /validate`, `GET /scramble`, `GET /`.
+
+### F. Interactive 3D Visualization & Frontend — Phase 3 (PLANNED)
+- Three.js / React 3D cube model.
+- Step-by-step playback and move animation controller.
+
+### G. Computer Vision Scanner — Phase 4 (PLANNED)
+- OpenCV color recognition and camera feed facelet mapping.
 
 ## 3. Recommended Technology Stack
 
