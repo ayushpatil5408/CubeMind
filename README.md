@@ -1,79 +1,69 @@
-# CubeMind — Next-Generation Rubik's Cube Intelligence Platform
+# 🧊 CubeMind
 
-CubeMind is a high-performance, full-stack Rubik's Cube solving and intelligence suite powered by the Kociemba Two-Phase IDA* algorithm, client-side computer vision scanning, an AI solution coach, move optimization engine, and a 3D animated playback visualizer.
+### Next-Generation Rubik's Cube Intelligence Platform
 
----
+> An intelligent full-stack Rubik's Cube solver combining computer vision, 3D visualization, algorithmic solving, explainable coaching, move optimization, and interactive practice analytics.
 
-## 🌟 Key Features
-
-- **Optimal Solving Engine**: Kociemba Two-Phase algorithm solving any valid cube state in $< 20\text{ moves}$ and $< 20\text{ ms}$.
-- **Mathematical Validation Gate**: Deep physical parity, edge/corner orbit, and sticker distribution validation before search.
-- **Move Optimization & Reduction**: Modular arithmetic ($\pmod 4$) redundant turn cancellation and formal state-equivalence verification.
-- **AI Solution Coach**: Real-time explainable step-by-step guidance, ergonomic finger-trick hints, and trigger recognition (*Sexy Move*, *Sune*, *Anti-Sune*, *T-Perm*).
-- **Interactive 3D Visualizer**: Real-time Three.js cube simulation with animated layer rotations, speed presets ($0.5\times$ to $2.0\times$), and step-by-step playback.
-- **Computer Vision Scanning**: Camera reticle face capture, 3×3 grid estimation, center-calibrated color classification, and 9-count global balancing.
-- **Tactile Practice Mode**: Step-by-step manual physical drill mode with stopwatch timing, pace analytics, and keyboard shortcuts.
-- **Privacy-First Session History**: Local storage of recent 50 solves and practice sessions with corrupted data recovery.
+[![Backend Tests](https://img.shields.io/badge/Backend%20Tests-211%2F211%20Passing-success)](#-testing)
+[![Frontend Tests](https://img.shields.io/badge/Frontend%20Tests-126%2F126%20Passing-success)](#-testing)
+[![Build](https://img.shields.io/badge/Production%20Build-Passing-success)](#-testing)
+[![Python](https://img.shields.io/badge/Python-FastAPI-blue)](#-technology-stack)
+[![React](https://img.shields.io/badge/React-Frontend-blue)](#-technology-stack)
 
 ---
 
-## 🚀 Quick Start with Docker
+## 🚀 What is CubeMind?
 
-Run the entire full-stack application with a single command:
+CubeMind is a high-performance, full-stack Rubik's Cube intelligence platform built to go beyond a traditional cube solver.
 
-```bash
-docker compose up --build
-```
+It allows users to:
 
-- **Frontend Application**: `http://localhost`
-- **Backend API**: `http://localhost:8000`
-- **API Interactive Docs**: `http://localhost:8000/docs`
-
----
-
-## 🛠️ Local Development Setup
-
-### 1. Backend Service (Python 3.11+ / FastAPI)
-
-```bash
-cd backend
-python -m venv venv
-.\venv\Scripts\activate   # On Windows (or source venv/bin/activate on Unix)
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
-```
-
-### 2. Frontend Application (React 18 / Three.js / Vite)
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
+- 🧊 Interact with a 3D Rubik's Cube
+- 🎨 Manually enter cube colors
+- 📷 Scan a physical cube using a camera
+- 🔍 Validate whether a cube state is physically solvable
+- 🧠 Generate a solution using the Kociemba Two-Phase algorithm
+- ⚡ Optimize redundant moves with verification
+- 🎬 Watch the solution through animated 3D playback
+- 🤖 Learn through an explainable AI-style coaching system
+- 🎯 Practice solution sequences interactively
+- 📊 Track practice and solve history locally
 
 ---
 
-## 🧪 Testing Suite
+## ✨ Key Features
 
-### Backend Automated Tests (211 Tests)
-```bash
-cd backend
-python -m pytest
-```
+### 🧠 Intelligent Solver Engine
 
-### Frontend Automated Tests (126 Tests)
-```bash
-cd frontend
-npm test -- --run
-```
+- Kociemba Two-Phase solving algorithm
+- Valid cube state verification before solving
+- Structured solver output
+- Solver analytics and execution metrics
+- Fast solution generation
+
+### 🛡️ Mathematical Cube Validation
+
+CubeMind validates the physical consistency of a cube before attempting to solve it.
+
+It detects:
+
+- Invalid sticker and color counts
+- Invalid edge orientation
+- Invalid corner orientation
+- Edge permutation parity errors
+- Corner permutation parity errors
+- Physically impossible cube states
 
 ---
 
-## 🏛️ Architecture & Verification Contracts
+### ⚡ Move Optimization
 
-- **Cube State Format Specification**: [docs/cube_state_contract.md](docs/cube_state_contract.md)
-- **Computer Vision Pipeline**: [docs/cv_face_grid_and_color_extraction.md](docs/cv_face_grid_and_color_extraction.md)
-- **6-Face Color Classification**: [docs/six_face_color_classification_and_reconstruction.md](docs/six_face_color_classification_and_reconstruction.md)
-- **Solution Optimization**: [docs/solution_intelligence_and_optimization.md](docs/solution_intelligence_and_optimization.md)
-- **AI Coach & Explanations**: [docs/ai_coach_and_explainable_steps.md](docs/ai_coach_and_explainable_steps.md)
-- **Production Hardening & Deployment**: [docs/production_hardening_and_deployment.md](docs/production_hardening_and_deployment.md)
+The solution optimization engine safely reduces redundant consecutive moves.
+
+Examples:
+
+```text
+R R'   →  []
+R R    →  R2
+R R R  →  R'
+R2 R2  →  []
