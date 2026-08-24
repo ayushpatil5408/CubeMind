@@ -160,31 +160,49 @@ class BaseSolver(abc.ABC):
 
         elapsed_ms = (time.perf_counter() - start_time) * 1000.0
 
-        # 6. Solution Verification Gate (Optional)
+        # 6. Solution Optimization & Redundant Move Cancellation (Phase 5A)
+        from solver.optimizer import SolutionOptimizer
+
+        opt_result = SolutionOptimizer.optimize(
+            initial_state=cube,
+            raw_moves=solution_moves,
+            solve_time_ms=elapsed_ms,
+        )
+
+        active_moves = opt_result.optimized_moves if opt_result.is_verified else solution_moves
+
+        # 7. Solution Verification Gate (Optional)
         ver_res: Optional[VerificationResult] = None
         if verify:
-            ver_res = SolutionVerifier.verify(cube, solution_moves)
+            ver_res = SolutionVerifier.verify(cube, active_moves)
             if not ver_res.is_verified:
                 return SolutionResult(
                     success=False,
                     status=SolverStatus.SOLVER_ERROR,
                     solver_name=self.name,
-                    moves=solution_moves,
-                    move_count=len(solution_moves),
+                    moves=active_moves,
+                    move_count=len(active_moves),
                     solve_time_ms=elapsed_ms,
                     validation_result=val_res,
                     verification_result=ver_res,
                     error_message="Solution verification failed: applying generated moves did not solve the cube.",
+                    original_moves=solution_moves,
+                    is_optimized=opt_result.is_optimized,
+                    optimization_analytics=opt_result.analytics.to_dict(),
                 )
 
         return SolutionResult(
             success=True,
             status=SolverStatus.SOLVED,
             solver_name=self.name,
-            moves=solution_moves,
-            move_count=len(solution_moves),
+            moves=active_moves,
+            move_count=len(active_moves),
             solve_time_ms=elapsed_ms,
             validation_result=val_res,
             verification_result=ver_res,
             error_message=None,
+            original_moves=solution_moves,
+            is_optimized=opt_result.is_optimized,
+            optimization_analytics=opt_result.analytics.to_dict(),
         )
+

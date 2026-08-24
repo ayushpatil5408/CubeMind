@@ -1,5 +1,5 @@
 """
-Solver Architecture Package — CubeMind (Phase 2B, 2C, 2D).
+Solver Architecture Package — CubeMind (Phase 2B, 2C, 2D, 2E).
 """
 
 from solver.base import BaseSolver
@@ -16,6 +16,28 @@ from solver.pipeline import (
     SolverRegistry,
     SolverService,
     default_solver_service,
+)
+from solver.benchmark import (
+    MetricStats,
+    BenchmarkCaseResult,
+    BenchmarkSummary,
+    SolverBenchmarkRunner,
+)
+from solver.optimizer import (
+    SolutionOptimizer,
+    OptimizationResult,
+    OptimizationAnalytics,
+    normalize_move,
+    normalize_moves,
+    reduce_same_face_moves,
+    compute_solution_analytics,
+)
+from solver.coach import (
+    CoachMode,
+    CoachingStep,
+    CoachExplainer,
+    RuleBasedExplainer,
+    default_coach_explainer,
 )
 
 # Alias SolverPipeline to SolverService for flexible naming
@@ -36,4 +58,22 @@ __all__ = [
     "SolverService",
     "SolverPipeline",
     "default_solver_service",
+    "MetricStats",
+    "BenchmarkCaseResult",
+    "BenchmarkSummary",
+    "SolverBenchmarkRunner",
+    "SolutionOptimizer",
+    "OptimizationResult",
+    "OptimizationAnalytics",
+    "normalize_move",
+    "normalize_moves",
+    "reduce_same_face_moves",
+    "compute_solution_analytics",
+    "CoachMode",
+    "CoachingStep",
+    "CoachExplainer",
+    "RuleBasedExplainer",
+    "default_coach_explainer",
 ]
+
+

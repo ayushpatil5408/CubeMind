@@ -54,6 +54,9 @@ class SolutionResult:
     validation_result: Optional[ValidationResult] = None
     verification_result: Optional[VerificationResult] = None
     error_message: Optional[str] = None
+    original_moves: List[str] = field(default_factory=list)
+    is_optimized: bool = False
+    optimization_analytics: Optional[Dict[str, Any]] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -67,5 +70,9 @@ class SolutionResult:
             "validation_result": self.validation_result.to_dict() if self.validation_result else None,
             "verification_result": self.verification_result.to_dict() if self.verification_result else None,
             "error_message": self.error_message,
+            "original_moves": self.original_moves if self.original_moves else self.moves,
+            "is_optimized": self.is_optimized,
+            "optimization_analytics": self.optimization_analytics,
             "metadata": self.metadata,
         }
+
