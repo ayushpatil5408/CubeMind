@@ -9,16 +9,13 @@ import {
   Sparkles,
   CheckCircle2,
   HelpCircle,
-  ArrowRight,
   BookOpen,
   Zap,
   Info,
   ChevronRight,
-  ChevronLeft,
 } from 'lucide-react'
 import { Card } from '../common/Card'
 import { Badge } from '../common/Badge'
-import { Button } from '../common/Button'
 import { useCubeSolver } from '../../hooks/useCubeSolver'
 import { generateCoachingSteps, COACH_MODES } from '../../coach/coachExplainer'
 
@@ -27,9 +24,6 @@ export function CoachPanel() {
     solutionResult,
     currentStepIndex,
     playbackStatus,
-    stepForward,
-    stepBackward,
-    jumpToStep,
   } = useCubeSolver()
 
   const [coachMode, setCoachMode] = useState(COACH_MODES.BEGINNER)
@@ -43,10 +37,23 @@ export function CoachPanel() {
     return null
   }
 
-  const isCompleted = playbackStatus === 'COMPLETED' || currentStepIndex >= moves.length - 1 && moves.length > 0 && playbackStatus === 'PAUSED' && currentStepIndex === moves.length - 1
+  const isCompleted =
+    playbackStatus === 'COMPLETED' ||
+    (currentStepIndex >= moves.length - 1 &&
+      moves.length > 0 &&
+      playbackStatus === 'PAUSED' &&
+      currentStepIndex === moves.length - 1)
   const isStarted = currentStepIndex >= 0
-  const activeStep = isStarted && currentStepIndex < coachingSteps.length ? coachingSteps[currentStepIndex] : null
-  const nextStep = isStarted && currentStepIndex + 1 < coachingSteps.length ? coachingSteps[currentStepIndex + 1] : (!isStarted && coachingSteps.length > 0 ? coachingSteps[0] : null)
+  const activeStep =
+    isStarted && currentStepIndex < coachingSteps.length
+      ? coachingSteps[currentStepIndex]
+      : null
+  const nextStep =
+    isStarted && currentStepIndex + 1 < coachingSteps.length
+      ? coachingSteps[currentStepIndex + 1]
+      : !isStarted && coachingSteps.length > 0
+      ? coachingSteps[0]
+      : null
 
   const toggleMode = () => {
     setCoachMode((prev) =>
@@ -57,17 +64,22 @@ export function CoachPanel() {
   return (
     <Card
       title="CubeMind AI Coach"
-      subtitle={coachMode === COACH_MODES.BEGINNER ? 'Beginner-Friendly Step Explanations' : 'Compact Speed-Solving Mode'}
+      subtitle={
+        coachMode === COACH_MODES.BEGINNER
+          ? 'Beginner-Friendly Step Explanations'
+          : 'Compact Speed-Solving Mode'
+      }
       icon={Compass}
       glow
       action={
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={toggleMode}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-semibold bg-slate-800/80 hover:bg-slate-700/80 text-cyan-300 border border-cyan-500/30 transition-all shadow-sm"
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-semibold bg-[#06090F] hover:bg-[#111C33] text-cyan-300 border border-white/[0.08] transition-all shadow-sm"
             title="Switch Coach Mode"
           >
-            <BookOpen className="w-3.5 h-3.5" />
+            <BookOpen className="w-3.5 h-3.5 text-cyan-400" />
             <span>{coachMode === COACH_MODES.BEGINNER ? 'Beginner' : 'Compact'}</span>
           </button>
         </div>
@@ -84,7 +96,7 @@ export function CoachPanel() {
           </p>
         </div>
       ) : !isStarted ? (
-        <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 text-center space-y-3">
+        <div className="p-5 rounded-2xl bg-[#06090F] border border-white/[0.06] text-center space-y-3">
           <div className="w-10 h-10 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center mx-auto">
             <Sparkles className="w-5 h-5" />
           </div>
@@ -94,8 +106,8 @@ export function CoachPanel() {
           </p>
           {nextStep && (
             <div className="pt-2">
-              <span className="text-[11px] text-indigo-400 font-medium">
-                First move: <strong className="font-mono">{nextStep.move}</strong> ({nextStep.moveName})
+              <span className="text-[11px] text-cyan-400 font-medium">
+                First move: <strong className="font-mono text-white">{nextStep.move}</strong> ({nextStep.moveName})
               </span>
             </div>
           )}
@@ -103,7 +115,9 @@ export function CoachPanel() {
       ) : activeStep ? (
         <div className="space-y-4">
           {/* Active Step Hero Card */}
-          <div className={`p-4 rounded-2xl bg-gradient-to-br ${activeStep.glowClass} border shadow-lg space-y-3 relative overflow-hidden transition-all duration-300`}>
+          <div
+            className={`p-4 rounded-2xl bg-gradient-to-br ${activeStep.glowClass} border border-white/10 shadow-lg space-y-3 relative overflow-hidden transition-all duration-300`}
+          >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-mono font-bold tracking-wider uppercase opacity-80">
@@ -119,7 +133,7 @@ export function CoachPanel() {
             </div>
 
             <div className="flex items-center gap-4 pt-1">
-              <div className="w-14 h-14 rounded-2xl bg-black/40 border border-white/20 flex items-center justify-center text-2xl font-black font-mono shadow-inner">
+              <div className="w-14 h-14 rounded-2xl bg-black/40 border border-white/20 flex items-center justify-center text-2xl font-black font-mono shadow-inner text-cyan-300">
                 {activeStep.move}
               </div>
               <div className="flex-1 min-w-0">
@@ -151,7 +165,7 @@ export function CoachPanel() {
           {/* Detailed Explanation & Grip Guidance (Beginner Mode) */}
           {coachMode === COACH_MODES.BEGINNER && (
             <div className="space-y-2">
-              <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-300 space-y-1">
+              <div className="p-3 rounded-xl bg-[#06090F] border border-white/[0.06] text-xs text-slate-300 space-y-1">
                 <div className="flex items-center gap-1.5 font-semibold text-slate-200">
                   <Info className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Why This Move?</span>
@@ -162,7 +176,7 @@ export function CoachPanel() {
               </div>
 
               {activeStep.hint && (
-                <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-300 space-y-1">
+                <div className="p-3 rounded-xl bg-[#06090F] border border-white/[0.06] text-xs text-slate-300 space-y-1">
                   <div className="flex items-center gap-1.5 font-semibold text-amber-400">
                     <HelpCircle className="w-3.5 h-3.5" />
                     <span>Physical Grip & Turning Advice</span>
@@ -177,10 +191,10 @@ export function CoachPanel() {
 
           {/* Up Next Preview */}
           {nextStep && (
-            <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-400">
+            <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#06090F] border border-white/[0.06] text-xs text-slate-400">
               <span className="text-[11px]">Up Next:</span>
               <div className="flex items-center gap-1.5 text-slate-300 font-medium">
-                <span className="font-mono font-bold px-1.5 py-0.5 rounded bg-slate-800 text-indigo-300 border border-slate-700">
+                <span className="font-mono font-bold px-1.5 py-0.5 rounded bg-[#0C1322] text-cyan-300 border border-white/[0.08]">
                   {nextStep.move}
                 </span>
                 <span>{nextStep.moveName}</span>

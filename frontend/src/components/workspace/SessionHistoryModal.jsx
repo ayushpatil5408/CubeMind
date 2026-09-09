@@ -8,21 +8,14 @@ import {
   X,
   History,
   Trash2,
-  CheckCircle2,
-  Clock,
-  Hash,
-  Zap,
-  Award,
   Calendar,
 } from 'lucide-react'
-import { Button } from '../common/Button'
 import { Badge } from '../common/Badge'
 import {
   getSolveHistory,
   getPracticeHistory,
   clearSolveHistory,
   clearPracticeHistory,
-  clearAllHistory,
 } from '../../utils/sessionHistory'
 
 function formatDate(isoStr) {
@@ -73,17 +66,17 @@ export function SessionHistoryModal({ isOpen, onClose }) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="history-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xl animate-fade-in select-none"
     >
-      <div className="relative w-full max-w-xl max-h-[85vh] rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl p-6 flex flex-col space-y-5">
+      <div className="relative w-full max-w-xl max-h-[85vh] rounded-3xl bg-[#06090F] border border-white/[0.08] shadow-2xl p-6 flex flex-col space-y-5">
         {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 shrink-0">
+        <div className="flex items-center justify-between border-b border-white/[0.08] pb-4 shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+            <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shadow-sm">
               <History className="w-5 h-5" />
             </div>
             <div>
-              <h3 id="history-modal-title" className="text-base font-bold text-slate-100">
+              <h3 id="history-modal-title" className="text-base font-bold text-white tracking-tight">
                 Session History
               </h3>
               <p className="text-xs text-slate-400">Local solve records & practice metrics</p>
@@ -91,9 +84,10 @@ export function SessionHistoryModal({ isOpen, onClose }) {
           </div>
 
           <button
+            type="button"
             onClick={onClose}
             aria-label="Close session history"
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-white/[0.06] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -101,22 +95,24 @@ export function SessionHistoryModal({ isOpen, onClose }) {
 
         {/* Tab Selection & Clear Actions */}
         <div className="flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800">
+          <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#0C1322] border border-white/[0.06]">
             <button
+              type="button"
               onClick={() => setActiveTab('solves')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 activeTab === 'solves'
-                  ? 'bg-indigo-600/30 text-cyan-300 border border-indigo-500/40 shadow-sm'
+                  ? 'bg-gradient-to-r from-cyan-500/25 to-indigo-500/25 text-cyan-300 border border-cyan-400/30 shadow-sm'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               Solves ({solveRecords.length})
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab('practice')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 activeTab === 'practice'
-                  ? 'bg-indigo-600/30 text-cyan-300 border border-indigo-500/40 shadow-sm'
+                  ? 'bg-gradient-to-r from-cyan-500/25 to-indigo-500/25 text-cyan-300 border border-cyan-400/30 shadow-sm'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -126,6 +122,7 @@ export function SessionHistoryModal({ isOpen, onClose }) {
 
           {(activeTab === 'solves' ? solveRecords.length > 0 : practiceRecords.length > 0) && (
             <button
+              type="button"
               onClick={handleClear}
               className="flex items-center gap-1 text-xs text-rose-400 hover:text-rose-300 transition-colors"
               title="Clear current tab history"
@@ -137,17 +134,17 @@ export function SessionHistoryModal({ isOpen, onClose }) {
         </div>
 
         {/* List Content */}
-        <div className="flex-1 overflow-y-auto space-y-2.5 pr-1 max-h-96">
+        <div className="flex-1 overflow-y-auto space-y-2.5 pr-1 max-h-96 scrollbar-none">
           {activeTab === 'solves' ? (
             solveRecords.length === 0 ? (
-              <div className="p-8 text-center text-slate-400 text-xs rounded-2xl bg-slate-950/40 border border-slate-800/80">
+              <div className="p-8 text-center text-slate-400 text-xs rounded-2xl bg-[#0C1322] border border-white/[0.04]">
                 No solve records found. Solve a cube in the workspace to record your solutions!
               </div>
             ) : (
               solveRecords.map((rec) => (
                 <div
                   key={rec.id}
-                  className="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800/80 flex items-center justify-between gap-3 text-xs"
+                  className="p-3.5 rounded-2xl bg-[#0C1322] border border-white/[0.06] flex items-center justify-between gap-3 text-xs"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
@@ -181,14 +178,14 @@ export function SessionHistoryModal({ isOpen, onClose }) {
               ))
             )
           ) : practiceRecords.length === 0 ? (
-            <div className="p-8 text-center text-slate-400 text-xs rounded-2xl bg-slate-950/40 border border-slate-800/80">
+            <div className="p-8 text-center text-slate-400 text-xs rounded-2xl bg-[#0C1322] border border-white/[0.04]">
               No practice sessions recorded yet. Launch Practice Mode to track your tactical drill stats!
             </div>
           ) : (
             practiceRecords.map((rec) => (
               <div
                 key={rec.id}
-                className="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800/80 flex items-center justify-between gap-3 text-xs"
+                className="p-3.5 rounded-2xl bg-[#0C1322] border border-white/[0.06] flex items-center justify-between gap-3 text-xs"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">

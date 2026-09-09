@@ -212,3 +212,31 @@ export const ALGORITHM_PRESETS = [
   { id: 'superflip', name: 'Superflip', moves: "U R2 F B R B2 R U2 L B2 R U' D' R2 F R' L B2 U2 F2", description: "All 12 edges flipped in place (God's Number 20-move maximum)" },
 ]
 
+/**
+ * Generates a valid WCA-style pseudo-random scramble avoiding redundant consecutive axis turns.
+ */
+export function generateRandomScramble(length = 20) {
+  const faces = ['U', 'D', 'L', 'R', 'F', 'B']
+  const modifiers = ['', "'", '2']
+  const oppositePairs = { U: 'D', D: 'U', L: 'R', R: 'L', F: 'B', B: 'F' }
+  const moves = []
+  let lastFace = null
+  let secondLastFace = null
+
+  for (let i = 0; i < length; i++) {
+    const available = faces.filter((f) => {
+      if (f === lastFace) return false
+      if (secondLastFace && f === secondLastFace && oppositePairs[lastFace] === f) return false
+      return true
+    })
+    const face = available[Math.floor(Math.random() * available.length)]
+    const mod = modifiers[Math.floor(Math.random() * modifiers.length)]
+    moves.push(`${face}${mod}`)
+    secondLastFace = lastFace
+    lastFace = face
+  }
+  return moves.join(' ')
+}
+
+
+

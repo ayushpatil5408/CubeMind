@@ -2,6 +2,42 @@
 
 @layer base {
   :root {
+    /* Foundation */
+    --cm-bg: #05060b;
+    --cm-surface: #0c1322;
+    --cm-surface-elevated: #111c33;
+    --cm-surface-overlay: #162444;
+
+    /* Primary Accent */
+    --cm-cyan: #00f0ff;
+    --cm-cyan-light: #7df4ff;
+    --cm-cyan-glow: rgba(0, 240, 255, 0.25);
+
+    /* Secondary Accent */
+    --cm-amber: #f59e0b;
+    --cm-amber-light: #fbbf24;
+    --cm-amber-glow: rgba(245, 158, 11, 0.3);
+
+    --cm-iris: #8b5cf6;
+    --cm-iris-light: #c4abff;
+    --cm-iris-glow: rgba(139, 92, 246, 0.2);
+
+    /* Semantic Status */
+    --cm-success: #10b981;
+    --cm-warning: #f59e0b;
+    --cm-error: #ef4444;
+
+    /* Text */
+    --cm-text-primary: #f1f5f9;
+    --cm-text-secondary: #94a3b8;
+    --cm-text-muted: #64748b;
+
+    /* Borders */
+    --cm-border: rgba(255, 255, 255, 0.07);
+    --cm-border-hover: rgba(0, 240, 255, 0.3);
+    --cm-border-active: rgba(0, 240, 255, 0.5);
+
+    /* Cube Canonical Western Palette */
     --color-cube-u: #f8fafc;
     --color-cube-r: #ef4444;
     --color-cube-f: #22c55e;
@@ -11,66 +47,164 @@
   }
 
   body {
-    background-color: #080c14;
-    color: #f1f5f9;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--cm-bg);
+    color: var(--cm-text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     min-height: 100vh;
-    overflow-x: hidden;
+    letter-spacing: -0.01em;
   }
 }
 
-/* Glassmorphism card utilities */
+/* --------------------------------------------------------------------------
+ * Typography Utilities
+ * -------------------------------------------------------------------------- */
+.font-display {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* --------------------------------------------------------------------------
+ * Sculpted Organic Pods & Deep Cyber-Solar Glassmorphism
+ * -------------------------------------------------------------------------- */
+
+.glass-base {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(13, 17, 29, 0.72) 45%, rgba(7, 9, 19, 0.88) 100%);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(0, 240, 255, 0.16);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.12), 0 0 28px rgba(0, 240, 255, 0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-base:hover {
+  border-color: rgba(0, 240, 255, 0.32);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.75), inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 0 36px rgba(0, 240, 255, 0.12);
+}
+
+.glass-amber {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, rgba(18, 20, 32, 0.74) 50%, rgba(9, 10, 18, 0.9) 100%);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.14), 0 0 30px rgba(245, 158, 11, 0.09);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-amber:hover {
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.22), 0 0 42px rgba(245, 158, 11, 0.18);
+}
+
+/* Sculpted Organic Pod Shapes */
+.pod-asym-left {
+  border-radius: 36px 14px 38px 24px;
+}
+
+.pod-shield {
+  border-radius: 20px 20px 32px 32px;
+}
+
+.pod-squircle {
+  border-radius: 26px;
+}
+
+.pod-teardrop-left {
+  border-radius: 38px 16px 28px 38px;
+}
+
+.pod-wing-right {
+  border-radius: 16px 36px 24px 38px;
+}
+
+.pod-stadium {
+  border-radius: 9999px;
+}
+
+.pod-sculpted-tray {
+  border-radius: 22px 22px 34px 18px;
+}
+
+/* Glass panel legacy utilities */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: rgba(12, 19, 34, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.5);
 }
 
 .glass-panel-interactive {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(12, 19, 34, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-panel-interactive:hover {
-  background: rgba(30, 41, 59, 0.85);
-  border-color: rgba(99, 102, 241, 0.4);
-  box-shadow: 0 12px 40px 0 rgba(99, 102, 241, 0.15);
+  background: rgba(17, 28, 51, 0.85);
+  border-color: rgba(0, 240, 255, 0.3);
+  box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.6), 0 0 16px -2px rgba(0, 240, 255, 0.15);
 }
 
-/* Custom glow effects */
+/* Subtle Glow Effects */
 .glow-cyan {
-  box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);
+  box-shadow: 0 0 20px -2px rgba(0, 240, 255, 0.25);
 }
 
-.glow-indigo {
-  box-shadow: 0 0 25px rgba(99, 102, 241, 0.35);
+.glow-amber {
+  box-shadow: 0 0 20px -2px rgba(245, 158, 11, 0.3);
+}
+
+.glow-indigo,
+.glow-violet {
+  box-shadow: 0 0 20px -2px rgba(139, 92, 246, 0.2);
 }
 
 .glow-emerald {
-  box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 20px -2px rgba(16, 185, 129, 0.2);
 }
 
-/* Custom sleek scrollbar */
+/* Custom Sleek Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b1120;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: rgba(0, 240, 255, 0.25);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: rgba(0, 240, 255, 0.5);
 }
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Accessibility: Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

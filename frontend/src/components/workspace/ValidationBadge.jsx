@@ -6,9 +6,7 @@ import {
   Loader2,
   ChevronDown,
   ChevronUp,
-  ShieldCheck,
   ShieldAlert,
-  Info,
 } from 'lucide-react'
 import { useCubeSolver } from '../../hooks/useCubeSolver'
 import { validateBasicFormat, countFaceletColors } from '../../utils/cubeUtils'
@@ -24,23 +22,23 @@ export function ValidationBadge() {
   const isPhysicallyValid = basic.isValid && (!validationResult || validationResult.is_valid)
   const isChecking = isValidating
 
-  let bannerStyle = 'bg-slate-900/80 border-slate-800 text-slate-300'
+  let bannerStyle = 'bg-[#0C1322]/85 border-white/[0.08] text-slate-300'
   let icon = <CheckCircle2 className="w-4 h-4 text-emerald-400" />
   let title = 'Ready to Solve'
   let summary = 'Cube state is physically and mathematically solvable.'
 
   if (isChecking) {
-    bannerStyle = 'bg-indigo-950/40 border-indigo-800/40 text-indigo-200'
+    bannerStyle = 'bg-cyan-950/40 border-cyan-500/30 text-cyan-200'
     icon = <Loader2 className="w-4 h-4 text-cyan-400 animate-spin" />
     title = 'Validating State...'
     summary = 'Evaluating physical edge orbits, corner twists, and permutation parity.'
   } else if (!basic.isValid) {
-    bannerStyle = 'bg-amber-950/40 border-amber-800/40 text-amber-200'
+    bannerStyle = 'bg-amber-950/40 border-amber-500/30 text-amber-200'
     icon = <AlertTriangle className="w-4 h-4 text-amber-400" />
     title = 'Invalid Configuration'
     summary = basic.message
   } else if (validationResult && !validationResult.is_valid) {
-    bannerStyle = 'bg-red-950/40 border-red-800/40 text-red-200'
+    bannerStyle = 'bg-red-950/40 border-red-500/30 text-red-200'
     icon = <ShieldAlert className="w-4 h-4 text-red-400" />
     title = 'Unsolvable State'
     summary = validationResult.message || 'State violates mathematical Rubik’s cube invariants.'
@@ -88,25 +86,25 @@ export function ValidationBadge() {
       {/* Top Main Status Bar */}
       <div className="p-3.5 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="p-2 rounded-xl bg-black/20 shrink-0">
+          <div className="p-2 rounded-xl bg-black/30 shrink-0">
             {icon}
           </div>
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-xs tracking-wide">
+              <span className="font-bold text-xs tracking-tight text-white">
                 {title}
               </span>
               <span
-                className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${
+                className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full ${
                   isPhysicallyValid
-                    ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-700/50'
-                    : 'bg-red-950/80 text-red-300 border border-red-700/50'
+                    ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-500/40'
+                    : 'bg-red-950/80 text-red-300 border border-red-500/40'
                 }`}
               >
                 {isPhysicallyValid ? 'SOLVABLE' : 'UNSOLVABLE'}
               </span>
             </div>
-            <p className="text-[11px] opacity-80 truncate max-w-md mt-0.5">
+            <p className="text-[11px] text-slate-400 truncate max-w-md mt-0.5">
               {summary}
             </p>
           </div>
@@ -117,7 +115,7 @@ export function ValidationBadge() {
           <button
             type="button"
             onClick={() => setIsExpanded(!isExpanded)}
-            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-black/20 hover:bg-black/40 text-[11px] font-medium text-slate-300 transition-colors"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-[11px] font-medium text-slate-300 transition-colors"
           >
             <span>{isExpanded ? 'Hide Rules' : 'Checklist'}</span>
             {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -127,10 +125,11 @@ export function ValidationBadge() {
 
       {/* Expandable Mathematical Rules Drawer */}
       {isExpanded && (
-        <div className="p-3.5 bg-black/30 border-t border-white/5 space-y-2 text-xs animate-in slide-in-from-top duration-150">
+        <div className="p-3.5 bg-black/40 border-t border-white/[0.06] space-y-2 text-xs animate-in slide-in-from-top duration-150">
           <div className="flex items-center justify-between text-[11px] font-semibold text-slate-400 mb-1">
-            <span>Mathematical Validation Rules (Phase 2A Engine)</span>
+            <span>Mathematical Parity Invariant Rules (Phase 2A Engine)</span>
             <button
+              type="button"
               onClick={validateCurrentState}
               disabled={isChecking}
               className="text-cyan-400 hover:text-cyan-300 font-mono text-[10px] underline"
@@ -143,7 +142,7 @@ export function ValidationBadge() {
             {rules.map((rule, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between p-2 rounded-xl bg-slate-950/50 border border-white/5"
+                className="flex items-center justify-between p-2 rounded-xl bg-[#06090F]/70 border border-white/[0.04]"
               >
                 <div className="flex items-center gap-2">
                   {rule.passed ? (

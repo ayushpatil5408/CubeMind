@@ -1,20 +1,20 @@
 /**
- * CubeMind Global State Management (Phase 3D)
+ * CubeMind Global State Management (Phase 3D+)
  * Central React Context managing canonical cube state, manual state editing,
  * undo/redo history, deep validation status, solver solutions, precomputed move timelines,
- * and 3D animated playback state machine.
+ * live interactive layer turns, and 3D animated playback state machine.
  */
 
 import React, { createContext, useState, useEffect, useCallback, useRef } from 'react'
 import { SOLVED_STATE_STRING, CENTER_INDICES } from '../types/cube'
 import { cubeApi, ApiError } from '../services/api'
-import { validateBasicFormat, isCenterIndex, getCenterFace, updateStickerColor } from '../utils/cubeUtils'
-import { computeStateTimeline, parseAlgorithm, ALL_VALID_MOVES } from '../utils/cubeMoveEngine'
+import { validateBasicFormat, isCenterIndex, getCenterFace, updateStickerColor, generateRandomScramble } from '../utils/cubeUtils'
+import { computeStateTimeline, parseAlgorithm, applyMoveToState, applyAlgorithmToState, isValidMove, ALL_VALID_MOVES } from '../utils/cubeMoveEngine'
 import { getMoveAnimation, SPEED_PRESETS } from '../utils/cubeAnimationMapping'
+
 import { addSolveRecord } from '../utils/sessionHistory'
 
 export const CubeContext = createContext(null)
-
 
 const MAX_HISTORY_LENGTH = 50
 
@@ -23,10 +23,12 @@ export function CubeProvider({ children }) {
   const [stateString, setStateString] = useState(SOLVED_STATE_STRING)
   const [activeScramble, setActiveScramble] = useState('')
   const [scrambleHistory, setScrambleHistory] = useState([])
+  const [isScrambling, setIsScrambling] = useState(false)
 
   // 2. Manual Editing & History (Phase 3C)
   const [selectedColor, setSelectedColor] = useState('U') // 'U' | 'R' | 'F' | 'D' | 'L' | 'B'
   const [selectedStickerIndex, setSelectedStickerIndex] = useState(null)
+  const [hoveredStickerIndex, setHoveredStickerIndex] = useState(null)
   const [editMode, setEditMode] = useState('paint') // 'paint' | 'select'
   const [history, setHistory] = useState([])
   const [future, setFuture] = useState([])
@@ -59,6 +61,9 @@ export function CubeProvider({ children }) {
   const [backendHealth, setBackendHealth] = useState({ status: 'checking', details: null })
 
   // Synchronized refs to prevent stale closure in animation loops
+  const stateStringRef = useRef(stateString)
+  stateStringRef.current = stateString
+
   const playbackStatusRef = useRef(playbackStatus)
   playbackStatusRef.current = playbackStatus
 
@@ -77,6 +82,7 @@ export function CubeProvider({ children }) {
   const activeAnimationRef = useRef(activeAnimation)
   activeAnimationRef.current = activeAnimation
 
+  const scrambleQueueRef = useRef(null)
   const validationTimeoutRef = useRef(null)
 
   // Check backend health on mount
@@ -119,7 +125,7 @@ export function CubeProvider({ children }) {
 
   // Auto debounced validation whenever stateString changes (except during active animation playback)
   useEffect(() => {
-    if (activeAnimation) return
+    if (activeAnimation || isScrambling) return
 
     if (validationTimeoutRef.current) {
       clearTimeout(validationTimeoutRef.current)
@@ -143,7 +149,7 @@ export function CubeProvider({ children }) {
     return () => {
       if (validationTimeoutRef.current) clearTimeout(validationTimeoutRef.current)
     }
-  }, [stateString, activeAnimation, runDeepValidation])
+  }, [stateString, activeAnimation, isScrambling, runDeepValidation])
 
   // Sticker editing with history push and center protection
   const setStickerColor = useCallback((index, colorToSet = null) => {
@@ -239,6 +245,8 @@ export function CubeProvider({ children }) {
 
   // Reset to solved state
   const resetToSolved = useCallback(() => {
+    scrambleQueueRef.current = null
+    setIsScrambling(false)
     if (stateString === SOLVED_STATE_STRING && playbackStatus === 'IDLE') return
 
     setHistory((prev) => [...prev.slice(-MAX_HISTORY_LENGTH + 1), stateString])
@@ -253,8 +261,55 @@ export function CubeProvider({ children }) {
     setSelectedStickerIndex(null)
   }, [stateString, playbackStatus])
 
-  // Generate and apply new scramble from backend
-  const generateScramble = useCallback(async (length = 20) => {
+  // --------------------------------------------------------------------------
+  // Interactive Layer Turn Execution (Live 3D & 2D Updates)
+  // --------------------------------------------------------------------------
+  const executeMove = useCallback((move, animated = true, speedMs = null) => {
+    const cleanMove = (move || '').trim()
+    if (!isValidMove(cleanMove)) {
+      setError(`Invalid move '${move}'. Must be one of: ${ALL_VALID_MOVES.join(', ')}`)
+      return false
+    }
+
+    const currentState = stateStringRef.current
+    let nextState
+    try {
+      nextState = applyMoveToState(currentState, cleanMove)
+    } catch (err) {
+      setError(err.message)
+      return false
+    }
+
+    // Push history for undo
+    setHistory((prev) => [...prev.slice(-MAX_HISTORY_LENGTH + 1), currentState])
+    setFuture([])
+    setSolutionResult(null)
+    setPlaybackStatus('IDLE')
+    setCurrentStepIndex(-1)
+    setError(null)
+
+    if (animated) {
+      const duration = speedMs || Math.min(260, playbackSpeedRef.current)
+      const anim = getMoveAnimation(cleanMove, duration)
+      if (anim) {
+        setActiveAnimation({
+          ...anim,
+          isInteractive: true,
+          targetState: nextState,
+        })
+        return true
+      }
+    }
+
+    // Direct instant commit if not animated
+    setStateString(nextState)
+    return true
+  }, [])
+
+  // --------------------------------------------------------------------------
+  // Animated Scramble Engine
+  // --------------------------------------------------------------------------
+  const generateScramble = useCallback(async (length = 20, animated = true) => {
     setIsLoading(true)
     setError(null)
     setSolutionResult(null)
@@ -263,22 +318,74 @@ export function CubeProvider({ children }) {
     setActiveAnimation(null)
 
     try {
-      const data = await cubeApi.getScramble(length)
-      if (data.resulting_state) {
-        setHistory((prev) => [...prev.slice(-MAX_HISTORY_LENGTH + 1), stateString])
-        setFuture([])
-        setStateString(data.resulting_state)
-        setActiveScramble(data.scramble_str || data.scramble?.join(' ') || '')
-        setScrambleHistory((prev) => [data.scramble_str || data.scramble?.join(' '), ...prev.slice(0, 9)])
+      let scrambleStr = ''
+      let resultingState = ''
+
+      try {
+        const data = await cubeApi.getScramble(length)
+        scrambleStr = data.scramble_str || data.scramble?.join(' ') || ''
+        resultingState = data.resulting_state || ''
+      } catch (e) {
+        // Fallback to local random scramble if offline
+        scrambleStr = generateRandomScramble(length)
       }
-      return data
+
+      if (!scrambleStr) {
+        scrambleStr = generateRandomScramble(length)
+      }
+
+      const moves = parseAlgorithm(scrambleStr)
+      const timeline = computeStateTimeline(stateStringRef.current, moves)
+      const finalState = timeline[timeline.length - 1]
+
+      setHistory((prev) => [...prev.slice(-MAX_HISTORY_LENGTH + 1), stateStringRef.current])
+      setFuture([])
+
+      if (!animated || moves.length === 0) {
+        setStateString(finalState)
+        setActiveScramble(scrambleStr)
+        setScrambleHistory((prev) => [scrambleStr, ...prev.slice(0, 9)])
+        return { scramble_str: scrambleStr, resulting_state: finalState }
+      }
+
+      // Start animated scramble queue
+      setIsScrambling(true)
+      const scrambleSpeedMs = 110 // Fast & responsive animation cadence for scrambles
+      scrambleQueueRef.current = {
+        moves,
+        timeline,
+        currentIndex: 0,
+        scrambleStr,
+        finalState,
+        speedMs: scrambleSpeedMs,
+      }
+
+      const firstMove = moves[0]
+      const nextState = timeline[1]
+      const anim = getMoveAnimation(firstMove, scrambleSpeedMs)
+
+      if (anim) {
+        setActiveAnimation({
+          ...anim,
+          isScrambleQueue: true,
+          stepIndex: 0,
+          targetState: nextState,
+        })
+      } else {
+        setStateString(finalState)
+        setActiveScramble(scrambleStr)
+        setIsScrambling(false)
+      }
+
+      return { scramble_str: scrambleStr, resulting_state: finalState }
     } catch (err) {
       setError(err instanceof ApiError ? err.message : 'Failed to generate scramble')
+      setIsScrambling(false)
       throw err
     } finally {
       setIsLoading(false)
     }
-  }, [stateString])
+  }, [])
 
   // Solve the current state using backend API and initialize timeline
   const solveCurrentState = useCallback(async (options = {}) => {
@@ -330,7 +437,6 @@ export function CubeProvider({ children }) {
       }
 
       if (moves.length === 0 || data.status === 'ALREADY_SOLVED') {
-
         setPlaybackStatus('COMPLETED')
       } else {
         setPlaybackStatus('READY')
@@ -353,7 +459,7 @@ export function CubeProvider({ children }) {
   }, [stateString, validationResult])
 
   // --------------------------------------------------------------------------
-  // Playback Controller Engine (Phase 3D)
+  // Playback Controller & Animation Queue Engine
   // --------------------------------------------------------------------------
 
   // Starts animating a specific move index
@@ -379,7 +485,48 @@ export function CubeProvider({ children }) {
 
   // Callback invoked when 3D layer animation completes
   const completeCurrentAnimation = useCallback((stepIndex, targetState) => {
-    // 1. Commit canonical state & step index
+    // 1. Check if an animated scramble queue is running
+    const scrambleQueue = scrambleQueueRef.current
+    if (scrambleQueue) {
+      const nextIdx = scrambleQueue.currentIndex + 1
+      scrambleQueue.currentIndex = nextIdx
+
+      if (nextIdx < scrambleQueue.moves.length) {
+        // Apply intermediate state and launch next move in scramble
+        setStateString(targetState)
+        const nextMove = scrambleQueue.moves[nextIdx]
+        const nextStateSnapshot = scrambleQueue.timeline[nextIdx + 1]
+        const anim = getMoveAnimation(nextMove, scrambleQueue.speedMs)
+
+        if (anim) {
+          setActiveAnimation({
+            ...anim,
+            isScrambleQueue: true,
+            stepIndex: nextIdx,
+            targetState: nextStateSnapshot,
+          })
+          return
+        }
+      }
+
+      // Scramble queue finished
+      setStateString(scrambleQueue.finalState)
+      setActiveScramble(scrambleQueue.scrambleStr)
+      setScrambleHistory((prev) => [scrambleQueue.scrambleStr, ...prev.slice(0, 9)])
+      scrambleQueueRef.current = null
+      setIsScrambling(false)
+      setActiveAnimation(null)
+      return
+    }
+
+    // 2. Check if this was an interactive layer turn
+    if (activeAnimationRef.current?.isInteractive) {
+      setStateString(targetState)
+      setActiveAnimation(null)
+      return
+    }
+
+    // 3. Solution Playback Mode
     setStateString(targetState)
     setCurrentStepIndex(stepIndex)
 
@@ -392,7 +539,7 @@ export function CubeProvider({ children }) {
       return
     }
 
-    // 2. If playing, chain next move immediately
+    // If playing, chain next move immediately
     if (playbackStatusRef.current === 'PLAYING') {
       const nextStepIdx = stepIndex + 1
       const move = moves[nextStepIdx]
@@ -415,7 +562,7 @@ export function CubeProvider({ children }) {
 
   // Step Forward exactly 1 move with animation
   const stepForward = useCallback(() => {
-    if (activeAnimationRef.current) return // Prevent overlapping
+    if (activeAnimationRef.current || isScrambling) return
     const moves = solutionResult?.moves || []
     if (moves.length === 0) return
 
@@ -424,7 +571,7 @@ export function CubeProvider({ children }) {
 
     setPlaybackStatus('PAUSED')
     startAnimatingMove(nextStepIdx)
-  }, [solutionResult, currentStepIndex, startAnimatingMove])
+  }, [solutionResult, currentStepIndex, isScrambling, startAnimatingMove])
 
   // Step Backward safely using precomputed timeline snapshots
   const stepBackward = useCallback(() => {
@@ -505,6 +652,7 @@ export function CubeProvider({ children }) {
     stateString,
     activeScramble,
     scrambleHistory,
+    isScrambling,
     solutionResult,
     initialSolveState,
     solutionTimeline,
@@ -521,6 +669,7 @@ export function CubeProvider({ children }) {
     // Manual Editing & History (Phase 3C)
     selectedColor,
     selectedStickerIndex,
+    hoveredStickerIndex,
     editMode,
     history,
     future,
@@ -528,6 +677,9 @@ export function CubeProvider({ children }) {
     canRedo: future.length > 0,
     validationResult,
     isValidating,
+
+    // Interactive Moves (Phase 3D+)
+    executeMove,
 
     // Playback Actions (Phase 3D)
     play,
@@ -546,18 +698,35 @@ export function CubeProvider({ children }) {
     setEntireState,
     setSelectedColor,
     setSelectedStickerIndex,
+    setHoveredStickerIndex,
     setEditMode,
     undo,
     redo,
     resetToSolved,
     generateScramble,
+
     solveCurrentState,
     validateCurrentState: () => runDeepValidation(stateString),
     setActiveTab,
     setError,
     clearError: () => setError(null),
 
+    // Algorithm Application
+    applyAlgorithm: (algo) => {
+      try {
+        const nextState = applyAlgorithmToState(stateStringRef.current, algo)
+        setEntireState(nextState, 'algorithm_applied')
+        return true
+      } catch (err) {
+        setError(err.message)
+        return false
+      }
+    },
+
     // Backward compatibility aliases
+    solveCube: solveCurrentState,
+    scrambleCube: (len = 20) => generateScramble(len),
+    resetCube: resetToSolved,
     nextStep: stepForward,
     prevStep: stepBackward,
     setCurrentStepIndex: jumpToStep,
@@ -570,3 +739,5 @@ export function CubeProvider({ children }) {
     </CubeContext.Provider>
   )
 }
+
+

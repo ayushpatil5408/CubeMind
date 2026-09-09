@@ -4,13 +4,12 @@ import {
   Redo2,
   RotateCcw,
   Paintbrush,
-  MousePointer,
-  Sparkles,
   Lock,
   Upload,
+  Sparkles,
 } from 'lucide-react'
 import { FACES, FACE_ORDER } from '../../types/cube'
-import { countFaceletColors, getFaceletColor, getFaceletTextColor } from '../../utils/cubeUtils'
+import { countFaceletColors } from '../../utils/cubeUtils'
 import { useCubeSolver } from '../../hooks/useCubeSolver'
 
 export function ColorPalette({ onOpenImportModal }) {
@@ -18,8 +17,6 @@ export function ColorPalette({ onOpenImportModal }) {
     stateString,
     selectedColor,
     setSelectedColor,
-    editMode,
-    setEditMode,
     undo,
     redo,
     canUndo,
@@ -37,12 +34,12 @@ export function ColorPalette({ onOpenImportModal }) {
 
       const key = e.key.toUpperCase()
       const keyMap = {
-        '1': 'U', 'U': 'U',
-        '2': 'R', 'R': 'R',
-        '3': 'F', 'F': 'F',
-        '4': 'D', 'D': 'D',
-        '5': 'L', 'L': 'L',
-        '6': 'B', 'B': 'B',
+        '1': 'U', U: 'U',
+        '2': 'R', R: 'R',
+        '3': 'F', F: 'F',
+        '4': 'D', D: 'D',
+        '5': 'L', L: 'L',
+        '6': 'B', B: 'B',
       }
 
       if (keyMap[key]) {
@@ -65,12 +62,12 @@ export function ColorPalette({ onOpenImportModal }) {
   }, [setSelectedColor, undo, redo])
 
   return (
-    <div className="p-4 rounded-2xl bg-slate-900/70 border border-slate-800/80 shadow-xl space-y-4">
+    <div className="p-4 rounded-2xl bg-[#0C1322]/80 border border-white/[0.08] shadow-xl space-y-4">
       {/* Header with Mode Toggle & History Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800/60">
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/[0.06]">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
-            <Paintbrush className="w-3.5 h-3.5 text-indigo-400" />
+          <span className="text-xs font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-1.5">
+            <Paintbrush className="w-3.5 h-3.5 text-cyan-400" />
             Color Palette & Tools
           </span>
         </div>
@@ -78,13 +75,14 @@ export function ColorPalette({ onOpenImportModal }) {
         {/* Action Buttons: Undo, Redo, Reset, Import */}
         <div className="flex items-center gap-1.5">
           <button
+            type="button"
             onClick={undo}
             disabled={!canUndo}
             title="Undo Last Sticker Edit (Ctrl+Z)"
             className={`p-1.5 rounded-lg border text-xs flex items-center gap-1 transition-all ${
               canUndo
-                ? 'bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700 hover:text-white'
-                : 'bg-slate-900/40 border-slate-800/40 text-slate-600 cursor-not-allowed'
+                ? 'bg-[#111C33] border-white/10 text-slate-200 hover:bg-[#162444] hover:text-white'
+                : 'bg-[#06090F]/50 border-white/[0.04] text-slate-600 cursor-not-allowed'
             }`}
           >
             <Undo2 className="w-3.5 h-3.5" />
@@ -92,13 +90,14 @@ export function ColorPalette({ onOpenImportModal }) {
           </button>
 
           <button
+            type="button"
             onClick={redo}
             disabled={!canRedo}
             title="Redo Last Undone Edit (Ctrl+Y)"
             className={`p-1.5 rounded-lg border text-xs flex items-center gap-1 transition-all ${
               canRedo
-                ? 'bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700 hover:text-white'
-                : 'bg-slate-900/40 border-slate-800/40 text-slate-600 cursor-not-allowed'
+                ? 'bg-[#111C33] border-white/10 text-slate-200 hover:bg-[#162444] hover:text-white'
+                : 'bg-[#06090F]/50 border-white/[0.04] text-slate-600 cursor-not-allowed'
             }`}
           >
             <Redo2 className="w-3.5 h-3.5" />
@@ -106,9 +105,10 @@ export function ColorPalette({ onOpenImportModal }) {
           </button>
 
           <button
+            type="button"
             onClick={resetToSolved}
             title="Reset to Solved State"
-            className="p-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:bg-slate-700 hover:text-white transition-all flex items-center gap-1"
+            className="p-1.5 rounded-lg bg-[#111C33] border border-white/10 text-xs text-slate-300 hover:bg-[#162444] hover:text-white transition-all flex items-center gap-1"
           >
             <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
             <span className="hidden sm:inline">Reset</span>
@@ -116,9 +116,10 @@ export function ColorPalette({ onOpenImportModal }) {
 
           {onOpenImportModal && (
             <button
+              type="button"
               onClick={onOpenImportModal}
               title="Import 54-Char State String"
-              className="p-1.5 rounded-lg bg-indigo-950/50 border border-indigo-700/50 text-xs text-indigo-300 hover:bg-indigo-900/50 hover:text-white transition-all flex items-center gap-1"
+              className="p-1.5 rounded-lg bg-cyan-950/40 border border-cyan-500/30 text-xs text-cyan-300 hover:bg-cyan-900/40 hover:text-white transition-all flex items-center gap-1"
             >
               <Upload className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Paste</span>
@@ -139,11 +140,12 @@ export function ColorPalette({ onOpenImportModal }) {
           return (
             <button
               key={faceKey}
+              type="button"
               onClick={() => setSelectedColor(faceKey)}
-              className={`relative flex flex-col items-center justify-between p-2.5 rounded-xl border transition-all duration-200 text-left ${
+              className={`relative flex flex-col items-center justify-between p-2.5 rounded-xl border transition-all duration-150 text-left ${
                 isSelected
-                  ? 'ring-2 ring-indigo-400 border-indigo-400 bg-indigo-950/40 scale-105 shadow-lg'
-                  : 'bg-slate-950/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900/60'
+                  ? 'ring-2 ring-cyan-400 border-cyan-400 bg-cyan-950/30 scale-[1.03] shadow-lg shadow-cyan-950/30'
+                  : 'bg-[#06090F]/70 border-white/[0.08] hover:border-white/20 hover:bg-[#0C1322]'
               }`}
             >
               {/* Color Swatch Circle */}
@@ -157,7 +159,7 @@ export function ColorPalette({ onOpenImportModal }) {
                 >
                   {faceKey}
                 </span>
-                <span className="text-[10px] font-mono text-slate-400">
+                <span className="text-[10px] font-mono text-slate-500">
                   [{index + 1}]
                 </span>
               </div>
@@ -185,7 +187,7 @@ export function ColorPalette({ onOpenImportModal }) {
 
               {/* Active Selection Pin */}
               {isSelected && (
-                <div className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-indigo-500 rounded-full ring-2 ring-slate-950 animate-pulse" />
+                <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-cyan-400 rounded-full ring-2 ring-[#06090F] shadow-[0_0_6px_#06b6d4]" />
               )}
             </button>
           )
@@ -193,7 +195,7 @@ export function ColorPalette({ onOpenImportModal }) {
       </div>
 
       {/* Editing Hint & Western Scheme Fixed Centers Reminder */}
-      <div className="flex flex-wrap items-center justify-between gap-2 pt-2 text-[11px] text-slate-400 border-t border-slate-800/40">
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-2 text-[11px] text-slate-400 border-t border-white/[0.06]">
         <span className="flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
           Click any sticker to apply <strong className="text-slate-200">{FACES[selectedColor]?.name} ({selectedColor})</strong>

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { Terminal, Copy, Check, ShieldCheck, AlertTriangle } from 'lucide-react'
+import { Terminal, Copy, Check } from 'lucide-react'
 import { Card } from '../common/Card'
 import { Badge } from '../common/Badge'
 import { countFaceletColors, validateBasicFormat, getFaceletColor } from '../../utils/cubeUtils'
 import { useCubeSolver } from '../../hooks/useCubeSolver'
 
 export function StateInspector() {
-  const { stateString, solutionResult } = useCubeSolver()
+  const { stateString } = useCubeSolver()
   const [copied, setCopied] = useState(false)
 
   const counts = countFaceletColors(stateString)
@@ -38,14 +38,15 @@ export function StateInspector() {
             State String (54 Chars)
           </span>
           <button
+            type="button"
             onClick={handleCopy}
-            className="flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 transition-colors"
+            className="flex items-center gap-1 text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
           >
             {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
             <span>{copied ? 'Copied' : 'Copy'}</span>
           </button>
         </div>
-        <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-cyan-300/90 break-all select-all tracking-wider">
+        <div className="p-3 rounded-xl bg-[#06090F] border border-white/[0.08] font-mono text-[11px] text-cyan-300/90 break-all select-all tracking-wider">
           {stateString}
         </div>
       </div>
@@ -62,12 +63,17 @@ export function StateInspector() {
             return (
               <div
                 key={f}
-                className={`p-2 rounded-xl border flex flex-col items-center justify-center ${
-                  isOk ? 'bg-slate-900/60 border-slate-800' : 'bg-red-950/40 border-red-500/40 text-red-300'
+                className={`p-2 rounded-xl border flex flex-col items-center justify-center transition-all ${
+                  isOk
+                    ? 'bg-[#06090F]/70 border-white/[0.06]'
+                    : 'bg-red-950/40 border-red-500/40 text-red-300'
                 }`}
               >
                 <div className="flex items-center gap-1 mb-0.5">
-                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: getFaceletColor(f) }} />
+                  <span
+                    className="w-2 h-2 rounded-full border border-black/30"
+                    style={{ backgroundColor: getFaceletColor(f) }}
+                  />
                   <span className="font-bold text-xs font-mono">{f}</span>
                 </div>
                 <span className={`text-xs font-mono ${isOk ? 'text-slate-300' : 'text-red-400 font-bold'}`}>
