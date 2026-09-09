@@ -21,6 +21,7 @@ export function RubiksCube3D({
     return mapStateTo3DCubies(stateString)
   }, [stateString])
 
+  const rootGroupRef = useRef(null)
   const layerGroupRef = useRef(null)
   const animProgressRef = useRef({
     elapsedMs: 0,
@@ -48,7 +49,13 @@ export function RubiksCube3D({
   }, [activeAnimation])
 
   // R3F Animation Frame Loop
-  useFrame((_, delta) => {
+  useFrame((state, delta) => {
+    // Subtle idle holographic levitation float (Stitch active design)
+    const elapsedSec = state.clock.getElapsedTime()
+    if (rootGroupRef.current) {
+      rootGroupRef.current.position.y = Math.sin(elapsedSec * 1.4) * 0.04
+    }
+
     if (!activeAnimation || !animProgressRef.current.isAnimating) return
 
     const { axis, targetAngle, durationMs = 380, stepIndex, targetState } = activeAnimation
@@ -105,7 +112,7 @@ export function RubiksCube3D({
   }, [cubies, activeAnimation])
 
   return (
-    <group name="rubiks-cube-group">
+    <group ref={rootGroupRef} name="rubiks-cube-root-group">
       {/* Unaffected Static Cubies */}
       {staticCubies.map((cubie) => (
         <Cubie

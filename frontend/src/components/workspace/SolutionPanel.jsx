@@ -129,14 +129,14 @@ export function SolutionPanel() {
       }
     >
       {/* Solution KPI Metrics Bar */}
-      <div className="grid grid-cols-3 gap-3 mb-4">
-        <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400">
+      <div className="grid grid-cols-3 gap-2.5 mb-4">
+        <div className="p-3 rounded-xl bg-[#06090F] border border-white/[0.06] flex items-center gap-2.5">
+          <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 shrink-0">
             <Hash className="w-4 h-4" />
           </div>
-          <div>
-            <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Moves</span>
-            <p className="text-lg font-bold text-slate-100 font-mono">
+          <div className="min-w-0">
+            <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider block">Moves</span>
+            <p className="text-base sm:text-lg font-bold text-slate-100 font-mono truncate">
               {solutionResult.move_count ?? moves.length}
               {isOptimized && analytics && (
                 <span className="text-[11px] text-slate-400 font-normal ml-1.5 line-through">
@@ -147,36 +147,36 @@ export function SolutionPanel() {
           </div>
         </div>
 
-        <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400">
+        <div className="p-3 rounded-xl bg-[#06090F] border border-white/[0.06] flex items-center gap-2.5">
+          <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400 shrink-0">
             <Clock className="w-4 h-4" />
           </div>
-          <div>
-            <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Solve Time</span>
-            <p className="text-lg font-bold text-slate-100 font-mono">
+          <div className="min-w-0">
+            <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider block">Solve Time</span>
+            <p className="text-base sm:text-lg font-bold text-slate-100 font-mono truncate">
               {typeof solutionResult.solve_time_ms === 'number' ? `${solutionResult.solve_time_ms.toFixed(1)} ms` : '—'}
             </p>
           </div>
         </div>
 
-        <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+        <div className="p-3 rounded-xl bg-[#06090F] border border-white/[0.06] flex items-center gap-2.5">
+          <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 shrink-0">
             <Zap className="w-4 h-4" />
           </div>
-          <div>
-            <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Progress</span>
-            <p className="text-xs font-bold text-emerald-400 font-mono">
+          <div className="min-w-0">
+            <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider block">Progress</span>
+            <p className="text-xs sm:text-sm font-bold text-emerald-400 font-mono truncate">
               {currentStepIndex + 1}/{moves.length} ({progressPercent}%)
             </p>
           </div>
         </div>
       </div>
 
-      {/* Solution Analytics & Face Distribution Breakdown (Phase 5A) */}
+      {/* Solution Analytics & Face Distribution Breakdown */}
       {analytics && !isAlreadySolved && (
-        <div className="p-3 rounded-2xl bg-slate-950/70 border border-slate-800/80 mb-4 space-y-2">
+        <div className="p-3 rounded-2xl bg-[#06090F] border border-white/[0.06] mb-4 space-y-2">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-semibold text-slate-300 flex items-center gap-1.5">
+            <span className="font-semibold text-slate-200 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               Solution Intelligence Analytics
             </span>
@@ -189,7 +189,7 @@ export function SolutionPanel() {
             )}
           </div>
 
-          <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-800/60 text-[11px] text-slate-400 flex-wrap">
+          <div className="flex items-center justify-between gap-2 pt-1 border-t border-white/[0.04] text-[11px] text-slate-400 flex-wrap">
             <div className="flex items-center gap-2">
               <span>Faces:</span>
               <span className="font-mono text-slate-300">
@@ -206,7 +206,7 @@ export function SolutionPanel() {
 
       {isAlreadySolved ? (
         <div className="p-6 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 text-center">
-          <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-3">
+          <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-emerald-500/20">
             <CheckCircle2 className="w-6 h-6" />
           </div>
           <h4 className="text-base font-semibold text-emerald-300">Cube is Already Solved</h4>
@@ -215,9 +215,9 @@ export function SolutionPanel() {
       ) : (
         <>
           {/* Progress Bar */}
-          <div className="w-full bg-slate-950 rounded-full h-1.5 mb-4 overflow-hidden border border-slate-800/80">
+          <div className="w-full bg-[#06090F] rounded-full h-1.5 mb-4 overflow-hidden border border-white/[0.06]">
             <div
-              className="bg-gradient-to-r from-indigo-500 to-cyan-400 h-full transition-all duration-200"
+              className="bg-gradient-to-r from-cyan-500 to-indigo-400 h-full transition-all duration-200"
               style={{ width: `${Math.max(0, Math.min(100, progressPercent))}%` }}
             />
           </div>
@@ -232,6 +232,7 @@ export function SolutionPanel() {
                 </span>
                 {isOptimized && (
                   <button
+                    type="button"
                     onClick={() => setShowOriginalSequence((prev) => !prev)}
                     className="text-[10px] text-cyan-400 hover:text-cyan-300 underline font-mono ml-1"
                   >
@@ -240,15 +241,16 @@ export function SolutionPanel() {
                 )}
               </div>
               <button
+                type="button"
                 onClick={handleCopy}
-                className="flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 font-medium transition-colors"
+                className="flex items-center gap-1 text-xs text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
               >
                 {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copied ? 'Copied!' : 'Copy Moves'}</span>
               </button>
             </div>
 
-            <div className="flex flex-wrap gap-2 p-3 rounded-2xl bg-slate-950/80 border border-slate-800/80 max-h-40 overflow-y-auto">
+            <div className="flex flex-wrap gap-2 p-3 rounded-2xl bg-[#06090F] border border-white/[0.06] max-h-40 overflow-y-auto scrollbar-none">
               {displayedMoves.map((move, index) => {
                 const isActive = !showOriginalSequence && currentStepIndex === index
                 const isPast = !showOriginalSequence && currentStepIndex > index
@@ -256,17 +258,17 @@ export function SolutionPanel() {
                 return (
                   <button
                     key={`${move}-${index}`}
+                    type="button"
                     onClick={() => {
                       if (!showOriginalSequence) jumpToStep(index)
                     }}
                     title={showOriginalSequence ? `Raw move ${move}` : `Jump to step ${index + 1} (${move})`}
-                    className={`px-3 py-1.5 rounded-xl font-mono text-sm font-bold transition-all duration-200 ${
-
+                    className={`px-3 py-1.5 rounded-xl font-mono text-sm font-bold transition-all duration-150 select-none ${
                       isActive
-                        ? 'bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/30 scale-105 border border-white/20'
+                        ? 'bg-gradient-to-r from-cyan-500 to-indigo-500 text-white shadow-lg shadow-cyan-500/25 scale-105 border border-white/20'
                         : isPast
-                        ? 'bg-slate-900 text-slate-500 border border-slate-800/50'
-                        : 'bg-slate-900/90 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/60'
+                        ? 'bg-[#080D1A] text-slate-600 border border-white/[0.03]'
+                        : 'bg-[#0C1322] text-slate-300 hover:bg-[#111C33] hover:text-white border border-white/[0.08]'
                     }`}
                   >
                     {move}
@@ -300,7 +302,7 @@ export function SolutionPanel() {
           )}
 
           {/* Step Playback Controls */}
-          <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
+          <div className="p-3.5 rounded-2xl bg-[#06090F] border border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
             <div className="flex items-center gap-2">
               <Button
                 onClick={resetPlayback}
@@ -346,7 +348,7 @@ export function SolutionPanel() {
               <select
                 value={playbackSpeed}
                 onChange={(e) => setPlaybackSpeed(Number(e.target.value))}
-                className="bg-slate-950 text-slate-200 border border-slate-700 rounded-xl px-2.5 py-1 text-xs focus:outline-none focus:border-indigo-500 font-medium shadow-inner"
+                className="bg-[#0C1322] text-slate-200 border border-white/[0.08] rounded-xl px-2.5 py-1 text-xs focus:outline-none focus:border-cyan-500 font-medium shadow-inner"
               >
                 {SPEED_PRESETS.map((sp) => (
                   <option key={sp.value} value={sp.value}>
@@ -361,4 +363,3 @@ export function SolutionPanel() {
     </Card>
   )
 }
-

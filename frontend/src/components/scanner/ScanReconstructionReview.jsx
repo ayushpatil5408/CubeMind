@@ -6,20 +6,17 @@
 
 import React, { useState } from 'react'
 import {
-  CheckCircle2,
   AlertTriangle,
   RotateCcw,
-  Sparkles,
   Palette,
   Camera,
   Layers,
   ArrowRight,
   ShieldCheck,
-  HelpCircle,
 } from 'lucide-react'
 import { Button } from '../common/Button'
-import { FACES, FACE_ORDER, CENTER_INDICES } from '../../types/cube'
-import { SCAN_FACE_ORDER, SCAN_FACE_METADATA } from '../../types/scan'
+import { FACE_ORDER } from '../../types/cube'
+import { SCAN_FACE_METADATA } from '../../types/scan'
 import { getFaceletColor, getFaceletTextColor, isCenterIndex } from '../../utils/cubeUtils'
 
 export function ScanReconstructionReview({
@@ -62,7 +59,7 @@ export function ScanReconstructionReview({
       : null
 
     return (
-      <div className="flex flex-col items-center bg-slate-950/80 p-2.5 rounded-xl border border-slate-800 shadow-md">
+      <div className="flex flex-col items-center bg-[#06090F] p-2.5 rounded-xl border border-white/[0.08] shadow-md">
         <div className="flex items-center justify-between w-full mb-1.5 px-0.5">
           <span className="text-[11px] font-bold text-slate-200 font-mono flex items-center gap-1">
             <span
@@ -78,7 +75,7 @@ export function ScanReconstructionReview({
           )}
         </div>
 
-        <div className="grid grid-cols-3 grid-rows-3 gap-1 w-24 h-24 bg-slate-900 p-1 rounded-lg border border-slate-700">
+        <div className="grid grid-cols-3 grid-rows-3 gap-1 w-24 h-24 bg-[#0C1322] p-1 rounded-lg border border-white/[0.08]">
           {Array.from({ length: 9 }).map((_, relIdx) => {
             const absIdx = startIndex + relIdx
             const char = stateString[absIdx]
@@ -89,6 +86,7 @@ export function ScanReconstructionReview({
             return (
               <button
                 key={absIdx}
+                type="button"
                 onClick={() => handleStickerClick(absIdx)}
                 disabled={isCenter}
                 title={`Sticker #${absIdx} (${char})${isCenter ? ' [Locked Center]' : ''}${
@@ -98,9 +96,9 @@ export function ScanReconstructionReview({
                   isCenter ? 'cursor-not-allowed opacity-90' : 'hover:scale-95 cursor-pointer'
                 } ${
                   isSelected
-                    ? 'ring-2 ring-cyan-400 ring-offset-1 ring-offset-slate-900 scale-105 z-10'
+                    ? 'ring-2 ring-cyan-400 ring-offset-1 ring-offset-[#0C1322] scale-105 z-10'
                     : ''
-                } ${isAmbiguous ? 'border-2 border-amber-400' : 'border border-black/30'}`}
+                } ${isAmbiguous ? 'border-2 border-amber-400 shadow-[0_0_6px_#f59e0b]' : 'border border-black/30'}`}
                 style={{
                   backgroundColor: getFaceletColor(char),
                   color: getFaceletTextColor(char),
@@ -120,6 +118,7 @@ export function ScanReconstructionReview({
         </div>
 
         <button
+          type="button"
           onClick={() => onRescanFace(faceKey)}
           title={`Rescan ${faceKey} face`}
           className="mt-1.5 text-[10px] text-slate-400 hover:text-cyan-300 flex items-center gap-1 transition-colors"
@@ -132,9 +131,9 @@ export function ScanReconstructionReview({
   }
 
   return (
-    <div className="flex flex-col h-full bg-slate-900/95 text-slate-100 p-4 sm:p-5 overflow-y-auto space-y-4">
+    <div className="flex flex-col h-full bg-[#06090F]/95 text-slate-100 p-4 sm:p-5 overflow-y-auto space-y-4">
       {/* Header & Overall Status */}
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+      <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
         <div className="flex items-center gap-2.5">
           <div className="p-2 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-500 text-white shadow-md">
             <Layers className="w-4 h-4" />
@@ -142,7 +141,7 @@ export function ScanReconstructionReview({
           <div>
             <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
               Reconstructed Cube State
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
                 Phase 4C
               </span>
             </h3>
@@ -172,7 +171,7 @@ export function ScanReconstructionReview({
       </div>
 
       {/* Color Count Distribution & Quick Palette */}
-      <div className="p-3 rounded-2xl bg-slate-950/60 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="p-3 rounded-2xl bg-[#0C1322] border border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-xs font-medium text-slate-300">
           <Palette className="w-4 h-4 text-cyan-400 shrink-0" />
           <span>Select color tool to paint stickers:</span>
@@ -187,10 +186,11 @@ export function ScanReconstructionReview({
             return (
               <button
                 key={f}
+                type="button"
                 onClick={() => setSelectedPaletteColor(f)}
                 className={`px-2.5 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition-all shadow-sm ${
                   isSelected
-                    ? 'ring-2 ring-cyan-400 ring-offset-2 ring-offset-slate-950 scale-105'
+                    ? 'ring-2 ring-cyan-400 ring-offset-2 ring-offset-[#0C1322] scale-105'
                     : 'opacity-85 hover:opacity-100'
                 }`}
                 style={{
@@ -215,7 +215,7 @@ export function ScanReconstructionReview({
       </div>
 
       {/* 2D Unfolded Cross Layout Preview */}
-      <div className="flex flex-col items-center justify-center p-4 bg-slate-950/70 rounded-2xl border border-slate-800/80 shadow-inner">
+      <div className="flex flex-col items-center justify-center p-4 bg-[#080D1A] rounded-2xl border border-white/[0.08] shadow-inner">
         {/* Top: Up Face */}
         <div className="mb-2">{renderFaceGrid('U', 0)}</div>
 

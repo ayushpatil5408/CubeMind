@@ -14,6 +14,8 @@ function TestConsumer() {
       <div data-testid="active-tab">{context.activeTab}</div>
       <button onClick={context.resetToSolved} data-testid="reset-btn">Reset</button>
       <button onClick={() => context.setActiveTab('benchmark')} data-testid="tab-btn">Tab</button>
+      <button onClick={() => context.executeMove('R', false)} data-testid="move-r-btn">Move R</button>
+      <button onClick={() => context.executeMove("U'", false)} data-testid="move-u-prime-btn">Move U'</button>
     </div>
   )
 }
@@ -44,6 +46,26 @@ describe('CubeContext', () => {
     })
 
     expect(screen.getByTestId('active-tab').textContent).toBe('benchmark')
+  })
+
+  it('executes direct interactive moves and updates canonical stateString', () => {
+    render(
+      <CubeProvider>
+        <TestConsumer />
+      </CubeProvider>
+    )
+
+    act(() => {
+      screen.getByTestId('move-r-btn').click()
+    })
+
+    expect(screen.getByTestId('state-str').textContent).not.toBe(SOLVED_STATE_STRING)
+
+    act(() => {
+      screen.getByTestId('reset-btn').click()
+    })
+
+    expect(screen.getByTestId('state-str').textContent).toBe(SOLVED_STATE_STRING)
   })
 
   it('resets state when resetToSolved is called', () => {
