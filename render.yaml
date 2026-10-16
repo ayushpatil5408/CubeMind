@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: cubemind-api
+    runtime: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 8000
