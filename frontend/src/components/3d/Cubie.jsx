@@ -34,7 +34,7 @@ function getMaterial(color, isSelected = false, isHovered = false) {
       : isHovered
       ? new THREE.Color('#38bdf8')
       : new THREE.Color(color),
-    emissiveIntensity: isSelected ? 0.7 : isHovered ? 0.45 : 0.12,
+    emissiveIntensity: isSelected ? 0.7 : isHovered ? 0.45 : 0.03,
   })
 
   materialsCache.set(key, material)

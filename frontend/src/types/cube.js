@@ -5,15 +5,20 @@
 export const SOLVED_STATE_STRING = 'UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB'
 
 export const FACES = {
-  U: { name: 'Up', color: '#f8fafc', textColor: '#0f172a', label: 'White' },
-  R: { name: 'Right', color: '#ef4444', textColor: '#ffffff', label: 'Red' },
-  F: { name: 'Front', color: '#22c55e', textColor: '#ffffff', label: 'Green' },
-  D: { name: 'Down', color: '#eab308', textColor: '#0f172a', label: 'Yellow' },
-  L: { name: 'Left', color: '#f97316', textColor: '#ffffff', label: 'Orange' },
-  B: { name: 'Back', color: '#3b82f6', textColor: '#ffffff', label: 'Blue' },
+  U: { name: 'Up', color: '#FFFFFF', textColor: '#0f172a', label: 'White', opposite: 'D', axis: 'Top/Bottom' },
+  R: { name: 'Right', color: '#B71234', textColor: '#ffffff', label: 'Red', opposite: 'L', axis: 'Right/Left' },
+  F: { name: 'Front', color: '#009B48', textColor: '#ffffff', label: 'Green', opposite: 'B', axis: 'Front/Back' },
+  D: { name: 'Down', color: '#FFD500', textColor: '#0f172a', label: 'Yellow', opposite: 'U', axis: 'Top/Bottom' },
+  L: { name: 'Left', color: '#FF5800', textColor: '#ffffff', label: 'Orange', opposite: 'R', axis: 'Right/Left' },
+  B: { name: 'Back', color: '#0046AD', textColor: '#ffffff', label: 'Blue', opposite: 'F', axis: 'Front/Back' },
 }
 
+// Canonical Kociemba mathematical face string order: URFDLB
 export const FACE_ORDER = ['U', 'R', 'F', 'D', 'L', 'B']
+
+// Physical Opposite Pairs Sequence: Top/Bottom (U/D), Front/Back (F/B), Left/Right (L/R)
+export const PAIRED_FACE_ORDER = ['U', 'D', 'F', 'B', 'L', 'R']
+
 
 export const STANDARD_MOVES = [
   'U', "U'", 'U2',

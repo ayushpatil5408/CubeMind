@@ -174,18 +174,18 @@ describe('Manual Cube Input & State Editing (Phase 3C)', () => {
     const solvedCubies = mapStateTo3DCubies(SOLVED_STATE_STRING)
     expect(solvedCubies.length).toBe(26)
 
-    // In solved state, top-left-front cubie (-1, 1, 1) has UP=U (White #f8fafc) and FRONT=F (Green #22c55e)
+    // In solved state, top-left-front cubie (-1, 1, 1) has UP=U (White #FFFFFF) and FRONT=F (Green #009B48)
     const tlfCubie = solvedCubies.find((c) => c.position[0] === -1 && c.position[1] === 1 && c.position[2] === 1)
     expect(tlfCubie).toBeDefined()
     // UP facelet index 6
     expect(tlfCubie.faceIndices.UP).toBe(6)
-    expect(tlfCubie.faceColors[2]).toBe('#f8fafc') // White
+    expect(tlfCubie.faceColors[2]).toBe('#FFFFFF') // White
 
     // Edit sticker index 6 to 'R' (Red)
     const modifiedState = SOLVED_STATE_STRING.substring(0, 6) + 'R' + SOLVED_STATE_STRING.substring(7)
     const modifiedCubies = mapStateTo3DCubies(modifiedState)
     const modifiedTlfCubie = modifiedCubies.find((c) => c.position[0] === -1 && c.position[1] === 1 && c.position[2] === 1)
-    expect(modifiedTlfCubie.faceColors[2]).toBe('#ef4444') // Red
+    expect(modifiedTlfCubie.faceColors[2]).toBe('#B71234') // Red
   })
 
   it('verifies center index definitions according to cube contract', () => {

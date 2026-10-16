@@ -20,12 +20,12 @@ import { SCAN_FACE_ORDER } from '../types/scan'
  */
 function createSynthetic54StickerDataset(stateStr = SOLVED_STATE_STRING, noiseRatio = 0) {
   const colorMap = {
-    U: { meanRgb: { r: 248, g: 250, b: 252 }, hsv: { h: 0, s: 2, v: 98 }, hex: '#f8fafc' },
-    R: { meanRgb: { r: 239, g: 68, b: 68 }, hsv: { h: 0, s: 72, v: 94 }, hex: '#ef4444' },
-    F: { meanRgb: { r: 34, g: 197, b: 94 }, hsv: { h: 142, s: 83, v: 77 }, hex: '#22c55e' },
-    D: { meanRgb: { r: 234, g: 179, b: 8 }, hsv: { h: 45, s: 97, v: 92 }, hex: '#eab308' },
-    L: { meanRgb: { r: 249, g: 115, b: 22 }, hsv: { h: 25, s: 91, v: 98 }, hex: '#f97316' },
-    B: { meanRgb: { r: 59, g: 130, b: 246 }, hsv: { h: 217, s: 76, v: 96 }, hex: '#3b82f6' },
+    U: { meanRgb: { r: 255, g: 255, b: 255 }, hsv: { h: 0, s: 0, v: 100 }, hex: '#FFFFFF' },
+    R: { meanRgb: { r: 183, g: 18, b: 52 }, hsv: { h: 348, s: 90, v: 72 }, hex: '#B71234' },
+    F: { meanRgb: { r: 0, g: 155, b: 72 }, hsv: { h: 148, s: 100, v: 61 }, hex: '#009B48' },
+    D: { meanRgb: { r: 255, g: 213, b: 0 }, hsv: { h: 50, s: 100, v: 100 }, hex: '#FFD500' },
+    L: { meanRgb: { r: 255, g: 88, b: 0 }, hsv: { h: 21, s: 100, v: 100 }, hex: '#FF5800' },
+    B: { meanRgb: { r: 0, g: 70, b: 173 }, hsv: { h: 216, s: 100, v: 68 }, hex: '#0046AD' },
   }
 
   const stickers = []

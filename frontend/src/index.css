@@ -37,13 +37,13 @@
     --cm-border-hover: rgba(0, 240, 255, 0.3);
     --cm-border-active: rgba(0, 240, 255, 0.5);
 
-    /* Cube Canonical Western Palette */
-    --color-cube-u: #f8fafc;
-    --color-cube-r: #ef4444;
-    --color-cube-f: #22c55e;
-    --color-cube-d: #eab308;
-    --color-cube-l: #f97316;
-    --color-cube-b: #3b82f6;
+    /* Cube Canonical Western Speedcube Palette */
+    --color-cube-u: #FFFFFF;
+    --color-cube-r: #B71234;
+    --color-cube-f: #009B48;
+    --color-cube-d: #FFD500;
+    --color-cube-l: #FF5800;
+    --color-cube-b: #0046AD;
   }
 
   body {

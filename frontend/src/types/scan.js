@@ -9,7 +9,7 @@ export const SCAN_FACE_METADATA = {
   U: {
     face: 'U',
     name: 'Up (White)',
-    color: '#f8fafc',
+    color: '#FFFFFF',
     textColor: '#0f172a',
     instruction: 'Hold the cube with WHITE center on top, GREEN facing you.',
     centerHint: 'White Center',
@@ -17,7 +17,7 @@ export const SCAN_FACE_METADATA = {
   R: {
     face: 'R',
     name: 'Right (Red)',
-    color: '#ef4444',
+    color: '#B71234',
     textColor: '#ffffff',
     instruction: 'Rotate the cube to the RIGHT face (RED center), WHITE on top.',
     centerHint: 'Red Center',
@@ -25,7 +25,7 @@ export const SCAN_FACE_METADATA = {
   F: {
     face: 'F',
     name: 'Front (Green)',
-    color: '#22c55e',
+    color: '#009B48',
     textColor: '#ffffff',
     instruction: 'Rotate back to FRONT face (GREEN center), WHITE on top.',
     centerHint: 'Green Center',
@@ -33,7 +33,7 @@ export const SCAN_FACE_METADATA = {
   D: {
     face: 'D',
     name: 'Down (Yellow)',
-    color: '#eab308',
+    color: '#FFD500',
     textColor: '#0f172a',
     instruction: 'Tilt cube up to scan DOWN face (YELLOW center), GREEN facing up.',
     centerHint: 'Yellow Center',
@@ -41,7 +41,7 @@ export const SCAN_FACE_METADATA = {
   L: {
     face: 'L',
     name: 'Left (Orange)',
-    color: '#f97316',
+    color: '#FF5800',
     textColor: '#ffffff',
     instruction: 'Rotate the cube to the LEFT face (ORANGE center), WHITE on top.',
     centerHint: 'Orange Center',
@@ -49,7 +49,7 @@ export const SCAN_FACE_METADATA = {
   B: {
     face: 'B',
     name: 'Back (Blue)',
-    color: '#3b82f6',
+    color: '#0046AD',
     textColor: '#ffffff',
     instruction: 'Rotate the cube to the BACK face (BLUE center), WHITE on top.',
     centerHint: 'Blue Center',

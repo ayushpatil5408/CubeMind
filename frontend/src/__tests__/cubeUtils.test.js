@@ -10,12 +10,12 @@ import { SOLVED_STATE_STRING } from '../types/cube'
 
 describe('cubeUtils', () => {
   it('returns canonical facelet colors', () => {
-    expect(getFaceletColor('U')).toBe('#f8fafc')
-    expect(getFaceletColor('R')).toBe('#ef4444')
-    expect(getFaceletColor('F')).toBe('#22c55e')
-    expect(getFaceletColor('D')).toBe('#eab308')
-    expect(getFaceletColor('L')).toBe('#f97316')
-    expect(getFaceletColor('B')).toBe('#3b82f6')
+    expect(getFaceletColor('U')).toBe('#FFFFFF')
+    expect(getFaceletColor('R')).toBe('#B71234')
+    expect(getFaceletColor('F')).toBe('#009B48')
+    expect(getFaceletColor('D')).toBe('#FFD500')
+    expect(getFaceletColor('L')).toBe('#FF5800')
+    expect(getFaceletColor('B')).toBe('#0046AD')
     expect(getFaceletColor('X')).toBe('#475569') // fallback
   })
 

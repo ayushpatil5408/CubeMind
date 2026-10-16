@@ -66,11 +66,17 @@ function SceneContent({
 }) {
   return (
     <>
-      {/* Studio Cyber & Solar Amber Hybrid Lighting */}
-      <ambientLight intensity={3.0} color="#121828" />
-      <directionalLight position={[7, 9, 7]} intensity={3.8} color="#ffaa22" />
-      <directionalLight position={[-8, -6, -5]} intensity={2.5} color="#00e5ff" />
-      <directionalLight position={[0, 8, -6]} intensity={2.2} color="#a855f7" />
+      {/* Studio Lighting with High Color Fidelity */}
+      <ambientLight intensity={1.8} color="#ffffff" />
+      {/* Primary Key Light: Pure daylight white for true sticker colors */}
+      <directionalLight position={[6, 9, 8]} intensity={2.6} color="#ffffff" />
+      {/* Soft Fill Light: Clean neutral fill for Left (Orange) and Back (Blue) */}
+      <directionalLight position={[-8, 4, 6]} intensity={1.8} color="#f8fafc" />
+      {/* Bottom Fill Light: Clean illumination for Down (Yellow) */}
+      <directionalLight position={[0, -9, 4]} intensity={1.4} color="#ffffff" />
+      {/* Subtle Cyber Rim Accents: Preserves atmosphere without tinting faces */}
+      <directionalLight position={[-6, -6, -8]} intensity={0.9} color="#00e5ff" />
+      <directionalLight position={[4, 6, -8]} intensity={0.8} color="#818cf8" />
 
       {/* Central Thinking Core Pulse Light */}
       <CoreNeuralPulseLight />

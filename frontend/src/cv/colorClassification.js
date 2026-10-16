@@ -13,12 +13,12 @@ import { CENTER_INDICES, CENTER_FACE_MAP } from '../types/cube'
  * Standard WCA Western Color Baseline Reference Vectors
  */
 export const DEFAULT_WCA_REFERENCES = {
-  U: { r: 248, g: 250, b: 252, h: 0, s: 2, v: 98, name: 'White', face: 'U' },
-  R: { r: 239, g: 68, b: 68, h: 0, s: 72, v: 94, name: 'Red', face: 'R' },
-  F: { r: 34, g: 197, b: 94, h: 142, s: 83, v: 77, name: 'Green', face: 'F' },
-  D: { r: 234, g: 179, b: 8, h: 45, s: 97, v: 92, name: 'Yellow', face: 'D' },
-  L: { r: 249, g: 115, b: 22, h: 25, s: 91, v: 98, name: 'Orange', face: 'L' },
-  B: { r: 59, g: 130, b: 246, h: 217, s: 76, v: 96, name: 'Blue', face: 'B' },
+  U: { r: 255, g: 255, b: 255, h: 0, s: 0, v: 100, name: 'White', face: 'U' },
+  R: { r: 183, g: 18, b: 52, h: 348, s: 90, v: 72, name: 'Red', face: 'R' },
+  F: { r: 0, g: 155, b: 72, h: 148, s: 100, v: 61, name: 'Green', face: 'F' },
+  D: { r: 255, g: 213, b: 0, h: 50, s: 100, v: 100, name: 'Yellow', face: 'D' },
+  L: { r: 255, g: 88, b: 0, h: 21, s: 100, v: 100, name: 'Orange', face: 'L' },
+  B: { r: 0, g: 70, b: 173, h: 216, s: 100, v: 68, name: 'Blue', face: 'B' },
 }
 
 /**

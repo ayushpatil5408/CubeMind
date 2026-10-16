@@ -8,7 +8,7 @@ import {
   Upload,
   Sparkles,
 } from 'lucide-react'
-import { FACES, FACE_ORDER } from '../../types/cube'
+import { FACES, FACE_ORDER, PAIRED_FACE_ORDER } from '../../types/cube'
 import { countFaceletColors } from '../../utils/cubeUtils'
 import { useCubeSolver } from '../../hooks/useCubeSolver'
 
@@ -34,12 +34,13 @@ export function ColorPalette({ onOpenImportModal }) {
 
       const key = e.key.toUpperCase()
       const keyMap = {
-        '1': 'U', U: 'U',
-        '2': 'R', R: 'R',
-        '3': 'F', F: 'F',
-        '4': 'D', D: 'D',
-        '5': 'L', L: 'L',
-        '6': 'B', B: 'B',
+        '1': PAIRED_FACE_ORDER[0], // U (White)
+        '2': PAIRED_FACE_ORDER[1], // D (Yellow)
+        '3': PAIRED_FACE_ORDER[2], // F (Green)
+        '4': PAIRED_FACE_ORDER[3], // B (Blue)
+        '5': PAIRED_FACE_ORDER[4], // L (Orange)
+        '6': PAIRED_FACE_ORDER[5], // R (Red)
+        U: 'U', D: 'D', F: 'F', B: 'B', L: 'L', R: 'R',
       }
 
       if (keyMap[key]) {
@@ -128,9 +129,9 @@ export function ColorPalette({ onOpenImportModal }) {
         </div>
       </div>
 
-      {/* 6 Color Swatches */}
-      <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5">
-        {FACE_ORDER.map((faceKey, index) => {
+      {/* 6 Color Swatches — Grouped in Physical Opposite Pairs */}
+      <div className="grid grid-cols-2 sm:grid-cols-6 gap-2.5">
+        {PAIRED_FACE_ORDER.map((faceKey, index) => {
           const face = FACES[faceKey]
           const isSelected = selectedColor === faceKey
           const count = counts[faceKey] || 0
@@ -142,16 +143,16 @@ export function ColorPalette({ onOpenImportModal }) {
               key={faceKey}
               type="button"
               onClick={() => setSelectedColor(faceKey)}
-              className={`relative flex flex-col items-center justify-between p-2.5 rounded-xl border transition-all duration-150 text-left ${
+              className={`relative flex flex-col items-center justify-between p-2.5 rounded-xl border transition-all duration-150 text-left cursor-pointer ${
                 isSelected
-                  ? 'ring-2 ring-cyan-400 border-cyan-400 bg-cyan-950/30 scale-[1.03] shadow-lg shadow-cyan-950/30'
+                  ? 'ring-2 ring-cyan-400 border-cyan-400 bg-cyan-950/40 scale-[1.03] shadow-lg shadow-cyan-950/40'
                   : 'bg-[#06090F]/70 border-white/[0.08] hover:border-white/20 hover:bg-[#0C1322]'
               }`}
             >
               {/* Color Swatch Circle */}
               <div className="flex items-center justify-between w-full mb-2">
                 <span
-                  className="w-5 h-5 rounded-full shadow-md border border-black/30 flex items-center justify-center font-mono font-black text-[10px]"
+                  className="w-5 h-5 rounded-full shadow-md border border-black/40 flex items-center justify-center font-mono font-black text-[10px]"
                   style={{
                     backgroundColor: face.color,
                     color: face.textColor,
@@ -170,7 +171,14 @@ export function ColorPalette({ onOpenImportModal }) {
                   {face.name}
                 </div>
                 <div className="flex items-center justify-between mt-1">
-                  <span className="text-[10px] text-slate-400">{face.label}</span>
+                  <span
+                    className="text-[10px] font-bold"
+                    style={{
+                      color: face.color === '#FFFFFF' ? '#e2e8f0' : face.color,
+                    }}
+                  >
+                    {face.label}
+                  </span>
                   <span
                     className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md ${
                       isFull
@@ -200,9 +208,9 @@ export function ColorPalette({ onOpenImportModal }) {
           <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
           Click any sticker to apply <strong className="text-slate-200">{FACES[selectedColor]?.name} ({selectedColor})</strong>
         </span>
-        <span className="flex items-center gap-1 text-slate-500 font-mono text-[10px]">
-          <Lock className="w-3 h-3 text-amber-500/70" />
-          Center stickers are fixed reference axes
+        <span className="flex items-center gap-2 text-slate-500 font-mono text-[10px]">
+          <span className="text-slate-400">Opposites: White ↔ Yellow | Green ↔ Blue | Orange ↔ Red</span>
+          <Lock className="w-3 h-3 text-amber-500/70 inline" />
         </span>
       </div>
     </div>

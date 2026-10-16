@@ -48,15 +48,16 @@ const CubeNetModal = lazy(() =>
   import('../components/workspace/CubeNetModal').then((m) => ({ default: m.CubeNetModal }))
 )
 
-// Standard WCA Palette Definitions
+// Standard WCA Palette Definitions — Grouped in Physical Opposite Pairs (Top/Bottom, Front/Back, Left/Right)
 const WCA_PALETTE = [
-  { key: 'U', label: 'Top (White)', color: '#ffffff', textColor: '#000000' },
-  { key: 'R', label: 'Right (Red)', color: '#dc2626', textColor: '#ffffff' },
-  { key: 'F', label: 'Front (Green)', color: '#16a34a', textColor: '#ffffff' },
-  { key: 'D', label: 'Bottom (Yellow)', color: '#facc15', textColor: '#000000' },
-  { key: 'L', label: 'Left (Orange)', color: '#f97316', textColor: '#ffffff' },
-  { key: 'B', label: 'Back (Blue)', color: '#2563eb', textColor: '#ffffff' },
+  { key: 'U', label: 'Top (White)', color: '#FFFFFF', textColor: '#0f172a', axis: 'Top' },
+  { key: 'D', label: 'Bottom (Yellow)', color: '#FFD500', textColor: '#0f172a', axis: 'Bottom' },
+  { key: 'F', label: 'Front (Green)', color: '#009B48', textColor: '#ffffff', axis: 'Front' },
+  { key: 'B', label: 'Back (Blue)', color: '#0046AD', textColor: '#ffffff', axis: 'Back' },
+  { key: 'L', label: 'Left (Orange)', color: '#FF5800', textColor: '#ffffff', axis: 'Left' },
+  { key: 'R', label: 'Right (Red)', color: '#B71234', textColor: '#ffffff', axis: 'Right' },
 ]
+
 
 // Known Preset Algorithms
 const PRESET_ALGORITHMS = [
