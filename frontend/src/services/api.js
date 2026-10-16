@@ -3,7 +3,7 @@
  * Handles communication with backend solving, validation, and scramble services.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/+$/, '')
 
 class ApiError extends Error {
   constructor(message, status = 0, details = null) {

@@ -27,10 +27,16 @@ app = FastAPI(
     version="2.0.0",
 )
 
-# Configure CORS for local development
+import os
+
+# Configure CORS for local development & cloud deployments (Vercel, Render)
+allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "")
+custom_origins = [o.strip() for o in allowed_origins_env.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=custom_origins or ["*"],
+    allow_origin_regex=r"https://.*\.vercel\.app|http://localhost(:\d+)?",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
