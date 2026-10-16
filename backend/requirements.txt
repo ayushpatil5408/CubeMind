@@ -5,6 +5,5 @@ pydantic>=2.4.2
 pytest>=7.4.2
 httpx>=0.28.0
 
-# Phase 2 Dependencies:
-rubik-solver>=0.2.0
+# Phase 2 Core Compatibility Dependencies
 future>=1.0.0
