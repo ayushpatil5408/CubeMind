@@ -82,8 +82,10 @@ class SolveRequest(BaseModel):
 
 
 @app.get("/")
+@app.get("/health")
+@app.get("/healthz")
 def read_root():
-    """Health check endpoint."""
+    """Health check endpoint for Render, Vercel, and local status checks."""
     return {
         "status": "online",
         "service": "CubeMind Solver API",
@@ -190,3 +192,11 @@ def solve_cube(req: SolveRequest):
         res_dict["message"] = result.error_message or "Solution computed and verified successfully."
 
     return res_dict
+
+
+if __name__ == "__main__":
+    import uvicorn
+    # Render, cloud platforms, and local dev inject PORT (defaults to 10000 on Render, 8000 locally)
+    port = int(os.environ.get("PORT", os.environ.get("RENDER_PORT", 10000)))
+    print(f"[CubeMind API] Starting Uvicorn server on 0.0.0.0:{port}...", flush=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=port, log_level="info")

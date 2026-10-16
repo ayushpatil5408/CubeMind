@@ -17,8 +17,12 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copy backend application source
 COPY backend/ .
 
-# Render exposes PORT dynamically at runtime (defaults to 8000 locally)
-ENV PORT=8000
+# Render dynamically injects PORT at runtime (defaulting to 10000 on Render, 8000 for local dev)
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PORT=10000
+
+EXPOSE 10000
 EXPOSE 8000
 
-CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT}"]
+CMD ["sh", "-c", "exec python -m uvicorn main:app --host 0.0.0.0 --port ${PORT:-10000}"]
