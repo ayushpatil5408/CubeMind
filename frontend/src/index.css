@@ -49,21 +49,45 @@
   body {
     background-color: var(--cm-bg);
     color: var(--cm-text-primary);
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     min-height: 100vh;
     letter-spacing: -0.01em;
   }
 }
 
 /* --------------------------------------------------------------------------
- * Typography Utilities
+ * Typography Utilities: Futuristic Cybernetic & Cosmic HUD Typesystem
  * -------------------------------------------------------------------------- */
 .font-display {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Orbitron', 'Space Grotesk', sans-serif;
+  letter-spacing: 0.04em;
 }
 
-.font-mono {
-  font-family: 'JetBrains Mono', monospace;
+.font-tech {
+  font-family: 'Rajdhani', 'Outfit', sans-serif;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.font-hud {
+  font-family: 'Chakra Petch', 'Orbitron', monospace;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.font-mono,
+.font-numeric,
+code,
+kbd,
+samp {
+  font-family: 'Chakra Petch', 'JetBrains Mono', monospace;
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.font-body {
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
 }
 
 /* --------------------------------------------------------------------------

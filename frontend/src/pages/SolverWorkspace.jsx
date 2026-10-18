@@ -25,6 +25,7 @@ import {
   Share2,
 } from 'lucide-react'
 import { CubeScene, CAMERA_PRESETS } from '../components/3d/CubeScene'
+import CosmicBG from '../components/layout/CosmicBG'
 import { useCubeSolver } from '../hooks/useCubeSolver'
 import { getFaceletColor } from '../utils/cubeUtils'
 import { SPEED_PRESETS } from '../utils/cubeAnimationMapping'
@@ -199,6 +200,22 @@ export function SolverWorkspace() {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-[#05060b] text-slate-100 select-none">
+      {/* ================= COSMIC NEBULA WEBGL BACKGROUND ================= */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <CosmicBG
+          className="w-full h-full"
+          core={true}
+          coreColor="#6823C3"
+          midColor="#7B0EC9"
+          accentColor="#9900FF"
+          outerColor="#7001EA"
+          detail={20}
+          brightness={32}
+          speed={30}
+          rotation={15}
+        />
+      </div>
+
       {/* ================= FULL-SCREEN 3D WEBGL STAGE ================= */}
       <CubeScene
         isFullScreen={true}
