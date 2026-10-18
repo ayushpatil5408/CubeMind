@@ -5,7 +5,7 @@ export function ScanOverlayGuide({ currentFaceMeta }) {
   return (
     <div className="absolute inset-0 pointer-events-none flex flex-col items-center justify-between p-4 z-10 select-none">
       {/* Top Guidance Banner */}
-      <div className="flex flex-col items-center gap-1.5 p-3 rounded-2xl bg-[#06090F]/90 backdrop-blur-xl border border-white/[0.08] shadow-2xl max-w-sm text-center">
+      <div className="flex flex-col items-center gap-1.5 p-3.5 rounded-2xl liquid-clay-pod shadow-2xl max-w-sm text-center">
         <div className="flex items-center gap-2">
           <span
             className="w-3.5 h-3.5 rounded-full shadow-md border border-black/40 shrink-0"
@@ -60,7 +60,7 @@ export function ScanOverlayGuide({ currentFaceMeta }) {
       </div>
 
       {/* Bottom Alignment Hint */}
-      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#06090F]/90 backdrop-blur-xl border border-white/[0.08] text-[11px] text-slate-300 font-medium shadow-md">
+      <div className="liquid-clay-pill flex items-center gap-2 px-4 py-1.5 bg-[#060914]/90 text-[11px] text-slate-200 font-medium shadow-md border-cyan-400/30">
         <Focus className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
         <span>Align 3x3 stickers evenly inside the laser reticle</span>
       </div>

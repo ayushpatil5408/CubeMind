@@ -110,13 +110,13 @@ export function PracticeModal({ isOpen, onClose, moves = [] }) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="practice-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xl animate-fade-in select-none"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl animate-fade-in select-none"
     >
-      <div className="relative w-full max-w-lg rounded-3xl bg-[#06090F] border border-white/[0.08] shadow-2xl p-6 overflow-hidden space-y-5">
+      <div className="relative w-full max-w-lg rounded-3xl liquid-clay-card shadow-[0_30px_70px_rgba(0,0,0,0.9)] p-6 sm:p-7 overflow-hidden space-y-5">
         {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-sm">
+        <div className="flex items-center justify-between border-b border-white/10 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-300 border border-amber-400/30 flex items-center justify-center shadow-[inset_0_1px_2px_rgba(255,255,255,0.4)]">
               <Zap className="w-5 h-5" />
             </div>
             <div>
@@ -131,14 +131,14 @@ export function PracticeModal({ isOpen, onClose, moves = [] }) {
             type="button"
             onClick={onClose}
             aria-label="Close practice mode"
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-white/[0.06] transition-colors"
+            className="liquid-clay-btn-secondary w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-white cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Drill Type Selector Pills */}
-        <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#0C1322] border border-white/[0.06] overflow-x-auto scrollbar-none">
+        <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#060914]/80 border border-white/10 overflow-x-auto scrollbar-none shadow-inner">
           {DRILL_TYPES.map((drill) => {
             const isActive = activeDrillTab === drill.id
             return (
@@ -146,15 +146,15 @@ export function PracticeModal({ isOpen, onClose, moves = [] }) {
                 key={drill.id}
                 type="button"
                 onClick={() => setActiveDrillTab(drill.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-gradient-to-r from-cyan-500/25 to-indigo-500/25 text-cyan-300 border border-cyan-400/30 font-semibold shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
+                    ? 'liquid-clay-btn-cyan !py-1 !text-slate-950 font-bold'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
                 }`}
               >
                 <span>{drill.label}</span>
                 {!drill.isReady && (
-                  <span className="text-[9px] px-1 py-0.2 rounded font-mono bg-violet-500/20 text-violet-300 border border-violet-500/30">
+                  <span className="liquid-clay-pill text-[9px] px-1.5 py-0.2 font-mono bg-violet-500/20 text-violet-300 border-violet-500/40">
                     Soon
                   </span>
                 )}
@@ -242,28 +242,28 @@ export function PracticeModal({ isOpen, onClose, moves = [] }) {
               <div className="space-y-4">
                 {/* Active Move Hero */}
                 <div
-                  className={`p-5 rounded-2xl bg-gradient-to-br ${faceInfo.glowClass} border border-white/15 shadow-xl text-center space-y-3 relative overflow-hidden`}
+                  className={`p-6 rounded-3xl bg-gradient-to-br ${faceInfo.glowClass} border border-white/20 shadow-[0_20px_40px_rgba(0,0,0,0.6),inset_0_2px_4px_rgba(255,255,255,0.4)] text-center space-y-3.5 relative overflow-hidden`}
                 >
                   <Badge variant="primary" size="sm">
                     {faceInfo.color} Face ({faceInfo.name})
                   </Badge>
 
-                  <div className="w-20 h-20 rounded-2xl bg-black/40 border border-white/20 flex items-center justify-center mx-auto text-4xl font-black font-mono shadow-inner text-white">
+                  <div className="w-20 h-20 rounded-2xl bg-black/50 border border-white/25 flex items-center justify-center mx-auto text-4xl font-black font-mono shadow-[inset_0_3px_6px_rgba(0,0,0,0.8),inset_0_1px_2px_rgba(255,255,255,0.2)] text-white">
                     {currentMove}
                   </div>
 
                   <div>
-                    <h4 className="text-base font-bold text-white">
+                    <h4 className="text-base font-bold text-white tracking-tight">
                       {turnDescription}
                     </h4>
-                    <p className="text-xs text-slate-200/90 mt-1">
+                    <p className="text-xs text-slate-200/90 mt-1 font-medium">
                       {faceInfo.grip}
                     </p>
                   </div>
                 </div>
 
                 {/* Physical Confirmation Callout */}
-                <div className="p-3 rounded-xl bg-[#0C1322] border border-white/[0.06] text-[11px] text-slate-400 flex items-center gap-2">
+                <div className="p-3.5 rounded-2xl bg-[#060914]/80 border border-white/10 text-[11px] text-slate-300 flex items-center gap-2.5 shadow-inner">
                   <Info className="w-4 h-4 text-cyan-400 shrink-0" />
                   <span>
                     Execute the turn physically on your cube, then press the button below (or hit Space/Enter).

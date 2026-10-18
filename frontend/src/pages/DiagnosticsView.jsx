@@ -109,13 +109,13 @@ export function DiagnosticsView() {
                 return (
                   <div
                     key={i}
-                    className="p-3 rounded-2xl bg-[#06090F] border border-white/[0.06] flex items-center justify-between gap-3 shadow-sm hover:border-white/10 transition-colors"
+                    className="p-3.5 rounded-2xl liquid-clay-pod flex items-center justify-between gap-3 shadow-sm transition-all"
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="p-1.5 rounded-lg bg-[#0C1322] text-cyan-400 shrink-0">
-                        <Icon className="w-3.5 h-3.5" />
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="p-2 rounded-xl bg-cyan-500/15 text-cyan-300 border border-cyan-400/20 shrink-0">
+                        <Icon className="w-4 h-4" />
                       </div>
-                      <span className="text-xs text-slate-200 font-medium truncate">
+                      <span className="text-xs text-slate-100 font-semibold truncate">
                         {mod.name}
                       </span>
                     </div>
@@ -129,15 +129,15 @@ export function DiagnosticsView() {
 
             {/* Diagnostics Stats Bar */}
             <div className="grid grid-cols-3 gap-2.5 pt-2">
-              <div className="p-3 rounded-xl bg-[#06090F] border border-white/[0.06] text-center">
+              <div className="p-3.5 rounded-2xl liquid-clay-pod text-center">
                 <span className="text-[10px] text-slate-400 uppercase font-mono block">Logged Solves</span>
                 <p className="text-base font-bold text-slate-100 font-mono mt-0.5">{solveHistory.length}</p>
               </div>
-              <div className="p-3 rounded-xl bg-[#06090F] border border-white/[0.06] text-center">
+              <div className="p-3.5 rounded-2xl liquid-clay-pod text-center">
                 <span className="text-[10px] text-slate-400 uppercase font-mono block">Drill Sessions</span>
                 <p className="text-base font-bold text-slate-100 font-mono mt-0.5">{practiceHistory.length}</p>
               </div>
-              <div className="p-3 rounded-xl bg-[#06090F] border border-white/[0.06] text-center">
+              <div className="p-3.5 rounded-2xl liquid-clay-pod text-center">
                 <span className="text-[10px] text-slate-400 uppercase font-mono block">Ping Latency</span>
                 <p className="text-base font-bold text-cyan-400 font-mono mt-0.5">
                   {healthLatency ? `${healthLatency} ms` : '—'}

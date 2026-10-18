@@ -58,16 +58,16 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#06090F]/85 backdrop-blur-2xl border-b border-white/[0.07] shadow-xl shadow-black/40">
+    <header className="sticky top-0 z-50 w-full bg-[#06090F]/80 backdrop-blur-2xl border-b border-white/[0.12] shadow-2xl shadow-black/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3 sm:gap-6">
         {/* Futuristic Brand & Isometric Glyph */}
         <div
           onClick={() => setActiveTab('workspace')}
           className="flex items-center gap-3 cursor-pointer select-none group shrink-0"
         >
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-violet-500 p-[1px] shadow-lg shadow-cyan-500/15 group-hover:shadow-cyan-500/30 transition-all duration-200">
-            <div className="w-full h-full bg-[#080D1A] rounded-[11px] flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent pointer-events-none" />
+          <div className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-violet-500 p-[1.5px] shadow-[0_4px_16px_rgba(0,240,255,0.35)] group-hover:shadow-[0_4px_24px_rgba(0,240,255,0.5)] group-hover:scale-105 transition-all duration-200">
+            <div className="w-full h-full bg-[#080D1A] rounded-[14px] flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-transparent pointer-events-none" />
               <Box className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform duration-200" />
             </div>
           </div>
@@ -76,8 +76,8 @@ export function Header() {
               <span className="font-bold text-base sm:text-lg text-white tracking-tight">
                 Cube<span className="text-cyan-400">Mind</span>
               </span>
-              <span className="hidden sm:inline-flex px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-violet-500/15 text-violet-300 border border-violet-500/30">
-                OS v2.6
+              <span className="hidden sm:inline-flex px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-violet-500/20 text-violet-300 border border-violet-400/35 shadow-[0_0_10px_rgba(139,92,246,0.25)]">
+                OS v4.2
               </span>
             </div>
             <p className="text-[9px] sm:text-[10px] text-slate-400 font-mono tracking-wider">
@@ -89,7 +89,7 @@ export function Header() {
         {/* Desktop Main Command Navigation */}
         <nav
           aria-label="Main Navigation"
-          className="hidden md:flex items-center gap-1 p-1 rounded-2xl bg-[#0C1322]/80 border border-white/[0.08] shadow-inner"
+          className="hidden md:flex items-center gap-1.5 p-1.5 rounded-full liquid-clay-pill bg-[#0C1322]/85 border-white/[0.14]"
         >
           {navItems.map(({ id, label, icon: Icon }) => {
             const isActive = activeTab === id
@@ -98,15 +98,15 @@ export function Header() {
                 key={id}
                 type="button"
                 onClick={() => handleNavClick(id)}
-                className={`relative flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 select-none ${
+                className={`relative flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 select-none cursor-pointer ${
                   isActive
-                    ? 'bg-gradient-to-r from-cyan-500/20 via-indigo-500/20 to-violet-500/20 text-cyan-300 border border-cyan-400/30 shadow-sm shadow-cyan-500/15 font-semibold'
-                    : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.04] border border-transparent'
+                    ? 'liquid-clay-pill bg-gradient-to-r from-cyan-500/30 via-indigo-500/25 to-violet-500/30 text-cyan-200 border-cyan-400/50 shadow-[0_0_20px_rgba(0,240,255,0.35)]'
+                    : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.06] border-transparent'
                 }`}
               >
                 <Icon
                   className={`w-3.5 h-3.5 transition-colors ${
-                    isActive ? 'text-cyan-400' : 'text-slate-400 group-hover:text-slate-200'
+                    isActive ? 'text-cyan-300' : 'text-slate-400 group-hover:text-slate-200'
                   }`}
                 />
                 <span>{label}</span>
@@ -129,12 +129,12 @@ export function Header() {
                 ? 'Verifying Backend Connection...'
                 : 'Backend API Offline — Offline Fallback Active'
             }
-            className={`hidden sm:inline-flex items-center gap-2 px-2.5 py-1 rounded-xl border text-[11px] font-mono transition-colors ${
+            className={`hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full liquid-clay-pill text-[11px] font-mono transition-colors ${
               isConnected
-                ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300'
+                ? 'bg-emerald-950/70 border-emerald-500/40 text-emerald-300 shadow-[0_0_12px_rgba(16,185,129,0.3)]'
                 : isChecking
-                ? 'bg-cyan-950/40 border-cyan-500/30 text-cyan-300'
-                : 'bg-red-950/40 border-red-500/30 text-red-300'
+                ? 'bg-cyan-950/70 border-cyan-500/40 text-cyan-300'
+                : 'bg-red-950/70 border-red-500/40 text-red-300'
             }`}
           >
             <span

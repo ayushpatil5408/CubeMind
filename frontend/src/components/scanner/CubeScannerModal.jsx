@@ -130,20 +130,20 @@ export function CubeScannerModal({ isOpen, onClose }) {
   const isCurrentCaptured = !!capturedFrames[currentFace]
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-xl animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-[#06090F] border border-white/[0.08] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-2xl animate-in fade-in duration-200">
+      <div className="relative w-full max-w-2xl liquid-clay-card rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col max-h-[92vh]">
         {/* Header Bar */}
-        <div className="flex items-center justify-between p-4 border-b border-white/[0.08] bg-[#0C1322]/80 z-20">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-500 text-white shadow-md shadow-cyan-500/20">
-              <Camera className="w-4 h-4" />
+        <div className="flex items-center justify-between p-4 border-b border-white/10 bg-[#060914]/80 z-20">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 flex items-center justify-center shadow-[inset_0_1px_2px_rgba(255,255,255,0.4)]">
+              <Camera className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-sm font-bold text-white tracking-tight">
                   Cube Scanner
                 </h3>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                <span className="liquid-clay-pill px-2.5 py-0.5 text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border-cyan-400/30">
                   {capturedCount}/6 Faces
                 </span>
               </div>
@@ -157,9 +157,9 @@ export function CubeScannerModal({ isOpen, onClose }) {
             type="button"
             onClick={handleClose}
             title="Close Scanner (Stops Camera)"
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+            className="liquid-clay-btn-secondary w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-white cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
@@ -280,7 +280,7 @@ export function CubeScannerModal({ isOpen, onClose }) {
 
         {/* 6-Face Step Indicator Bar (Hidden if in full 6-face review) */}
         {!isAllFacesCaptured && (
-          <div className="px-4 py-2 bg-[#06090F]/90 border-t border-white/[0.06] flex justify-center z-20">
+          <div className="px-4 py-2.5 bg-[#060914]/90 border-t border-white/10 flex justify-center z-20 shadow-inner">
             <ScanFaceProgress
               currentFace={currentFace}
               capturedFrames={capturedFrames}
@@ -291,25 +291,26 @@ export function CubeScannerModal({ isOpen, onClose }) {
 
         {/* Bottom Actions & Shutter Toolbar (Hidden if in full 6-face review) */}
         {!isAllFacesCaptured && (
-          <div className="p-4 bg-[#06090F] border-t border-white/[0.08] flex items-center justify-between gap-3 z-20">
+          <div className="p-4 bg-[#060914]/90 border-t border-white/10 flex items-center justify-between gap-3 z-20">
             {/* Left: Previous Face / Retake */}
             <div className="flex items-center gap-2">
-              <Button
+              <button
+                type="button"
                 onClick={prevFace}
-                size="sm"
-                variant="ghost"
-                icon={ChevronLeft}
+                className="liquid-clay-btn-secondary w-9 h-9 rounded-full flex items-center justify-center text-slate-300 cursor-pointer"
                 title="Previous Face"
-              />
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
               {isCurrentCaptured && (
-                <Button
+                <button
+                  type="button"
                   onClick={retakeCurrentFace}
-                  size="sm"
-                  variant="outline"
-                  icon={RotateCcw}
+                  className="liquid-clay-btn-secondary px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 text-amber-300 border-amber-500/30 cursor-pointer"
                 >
-                  Retake
-                </Button>
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>Retake</span>
+                </button>
               )}
             </div>
 
@@ -320,10 +321,10 @@ export function CubeScannerModal({ isOpen, onClose }) {
                 onClick={handleShutterClick}
                 disabled={!isCameraActive || !!activeCvInspection}
                 title="Capture Current Face Frame"
-                className={`relative flex items-center justify-center w-14 h-14 rounded-full border-4 transition-all duration-150 shadow-xl ${
+                className={`relative flex items-center justify-center w-15 h-15 rounded-full transition-all duration-150 shadow-xl ${
                   isCameraActive && !activeCvInspection
-                    ? 'border-cyan-400 bg-gradient-to-tr from-cyan-500 to-indigo-600 text-white hover:scale-105 active:scale-95 shadow-cyan-500/30 ring-2 ring-cyan-400/50'
-                    : 'border-slate-800 bg-slate-900 text-slate-600 cursor-not-allowed'
+                    ? 'liquid-clay-btn-cyan shadow-[0_0_24px_rgba(0,240,255,0.6)] !p-0 cursor-pointer hover:scale-105 active:scale-95'
+                    : 'border-slate-800 bg-slate-900/60 text-slate-600 cursor-not-allowed'
                 }`}
               >
                 <Camera className="w-6 h-6" />
@@ -332,21 +333,23 @@ export function CubeScannerModal({ isOpen, onClose }) {
 
             {/* Right: Switch Camera / Next Face */}
             <div className="flex items-center gap-2">
-              <Button
+              <button
+                type="button"
                 onClick={switchCamera}
                 disabled={!isCameraActive}
-                size="sm"
-                variant="ghost"
-                icon={FlipHorizontal}
+                className="liquid-clay-btn-secondary w-9 h-9 rounded-full flex items-center justify-center text-slate-300 disabled:opacity-30 cursor-pointer"
                 title="Flip Camera (Front/Rear)"
-              />
-              <Button
+              >
+                <FlipHorizontal className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
                 onClick={nextFace}
-                size="sm"
-                variant="ghost"
-                icon={ChevronRight}
+                className="liquid-clay-btn-secondary w-9 h-9 rounded-full flex items-center justify-center text-slate-300 cursor-pointer"
                 title="Next Face"
-              />
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
         )}

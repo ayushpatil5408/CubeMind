@@ -59,23 +59,23 @@ export function ScanReconstructionReview({
       : null
 
     return (
-      <div className="flex flex-col items-center bg-[#06090F] p-2.5 rounded-xl border border-white/[0.08] shadow-md">
+      <div className="flex flex-col items-center liquid-clay-pod p-3 rounded-2xl shadow-md">
         <div className="flex items-center justify-between w-full mb-1.5 px-0.5">
-          <span className="text-[11px] font-bold text-slate-200 font-mono flex items-center gap-1">
+          <span className="text-[11px] font-bold text-slate-200 font-mono flex items-center gap-1.5">
             <span
-              className="w-2.5 h-2.5 rounded-full inline-block border border-black/40"
+              className="w-2.5 h-2.5 rounded-full inline-block border border-black/40 shadow-sm"
               style={{ backgroundColor: meta?.color || '#fff' }}
             />
             {faceKey} ({meta?.name?.split(' ')[0]})
           </span>
           {faceConf && (
-            <span className="text-[9px] font-mono text-cyan-400 font-semibold">
+            <span className="text-[9px] font-mono text-cyan-400 font-bold">
               {faceConf}%
             </span>
           )}
         </div>
 
-        <div className="grid grid-cols-3 grid-rows-3 gap-1 w-24 h-24 bg-[#0C1322] p-1 rounded-lg border border-white/[0.08]">
+        <div className="grid grid-cols-3 grid-rows-3 gap-1 w-24 h-24 bg-[#060914]/90 p-1.5 rounded-xl border border-white/10 shadow-inner">
           {Array.from({ length: 9 }).map((_, relIdx) => {
             const absIdx = startIndex + relIdx
             const char = stateString[absIdx]
@@ -92,13 +92,13 @@ export function ScanReconstructionReview({
                 title={`Sticker #${absIdx} (${char})${isCenter ? ' [Locked Center]' : ''}${
                   isAmbiguous ? ' [Ambiguous Color]' : ''
                 }`}
-                className={`relative rounded flex items-center justify-center text-[10px] font-bold font-mono transition-all duration-150 ${
+                className={`relative rounded-lg flex items-center justify-center text-[10px] font-black font-mono transition-all duration-150 liquid-color-gem ${
                   isCenter ? 'cursor-not-allowed opacity-90' : 'hover:scale-95 cursor-pointer'
                 } ${
                   isSelected
-                    ? 'ring-2 ring-cyan-400 ring-offset-1 ring-offset-[#0C1322] scale-105 z-10'
+                    ? 'active-gem scale-105 z-10'
                     : ''
-                } ${isAmbiguous ? 'border-2 border-amber-400 shadow-[0_0_6px_#f59e0b]' : 'border border-black/30'}`}
+                } ${isAmbiguous ? 'border-2 border-amber-400 shadow-[0_0_8px_#f59e0b]' : ''}`}
                 style={{
                   backgroundColor: getFaceletColor(char),
                   color: getFaceletTextColor(char),
@@ -107,10 +107,10 @@ export function ScanReconstructionReview({
                 {isCenter ? (
                   <span className="w-1.5 h-1.5 rounded-full bg-black/60 shadow" />
                 ) : (
-                  <span className="text-[8px] opacity-70">{char}</span>
+                  <span className="text-[8px] opacity-75">{char}</span>
                 )}
                 {isAmbiguous && !isCenter && (
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-amber-400 ring-1 ring-black" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-amber-400 ring-1 ring-black shadow-sm" />
                 )}
               </button>
             )
@@ -121,9 +121,9 @@ export function ScanReconstructionReview({
           type="button"
           onClick={() => onRescanFace(faceKey)}
           title={`Rescan ${faceKey} face`}
-          className="mt-1.5 text-[10px] text-slate-400 hover:text-cyan-300 flex items-center gap-1 transition-colors"
+          className="mt-2 text-[10px] text-slate-400 hover:text-cyan-300 flex items-center gap-1 transition-colors cursor-pointer"
         >
-          <Camera className="w-3 h-3" />
+          <Camera className="w-3 h-3 text-cyan-400" />
           <span>Rescan</span>
         </button>
       </div>
@@ -131,17 +131,17 @@ export function ScanReconstructionReview({
   }
 
   return (
-    <div className="flex flex-col h-full bg-[#06090F]/95 text-slate-100 p-4 sm:p-5 overflow-y-auto space-y-4">
+    <div className="flex flex-col h-full bg-[#060914]/90 backdrop-blur-2xl text-slate-100 p-4 sm:p-5 overflow-y-auto space-y-4">
       {/* Header & Overall Status */}
-      <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-        <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-500 text-white shadow-md">
-            <Layers className="w-4 h-4" />
+      <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 flex items-center justify-center shadow-[inset_0_1px_2px_rgba(255,255,255,0.4)]">
+            <Layers className="w-5 h-5" />
           </div>
           <div>
             <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
               Reconstructed Cube State
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+              <span className="liquid-clay-pill px-2.5 py-0.5 text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border-cyan-400/30">
                 Phase 4C
               </span>
             </h3>
@@ -154,16 +154,16 @@ export function ScanReconstructionReview({
         {/* Global Confidence Badge */}
         <div className="flex items-center gap-2">
           <span
-            className={`px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 border ${
+            className={`liquid-clay-pill px-3 py-1 text-xs font-semibold flex items-center gap-1.5 ${
               allCountsExact && averageConfidence >= 0.75
                 ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
                 : 'bg-amber-500/20 text-amber-300 border-amber-500/40'
             }`}
           >
             {allCountsExact && averageConfidence >= 0.75 ? (
-              <ShieldCheck className="w-3.5 h-3.5" />
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
             ) : (
-              <AlertTriangle className="w-3.5 h-3.5" />
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
             )}
             Scan Confidence: {Math.round(averageConfidence * 100)}%
           </span>
@@ -171,13 +171,13 @@ export function ScanReconstructionReview({
       </div>
 
       {/* Color Count Distribution & Quick Palette */}
-      <div className="p-3 rounded-2xl bg-[#0C1322] border border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-xs font-medium text-slate-300">
+      <div className="p-3.5 rounded-2xl liquid-clay-pod flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md">
+        <div className="flex items-center gap-2 text-xs font-medium text-slate-200">
           <Palette className="w-4 h-4 text-cyan-400 shrink-0" />
           <span>Select color tool to paint stickers:</span>
         </div>
 
-        <div className="flex items-center gap-1.5 flex-wrap justify-center">
+        <div className="flex items-center gap-2 flex-wrap justify-center">
           {FACE_ORDER.map((f) => {
             const count = colorCounts[f] || 0
             const isExact = count === 9
@@ -188,10 +188,10 @@ export function ScanReconstructionReview({
                 key={f}
                 type="button"
                 onClick={() => setSelectedPaletteColor(f)}
-                className={`px-2.5 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition-all shadow-sm ${
+                className={`px-3 py-1.5 rounded-2xl text-xs font-mono font-bold flex items-center gap-2 transition-all liquid-color-gem ${
                   isSelected
-                    ? 'ring-2 ring-cyan-400 ring-offset-2 ring-offset-[#0C1322] scale-105'
-                    : 'opacity-85 hover:opacity-100'
+                    ? 'active-gem scale-105'
+                    : 'opacity-90 hover:opacity-100'
                 }`}
                 style={{
                   backgroundColor: getFaceletColor(f),
@@ -200,7 +200,7 @@ export function ScanReconstructionReview({
               >
                 <span>{f}</span>
                 <span
-                  className={`text-[10px] px-1 py-0.2 rounded font-mono ${
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
                     isExact
                       ? 'bg-black/30 text-white'
                       : 'bg-red-950 text-red-200 border border-red-500/40'
@@ -215,7 +215,7 @@ export function ScanReconstructionReview({
       </div>
 
       {/* 2D Unfolded Cross Layout Preview */}
-      <div className="flex flex-col items-center justify-center p-4 bg-[#080D1A] rounded-2xl border border-white/[0.08] shadow-inner">
+      <div className="flex flex-col items-center justify-center p-4 sm:p-5 bg-[#060914]/85 rounded-3xl border border-white/10 shadow-inner">
         {/* Top: Up Face */}
         <div className="mb-2">{renderFaceGrid('U', 0)}</div>
 

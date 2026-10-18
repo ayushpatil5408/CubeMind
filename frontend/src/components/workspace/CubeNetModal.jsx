@@ -7,17 +7,17 @@ export function CubeNetModal({ isOpen, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
-        className="relative max-w-2xl w-full glass-base pod-squircle p-6 shadow-[0_25px_70px_rgba(0,0,0,0.85)] border border-cyan-500/30 overflow-hidden"
+        className="relative max-w-2xl w-full liquid-clay-card rounded-3xl p-6 sm:p-7 shadow-[0_30px_70px_rgba(0,0,0,0.9)] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white border border-white/10 transition-colors"
+          className="liquid-clay-btn-secondary absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-white cursor-pointer z-10"
         >
           <X className="w-4 h-4" />
         </button>

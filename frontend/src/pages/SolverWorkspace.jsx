@@ -214,8 +214,8 @@ export function SolverWorkspace() {
         {/* 1. TOP HEADER & TELEMETRY BAR */}
         <header className="w-full flex items-center justify-between pointer-events-auto gap-3">
           {/* Top-Left: Rounded teardrop/oval capsule */}
-          <div className="glass-amber pod-teardrop-left px-4 sm:px-5 py-2 sm:py-2.5 flex items-center gap-3 shadow-lg">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-amber-500 via-orange-500 to-cyan-400 p-[1.5px] shadow-[0_0_14px_rgba(245,158,11,0.5)]">
+          <div className="liquid-clay-pod-amber pod-teardrop-left px-5 sm:px-6 py-2.5 sm:py-3 flex items-center gap-3.5 shadow-xl">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-amber-500 via-orange-500 to-cyan-400 p-[1.5px] shadow-[0_4px_16px_rgba(245,158,11,0.5)]">
               <div className="w-full h-full rounded-full bg-[#0b0e18] flex items-center justify-center">
                 <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
               </div>
@@ -225,17 +225,17 @@ export function SolverWorkspace() {
                 <span className="font-display font-bold tracking-tight text-white text-xs sm:text-base">
                   CUBEMIND AI
                 </span>
-                <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded-full bg-cyan-400/15 text-cyan-300 border border-cyan-400/30 tracking-wider">
+                <span className="liquid-clay-pill text-[9px] font-mono font-bold uppercase px-2.5 py-0.5 text-cyan-300 border-cyan-400/40 bg-cyan-950/60 tracking-wider shadow-sm">
                   v4.2 PRO
                 </span>
               </div>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <span
                   className={`w-1.5 h-1.5 rounded-full ${
-                    isConnected ? 'bg-emerald-400 animate-ping' : 'bg-rose-400'
+                    isConnected ? 'bg-emerald-400 animate-ping shadow-[0_0_8px_#34d399]' : 'bg-rose-400'
                   }`}
                 />
-                <p className="text-[9px] sm:text-[10px] text-slate-400 font-mono tracking-wide">
+                <p className="text-[9px] sm:text-[10px] text-slate-300 font-mono tracking-wide">
                   {isConnected ? 'ONLINE • KOCIEMBA CORE' : 'OFFLINE MODE'}
                 </p>
               </div>
@@ -243,68 +243,68 @@ export function SolverWorkspace() {
           </div>
 
           {/* Top-Center: Sleek floating glass lozenge */}
-          <div className="glass-base pod-stadium px-6 py-2.5 hidden md:flex items-center gap-4 lg:gap-5 shadow-xl">
-            <div className="flex items-center gap-2">
+          <div className="liquid-clay-pod pod-stadium px-7 py-3 hidden md:flex items-center gap-4 lg:gap-5 shadow-2xl">
+            <div className="flex items-center gap-2.5">
               <span
                 className={`w-2.5 h-2.5 rounded-full ${
                   validationResult.is_valid
-                    ? 'bg-emerald-400 shadow-[0_0_8px_#34d399]'
-                    : 'bg-rose-400 shadow-[0_0_8px_#fb7185]'
+                    ? 'bg-emerald-400 shadow-[0_0_10px_#34d399]'
+                    : 'bg-rose-400 shadow-[0_0_10px_#fb7185]'
                 }`}
               />
               <span
-                className={`text-xs font-mono font-semibold tracking-wide uppercase ${
+                className={`text-xs font-mono font-bold tracking-wide uppercase ${
                   validationResult.is_valid ? 'text-emerald-300' : 'text-rose-300'
                 }`}
               >
                 {validationResult.is_valid ? 'Ready to Solve // SOLVABLE' : 'INVALID STATE'}
               </span>
             </div>
-            <div className="h-3.5 w-px bg-cyan-400/20" />
+            <div className="h-4 w-px bg-cyan-400/30" />
             <div className="flex items-center gap-1.5">
               <span className="text-slate-400 text-xs font-medium">Parity:</span>
-              <span className="text-white text-xs font-mono font-semibold">
+              <span className="text-white text-xs font-mono font-bold">
                 {validationResult.is_valid ? 'Valid 100%' : 'Check Required'}
               </span>
             </div>
-            <div className="h-3.5 w-px bg-cyan-400/20" />
+            <div className="h-4 w-px bg-cyan-400/30" />
             <div className="flex items-center gap-1.5">
               <span className="text-slate-400 text-xs font-medium">Latency:</span>
-              <span className="text-cyan-300 text-xs font-mono font-bold">
+              <span className="text-cyan-300 text-xs font-mono font-extrabold">
                 {solutionResult?.solve_time_seconds
                   ? `${(solutionResult.solve_time_seconds * 1000).toFixed(1)}ms`
                   : '0.6ms'}
               </span>
             </div>
-            <div className="h-3.5 w-px bg-cyan-400/20" />
-            <span className="text-[11px] font-mono text-amber-300/90 font-medium tracking-tight">
+            <div className="h-4 w-px bg-cyan-400/30" />
+            <span className="text-[11px] font-mono text-amber-300 font-bold tracking-tight">
               Kociemba Two-Phase Engine
             </span>
           </div>
 
           {/* Top-Right: Pill badge diagnostics & quick actions */}
-          <div className="glass-base pod-stadium px-4 sm:px-5 py-2 flex items-center gap-3 shadow-lg">
+          <div className="liquid-clay-pod pod-stadium px-5 py-2.5 flex items-center gap-3.5 shadow-xl">
             <button
               type="button"
               onClick={() => setIsScannerModalOpen(true)}
-              className="flex items-center gap-1.5 text-xs text-slate-300 hover:text-cyan-300 transition-colors"
+              className="flex items-center gap-1.5 text-xs text-slate-200 hover:text-cyan-300 transition-colors cursor-pointer"
               title="Camera Calibration AR Scanner"
             >
               <Camera className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="font-medium hidden sm:inline">Calibrate</span>
+              <span className="font-semibold hidden sm:inline">Calibrate</span>
             </button>
-            <div className="h-3 w-px bg-white/15" />
-            <div className="flex items-center gap-1.5 text-xs text-slate-300">
+            <div className="h-3.5 w-px bg-white/20" />
+            <div className="flex items-center gap-1.5 text-xs text-slate-200">
               <Radio className="w-3.5 h-3.5 text-amber-400" />
-              <span className="font-mono text-amber-300 font-medium hidden sm:inline">
+              <span className="font-mono text-amber-300 font-bold hidden sm:inline">
                 5.8 GHz Node
               </span>
             </div>
-            <div className="h-3 w-px bg-white/15 hidden sm:block" />
+            <div className="h-3.5 w-px bg-white/20 hidden sm:block" />
             {/* View Switcher Dropdown / Profile Button */}
             <div
               onClick={() => setActiveTab(activeTab === 'workspace' ? 'benchmark' : 'workspace')}
-              className="w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-400 to-violet-500 p-0.5 cursor-pointer hover:scale-105 transition-transform"
+              className="w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-400 via-indigo-500 to-violet-500 p-0.5 cursor-pointer hover:scale-110 active:scale-95 transition-transform shadow-[0_2px_10px_rgba(0,240,255,0.4)]"
               title="Switch to Benchmark Lab"
             >
               <div className="w-full h-full rounded-full bg-[#0e1220] flex items-center justify-center text-[11px] font-bold text-cyan-300 font-mono">
@@ -319,14 +319,14 @@ export function SolverWorkspace() {
           {/* ================= LEFT FLANK FLOATING PODS ================= */}
           <div className="flex flex-col gap-2.5 sm:gap-3.5 pointer-events-auto w-[260px] sm:w-[286px] shrink-0 z-20">
             {/* Upper Left Pod: Smooth asymmetrical rounded pod */}
-            <div className="glass-amber pod-asym-left p-3.5 sm:p-4 relative overflow-hidden group">
-              <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-amber-500/10 blur-xl pointer-events-none" />
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-amber-300 font-semibold flex items-center gap-1.5">
+            <div className="liquid-clay-pod-amber pod-asym-left p-4 sm:p-5 relative overflow-hidden group">
+              <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-amber-500/15 blur-xl pointer-events-none" />
+              <div className="flex items-center justify-between mb-2.5">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-amber-300 font-bold flex items-center gap-1.5">
                   <Sliders className="w-3.5 h-3.5 text-amber-400" />
                   Controls & Engine Triggers
                 </span>
-                <Sparkles className="w-3.5 h-3.5 text-amber-400/80" />
+                <Sparkles className="w-3.5 h-3.5 text-amber-400/90" />
               </div>
 
               {/* Primary glowing CTA */}
@@ -334,7 +334,7 @@ export function SolverWorkspace() {
                 type="button"
                 onClick={handleSolve}
                 disabled={isLoading}
-                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-cyan-400 hover:from-amber-400 hover:to-cyan-300 text-[#06080f] font-display font-bold text-xs tracking-wider shadow-[0_0_22px_rgba(245,158,11,0.5)] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
+                className="w-full py-3 px-4 rounded-2xl liquid-clay-btn-amber text-xs tracking-wider flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 <Zap className="w-4 h-4 fill-current" />
                 {isLoading ? 'SOLVING CUBE...' : 'SOLVE WITH KOCIEMBA'}
@@ -346,7 +346,7 @@ export function SolverWorkspace() {
                   type="button"
                   onClick={handleScramble}
                   disabled={isScrambling || isLoading}
-                  className="py-2 px-2.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-amber-400/40 text-[11px] font-medium text-slate-200 transition-all flex items-center justify-center gap-1 text-center cursor-pointer disabled:opacity-40"
+                  className="py-2.5 px-2.5 rounded-xl liquid-clay-btn-secondary text-[11px] font-semibold text-slate-100 flex items-center justify-center gap-1.5 text-center cursor-pointer disabled:opacity-40"
                 >
                   <Dices className="w-3.5 h-3.5 text-amber-400" />
                   {isScrambling ? 'Scrambling...' : 'Scramble (20)'}
@@ -354,7 +354,7 @@ export function SolverWorkspace() {
                 <button
                   type="button"
                   onClick={() => setIsScannerModalOpen(true)}
-                  className="py-2 px-2.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-cyan-400/40 text-[11px] font-medium text-slate-200 transition-all flex items-center justify-center gap-1 text-center cursor-pointer"
+                  className="py-2.5 px-2.5 rounded-xl liquid-clay-btn-secondary text-[11px] font-semibold text-slate-100 flex items-center justify-center gap-1.5 text-center cursor-pointer"
                 >
                   <Camera className="w-3.5 h-3.5 text-cyan-300" />
                   Camera (AR)
@@ -362,19 +362,19 @@ export function SolverWorkspace() {
               </div>
 
               {/* Practice & History secondary triggers */}
-              <div className="grid grid-cols-2 gap-1.5 mt-2">
+              <div className="grid grid-cols-2 gap-2 mt-2">
                 <button
                   type="button"
                   onClick={() => setIsPracticeModalOpen(true)}
-                  className="py-1.5 px-2 rounded-lg bg-cyan-400/10 hover:bg-cyan-400/15 border border-cyan-400/25 text-cyan-300 text-[10px] font-mono font-medium transition-all flex items-center justify-center gap-1 cursor-pointer"
+                  className="py-2 px-2.5 rounded-xl liquid-clay-btn text-cyan-200 bg-cyan-950/60 border-cyan-400/35 text-[10px] font-mono font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
                 >
-                  <GraduationCap className="w-3 h-3" />
+                  <GraduationCap className="w-3 h-3 text-cyan-300" />
                   Practice Run
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsHistoryModalOpen(true)}
-                  className="py-1.5 px-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-slate-300 text-[10px] font-mono font-medium transition-all flex items-center justify-center gap-1 cursor-pointer"
+                  className="py-2 px-2.5 rounded-xl liquid-clay-btn-secondary text-slate-200 text-[10px] font-mono font-bold flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <History className="w-3 h-3 text-amber-400" />
                   Session Logs
@@ -383,13 +383,13 @@ export function SolverWorkspace() {
             </div>
 
             {/* Middle Left Pod: Curved organic shield capsule with Layer Turns & Presets */}
-            <div className="glass-base pod-shield p-3.5 sm:p-4 relative">
+            <div className="liquid-clay-pod pod-shield p-4 sm:p-5 relative">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-300 font-medium flex items-center gap-1.5">
-                  <Bookmark className="w-3.5 h-3.5" />
+                <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-300 font-bold flex items-center gap-1.5">
+                  <Bookmark className="w-3.5 h-3.5 text-cyan-400" />
                   Algorithm Presets
                 </span>
-                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-slate-400">
+                <span className="liquid-clay-pill text-[9px] font-mono px-2 py-0.5 text-slate-300 border-white/10 bg-white/5">
                   6 Sets
                 </span>
               </div>
@@ -397,7 +397,7 @@ export function SolverWorkspace() {
                 <select
                   value={selectedPresetIndex}
                   onChange={handlePresetChange}
-                  className="flex-1 py-1.5 px-2 rounded-lg bg-[#0a0d18] border border-cyan-400/30 text-[11px] font-mono text-slate-200 focus:outline-none focus:border-cyan-400 appearance-none cursor-pointer"
+                  className="flex-1 py-1.5 px-2.5 rounded-xl bg-[#0a0d18]/90 border border-cyan-400/35 text-[11px] font-mono text-slate-200 focus:outline-none focus:border-cyan-400 appearance-none cursor-pointer shadow-inner"
                 >
                   {PRESET_ALGORITHMS.map((alg, idx) => (
                     <option key={alg.label} value={idx}>
@@ -408,7 +408,7 @@ export function SolverWorkspace() {
                 <button
                   type="button"
                   onClick={handleApplyCurrentPreset}
-                  className="px-2 py-1 rounded-lg bg-cyan-400/15 hover:bg-cyan-400/25 border border-cyan-400/30 text-[10px] font-mono text-cyan-300 font-bold transition-all cursor-pointer"
+                  className="px-3 py-1.5 rounded-xl liquid-clay-btn-cyan text-[10px] font-mono font-bold transition-all cursor-pointer"
                 >
                   Apply
                 </button>
@@ -416,14 +416,14 @@ export function SolverWorkspace() {
 
               {/* Interactive Layer Turns Sub-dock */}
               <div className="mt-2.5 pt-2 border-t border-white/10">
-                <div className="flex items-center justify-between mb-1.5 text-[9px] font-mono text-slate-400">
-                  <span>LAYER TURNS</span>
+                <div className="flex items-center justify-between mb-1.5 text-[9px] font-mono text-slate-300">
+                  <span className="font-semibold">LAYER TURNS</span>
                   <div className="flex gap-1">
                     <button
                       type="button"
                       onClick={() => setTurnModifier('')}
-                      className={`px-1 py-0.5 rounded text-[9px] font-bold cursor-pointer ${
-                        turnModifier === '' ? 'bg-cyan-400/25 text-cyan-300 border border-cyan-400/40' : 'text-slate-500 hover:text-slate-300'
+                      className={`liquid-clay-pill px-2 py-0.5 text-[9px] font-bold cursor-pointer transition-all ${
+                        turnModifier === '' ? 'bg-cyan-400/30 text-cyan-200 border-cyan-400/50 shadow-[0_0_8px_rgba(0,240,255,0.4)]' : 'text-slate-400 hover:text-slate-200 border-transparent'
                       }`}
                     >
                       CW
@@ -431,8 +431,8 @@ export function SolverWorkspace() {
                     <button
                       type="button"
                       onClick={() => setTurnModifier("'")}
-                      className={`px-1 py-0.5 rounded text-[9px] font-bold cursor-pointer ${
-                        turnModifier === "'" ? 'bg-violet-400/25 text-violet-300 border border-violet-400/40' : 'text-slate-500 hover:text-slate-300'
+                      className={`liquid-clay-pill px-2 py-0.5 text-[9px] font-bold cursor-pointer transition-all ${
+                        turnModifier === "'" ? 'bg-violet-400/30 text-violet-200 border-violet-400/50 shadow-[0_0_8px_rgba(139,92,246,0.4)]' : 'text-slate-400 hover:text-slate-200 border-transparent'
                       }`}
                     >
                       CCW
@@ -440,8 +440,8 @@ export function SolverWorkspace() {
                     <button
                       type="button"
                       onClick={() => setTurnModifier('2')}
-                      className={`px-1 py-0.5 rounded text-[9px] font-bold cursor-pointer ${
-                        turnModifier === '2' ? 'bg-amber-400/25 text-amber-300 border border-amber-400/40' : 'text-slate-500 hover:text-slate-300'
+                      className={`liquid-clay-pill px-2 py-0.5 text-[9px] font-bold cursor-pointer transition-all ${
+                        turnModifier === '2' ? 'bg-amber-400/30 text-amber-200 border-amber-400/50 shadow-[0_0_8px_rgba(245,158,11,0.4)]' : 'text-slate-400 hover:text-slate-200 border-transparent'
                       }`}
                     >
                       180°
@@ -457,7 +457,7 @@ export function SolverWorkspace() {
                       onClick={() => handleQuickTurn(face)}
                       disabled={isScrambling || isPlaying}
                       title={`Turn ${face}${turnModifier} layer (Keyboard: ${face})`}
-                      className="py-1 rounded-lg bg-black/40 hover:bg-cyan-400/20 active:bg-cyan-400/30 border border-white/10 hover:border-cyan-400/40 text-[11px] font-mono font-bold text-slate-200 hover:text-cyan-300 transition-all flex items-center justify-center cursor-pointer disabled:opacity-30"
+                      className="liquid-clay-btn-secondary py-1.5 rounded-xl text-[11px] font-mono font-bold text-slate-100 hover:text-cyan-300 flex items-center justify-center cursor-pointer disabled:opacity-30"
                     >
                       {face}{turnModifier}
                     </button>
@@ -468,59 +468,59 @@ export function SolverWorkspace() {
               <button
                 type="button"
                 onClick={resetCube}
-                className="w-full mt-2.5 py-1.5 px-3 rounded-lg bg-white/[0.04] hover:bg-rose-500/20 border border-white/10 hover:border-rose-400/40 text-[11px] font-medium text-slate-300 hover:text-rose-300 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                className="w-full mt-2.5 py-2 px-3 rounded-xl liquid-clay-btn-secondary hover:border-rose-400/50 hover:text-rose-300 text-[11px] font-medium transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
               >
-                <RotateCcw className="w-3 h-3 text-rose-400" />
+                <RotateCcw className="w-3.5 h-3.5 text-rose-400" />
                 Reset to Solved State
               </button>
             </div>
 
 
             {/* Lower Left Pod: Squircle HUD telemetry pod */}
-            <div className="glass-base pod-squircle p-3.5 sm:p-4 relative">
+            <div className="liquid-clay-pod pod-squircle p-4 sm:p-5 relative shadow-xl">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-violet-300 font-medium flex items-center gap-1.5">
-                  <Activity className="w-3.5 h-3.5" />
+                <span className="text-[10px] font-mono uppercase tracking-wider text-violet-300 font-bold flex items-center gap-1.5">
+                  <Activity className="w-3.5 h-3.5 text-violet-400" />
                   Spatial Gyro HUD
                 </span>
-                <span className="text-[9px] font-mono text-cyan-300">Euler 3D</span>
+                <span className="liquid-clay-pill text-[9px] font-mono text-cyan-300 px-2 py-0.5 border-cyan-400/30 bg-cyan-950/40">Euler 3D</span>
               </div>
               {/* Gyro telemetry pills */}
               <div className="grid grid-cols-3 gap-1.5 text-center mb-2.5">
-                <div className="bg-black/40 rounded-lg p-1.5 border border-white/5">
+                <div className="liquid-clay-btn-secondary rounded-xl p-2 border border-white/10">
                   <div className="text-[8px] font-mono text-slate-400">YAW</div>
-                  <div className="text-[11px] font-mono font-bold text-amber-300">
+                  <div className="text-[11px] font-mono font-extrabold text-amber-300">
                     {eulerAngles.yaw}°
                   </div>
                 </div>
-                <div className="bg-black/40 rounded-lg p-1.5 border border-white/5">
+                <div className="liquid-clay-btn-secondary rounded-xl p-2 border border-white/10">
                   <div className="text-[8px] font-mono text-slate-400">PITCH</div>
-                  <div className="text-[11px] font-mono font-bold text-cyan-300">
+                  <div className="text-[11px] font-mono font-extrabold text-cyan-300">
                     {eulerAngles.pitch}°
                   </div>
                 </div>
-                <div className="bg-black/40 rounded-lg p-1.5 border border-white/5">
+                <div className="liquid-clay-btn-secondary rounded-xl p-2 border border-white/10">
                   <div className="text-[8px] font-mono text-slate-400">ROLL</div>
-                  <div className="text-[11px] font-mono font-bold text-slate-200">
+                  <div className="text-[11px] font-mono font-extrabold text-slate-100">
                     {eulerAngles.roll}°
                   </div>
                 </div>
               </div>
 
               {/* Canonical Permutation Key with Copy */}
-              <div className="bg-black/50 rounded-lg px-2 py-1.5 border border-cyan-400/20 flex items-center justify-between mb-2.5">
+              <div className="liquid-clay-pill px-3 py-2 border-cyan-400/30 bg-black/50 flex items-center justify-between mb-2.5 shadow-inner">
                 <div className="overflow-hidden">
                   <span className="text-[8px] font-mono text-slate-400 block leading-tight">
                     PERM KEY
                   </span>
-                  <span className="text-[10px] font-mono font-semibold text-amber-200 tracking-tight truncate block max-w-[190px]">
+                  <span className="text-[10px] font-mono font-bold text-amber-200 tracking-tight truncate block max-w-[185px]">
                     {activeScramble || stateString.slice(0, 24) + '...'}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={handleCopyKey}
-                  className="p-1 rounded hover:bg-white/10 text-slate-400 hover:text-cyan-300 transition-colors shrink-0 cursor-pointer"
+                  className="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-cyan-300 transition-colors shrink-0 cursor-pointer"
                   title="Copy String"
                 >
                   {copiedKey ? (
@@ -533,7 +533,7 @@ export function SolverWorkspace() {
 
               {/* Viewport mode pills */}
               <div>
-                <span className="text-[8px] font-mono text-slate-400 block uppercase mb-1">
+                <span className="text-[8px] font-mono text-slate-400 block uppercase mb-1 font-semibold">
                   Face Viewports
                 </span>
                 <div className="grid grid-cols-7 gap-1 text-center">
@@ -542,7 +542,7 @@ export function SolverWorkspace() {
                       key={p.id}
                       type="button"
                       onClick={() => handleCameraSnap(p.id)}
-                      className="py-1 rounded bg-white/5 hover:bg-cyan-400/20 border border-white/10 hover:border-cyan-400/40 text-[9px] font-mono text-slate-300 hover:text-cyan-300 transition-colors cursor-pointer"
+                      className="liquid-clay-pill py-1 text-[9px] font-mono font-bold text-slate-200 hover:text-cyan-300 bg-white/5 hover:bg-cyan-400/20 border-white/10 hover:border-cyan-400/40 transition-all cursor-pointer"
                     >
                       {p.label}
                     </button>
@@ -554,24 +554,24 @@ export function SolverWorkspace() {
 
           {/* FLOATING CENTER HINT OVERLAY */}
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 pointer-events-auto hidden sm:block">
-            <div className="glass-base pod-stadium px-5 py-1.5 flex items-center gap-2.5 text-xs text-slate-300 shadow-[0_8px_24px_rgba(0,0,0,0.6)] border border-cyan-400/25">
+            <div className="liquid-clay-pod pod-stadium px-6 py-2 flex items-center gap-3 text-xs text-slate-200 shadow-[0_12px_32px_rgba(0,0,0,0.7)] border-cyan-400/35">
               <span className="text-amber-400 text-sm animate-bounce font-mono">✦</span>
-              <span className="text-[11px]">Click & Drag anywhere in space to Orbit Cube</span>
+              <span className="text-[11px] font-medium">Click & Drag anywhere in space to Orbit Cube</span>
               <span className="text-cyan-400">•</span>
-              <span className="text-cyan-300 font-mono text-[10px]">Free 3D Canvas</span>
+              <span className="text-cyan-300 font-mono text-[10px] font-bold">Free 3D Canvas</span>
             </div>
           </div>
 
           {/* ================= RIGHT FLANK FLOATING PODS ================= */}
           <div className="flex flex-col gap-2.5 sm:gap-3.5 pointer-events-auto w-[260px] sm:w-[296px] shrink-0 z-20">
             {/* Upper Right Pod: Circular & curved wing pod */}
-            <div className="glass-amber pod-wing-right p-3.5 sm:p-4 relative overflow-hidden">
+            <div className="liquid-clay-pod-amber pod-wing-right p-3.5 sm:p-4 relative overflow-hidden">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-mono uppercase tracking-widest text-amber-300 font-semibold flex items-center gap-1.5">
                   <Activity className="w-3.5 h-3.5" />
                   Telemetry Matrix
                 </span>
-                <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                <span className="liquid-clay-pill text-[9px] font-mono px-2.5 py-0.5 bg-emerald-500/20 text-emerald-300 border-emerald-500/40">
                   {moveCount > 0 ? 'OPTIMAL' : 'STANDBY'}
                 </span>
               </div>
@@ -619,7 +619,7 @@ export function SolverWorkspace() {
 
               {/* Metric split tiles */}
               <div className="grid grid-cols-2 gap-1.5 mt-2 pt-2 border-t border-white/10">
-                <div className="bg-black/40 rounded-lg p-1.5">
+                <div className="bg-[#060914]/80 rounded-xl p-2 border border-white/10 shadow-inner">
                   <span className="text-[8px] font-mono text-slate-400 block uppercase">
                     Nodes Evaluated
                   </span>
@@ -629,7 +629,7 @@ export function SolverWorkspace() {
                       : '142,850'}
                   </span>
                 </div>
-                <div className="bg-black/40 rounded-lg p-1.5">
+                <div className="bg-[#060914]/80 rounded-xl p-2 border border-cyan-400/20 shadow-inner">
                   <span className="text-[8px] font-mono text-slate-400 block uppercase">
                     Search Depth
                   </span>
@@ -641,7 +641,7 @@ export function SolverWorkspace() {
             </div>
 
             {/* Middle Right Pod: Asymmetrical curved capsule */}
-            <div className="glass-base pod-squircle p-3.5 sm:p-4 relative">
+            <div className="liquid-clay-pod pod-squircle p-3.5 sm:p-4 relative">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-300 font-medium flex items-center gap-1.5">
                   <Cpu className="w-3.5 h-3.5" />
@@ -651,73 +651,76 @@ export function SolverWorkspace() {
               </div>
 
               {/* Paradigm Selector */}
-              <div className="space-y-1 text-xs">
-                <label
+              <div className="space-y-1.5 text-xs">
+                <button
+                  type="button"
                   onClick={() => setActiveParadigm('gods')}
-                  className={`flex items-center justify-between p-1.5 px-2 rounded-xl border transition-all cursor-pointer ${
+                  className={`w-full flex items-center justify-between p-2 rounded-2xl border transition-all cursor-pointer ${
                     activeParadigm === 'gods'
-                      ? 'bg-amber-500/15 border-amber-500/40 text-amber-200'
-                      : 'bg-white/[0.02] border-white/5 text-slate-300 hover:bg-white/[0.05]'
+                      ? 'liquid-clay-btn-amber !py-1.5 !text-slate-950 font-bold'
+                      : 'liquid-clay-btn-secondary !py-1.5 text-slate-300'
                   }`}
                 >
                   <div className="flex items-center gap-2">
                     <span
                       className={`w-2 h-2 rounded-full ${
                         activeParadigm === 'gods'
-                          ? 'bg-amber-400 shadow-[0_0_6px_#fbbf24]'
-                          : 'bg-slate-600'
+                          ? 'bg-slate-950'
+                          : 'bg-amber-400 shadow-[0_0_6px_#fbbf24]'
                       }`}
                     />
-                    <span className="font-medium text-[11px]">God's Optimal (Two-Phase)</span>
+                    <span className="font-semibold text-[11px]">God's Optimal (Two-Phase)</span>
                   </div>
-                  <span className="text-[9px] font-mono text-amber-400 font-bold">20 M</span>
-                </label>
+                  <span className="text-[9px] font-mono font-bold">20 M</span>
+                </button>
 
-                <label
+                <button
+                  type="button"
                   onClick={() => setActiveParadigm('cfop')}
-                  className={`flex items-center justify-between p-1.5 px-2 rounded-xl border transition-all cursor-pointer ${
+                  className={`w-full flex items-center justify-between p-2 rounded-2xl border transition-all cursor-pointer ${
                     activeParadigm === 'cfop'
-                      ? 'bg-amber-500/15 border-amber-500/40 text-amber-200'
-                      : 'bg-white/[0.02] border-white/5 text-slate-300 hover:bg-white/[0.05]'
+                      ? 'liquid-clay-btn-cyan !py-1.5 !text-slate-950 font-bold'
+                      : 'liquid-clay-btn-secondary !py-1.5 text-slate-300'
                   }`}
                 >
                   <div className="flex items-center gap-2">
                     <span
                       className={`w-2 h-2 rounded-full ${
                         activeParadigm === 'cfop'
-                          ? 'bg-amber-400 shadow-[0_0_6px_#fbbf24]'
-                          : 'bg-slate-600'
+                          ? 'bg-slate-950'
+                          : 'bg-cyan-400 shadow-[0_0_6px_#22d3ee]'
                       }`}
                     />
-                    <span className="text-[11px]">CFOP Fridrich (Human-Style)</span>
+                    <span className="text-[11px] font-medium">CFOP Fridrich (Human)</span>
                   </div>
-                  <span className="text-[9px] font-mono text-slate-400">4-Stage</span>
-                </label>
+                  <span className="text-[9px] font-mono">4-Stage</span>
+                </button>
 
-                <label
+                <button
+                  type="button"
                   onClick={() => setActiveParadigm('dqn')}
-                  className={`flex items-center justify-between p-1.5 px-2 rounded-xl border transition-all cursor-pointer ${
+                  className={`w-full flex items-center justify-between p-2 rounded-2xl border transition-all cursor-pointer ${
                     activeParadigm === 'dqn'
-                      ? 'bg-amber-500/15 border-amber-500/40 text-amber-200'
-                      : 'bg-white/[0.02] border-white/5 text-slate-300 hover:bg-white/[0.05]'
+                      ? 'liquid-clay-btn-cyan !py-1.5 !text-slate-950 font-bold'
+                      : 'liquid-clay-btn-secondary !py-1.5 text-slate-300'
                   }`}
                 >
                   <div className="flex items-center gap-2">
                     <span
                       className={`w-2 h-2 rounded-full ${
                         activeParadigm === 'dqn'
-                          ? 'bg-amber-400 shadow-[0_0_6px_#fbbf24]'
-                          : 'bg-slate-600'
+                          ? 'bg-slate-950'
+                          : 'bg-violet-400 shadow-[0_0_6px_#c084fc]'
                       }`}
                     />
-                    <span className="text-[11px]">Deep Q-Network Tensor</span>
+                    <span className="text-[11px] font-medium">Deep Q-Network Tensor</span>
                   </div>
-                  <span className="text-[9px] font-mono text-slate-400">Neural</span>
-                </label>
+                  <span className="text-[9px] font-mono">Neural</span>
+                </button>
               </div>
 
               {/* Live Synapse Equalizer */}
-              <div className="mt-2 pt-2 border-t border-white/10 flex items-center justify-between">
+              <div className="mt-2.5 pt-2 border-t border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <Activity className="w-3 h-3 text-cyan-300" />
                   <span className="text-[9px] font-mono text-slate-400">SYNAPSE WAVEFORM</span>
@@ -734,49 +737,49 @@ export function SolverWorkspace() {
             </div>
 
             {/* Lower Right Pod: Sculpted organic tray (2D Net Preview & Color Palette) */}
-            <div className="glass-base pod-sculpted-tray p-3 sm:p-3.5 relative">
-              <div className="flex items-center justify-between mb-2">
+            <div className="liquid-clay-pod pod-sculpted-tray p-3.5 sm:p-4 relative">
+              <div className="flex items-center justify-between mb-2.5">
                 <span className="text-[10px] font-mono uppercase tracking-wider text-violet-300 font-medium flex items-center gap-1.5">
                   <Layers className="w-3.5 h-3.5" />
                   Color Palette & 2D Net
                 </span>
-                <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300">
+                <span className="liquid-clay-pill text-[9px] font-mono px-2 py-0.5 bg-amber-500/20 text-amber-300 border-amber-500/40">
                   Click to Paint
                 </span>
               </div>
 
-              {/* 6 WCA Color Swatches */}
-              <div className="flex items-center justify-between gap-1 mb-2 px-1">
+              {/* 6 WCA Color Swatches as Liquid Color Gems with canonical face letter */}
+              <div className="flex items-center justify-between gap-1 mb-2.5 px-0.5">
                 {WCA_PALETTE.map((wca) => (
                   <button
                     key={wca.key}
                     type="button"
                     onClick={() => setSelectedColor(wca.key)}
                     style={{ backgroundColor: wca.color }}
-                    className={`w-6 h-6 rounded-full transition-transform hover:scale-110 cursor-pointer ${
-                      selectedColor === wca.key
-                        ? 'ring-2 ring-cyan-400 ring-offset-2 ring-offset-[#080D1A] scale-110 shadow-[0_0_10px_rgba(0,240,255,0.8)]'
-                        : 'border border-white/20'
-                    }`}
-                    title={wca.label}
-                  />
+                    className={`w-7 h-7 sm:w-8 sm:h-8 liquid-color-gem flex items-center justify-center font-mono font-black text-[11px] ${
+                      wca.key === 'U' || wca.key === 'D' ? 'text-slate-900' : 'text-white'
+                    } ${selectedColor === wca.key ? 'active-gem' : ''}`}
+                    title={`${wca.label} (${wca.key})`}
+                  >
+                    {wca.key}
+                  </button>
                 ))}
               </div>
 
               {/* Real-time sync badge */}
-              <div className="bg-black/40 rounded-lg p-1 border border-cyan-400/20 text-center mb-2">
+              <div className="bg-[#060914]/80 rounded-xl p-1.5 border border-cyan-400/25 text-center mb-2.5 shadow-inner">
                 <div className="text-[8px] font-mono text-cyan-300 leading-tight">
                   Real-time Two-Way Canonical URFDLB Synchronization
                 </div>
               </div>
 
               {/* Action pills: Undo, Redo, 2D Net, Paste string */}
-              <div className="grid grid-cols-4 gap-1 text-center">
+              <div className="grid grid-cols-4 gap-1.5 text-center">
                 <button
                   type="button"
                   onClick={undo}
                   disabled={history.length === 0}
-                  className="py-1 rounded bg-white/5 hover:bg-white/10 text-[9px] font-mono text-slate-300 transition-colors disabled:opacity-30 cursor-pointer"
+                  className="liquid-clay-btn-secondary py-1.5 rounded-xl text-[9px] font-mono text-slate-300 disabled:opacity-30 cursor-pointer"
                 >
                   Undo
                 </button>
@@ -784,21 +787,21 @@ export function SolverWorkspace() {
                   type="button"
                   onClick={redo}
                   disabled={future.length === 0}
-                  className="py-1 rounded bg-white/5 hover:bg-white/10 text-[9px] font-mono text-slate-300 transition-colors disabled:opacity-30 cursor-pointer"
+                  className="liquid-clay-btn-secondary py-1.5 rounded-xl text-[9px] font-mono text-slate-300 disabled:opacity-30 cursor-pointer"
                 >
                   Redo
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsNetModalOpen(true)}
-                  className="py-1 rounded bg-white/5 hover:bg-white/10 text-[9px] font-mono text-cyan-300 transition-colors cursor-pointer"
+                  className="liquid-clay-btn-secondary py-1.5 rounded-xl text-[9px] font-mono text-cyan-300 cursor-pointer"
                 >
                   2D Net
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsImportModalOpen(true)}
-                  className="py-1 rounded bg-cyan-400/15 text-cyan-300 border border-cyan-400/30 text-[9px] font-mono font-medium hover:bg-cyan-400/25 transition-colors cursor-pointer"
+                  className="liquid-clay-btn-cyan py-1.5 rounded-xl text-[9px] font-mono font-bold cursor-pointer"
                 >
                   Paste
                 </button>
@@ -809,10 +812,10 @@ export function SolverWorkspace() {
 
         {/* 3. BOTTOM PANORAMIC STADIUM PILL FLOATING SCRUBBER */}
         <footer className="w-full flex items-center justify-center pointer-events-auto pb-1">
-          <div className="glass-amber pod-stadium max-w-5xl w-full px-4 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-3 sm:gap-5 shadow-[0_20px_60px_rgba(0,0,0,0.85)]">
+          <div className="liquid-clay-pod-amber pod-stadium max-w-5xl w-full px-4 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-3 sm:gap-5 shadow-[0_24px_64px_rgba(0,0,0,0.9)]">
             {/* Optimal Sequence Track Info */}
             <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-500/40">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-500/40 shadow-[inset_0_1px_2px_rgba(255,255,255,0.4)]">
                 <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
               </div>
               <div>
@@ -837,12 +840,12 @@ export function SolverWorkspace() {
                       key={`${move}-${idx}`}
                       type="button"
                       onClick={() => jumpToStep(idx)}
-                      className={`px-2.5 py-0.5 rounded-full font-mono text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                      className={`liquid-clay-pill px-3 py-1 font-mono text-xs font-bold transition-all shrink-0 cursor-pointer ${
                         isActive
-                          ? 'bg-amber-400 text-slate-950 shadow-[0_0_12px_rgba(245,158,11,0.8)] scale-105'
+                          ? 'bg-amber-400 text-slate-950 border-amber-300 shadow-[0_0_16px_rgba(245,158,11,0.9)] scale-105'
                           : idx < currentStepIndex
-                          ? 'bg-cyan-400/20 text-cyan-300 border border-cyan-400/40'
-                          : 'bg-white/5 border border-white/15 text-slate-300 hover:bg-white/15'
+                          ? 'bg-cyan-500/20 text-cyan-300 border-cyan-400/40'
+                          : 'bg-white/5 border-white/15 text-slate-300 hover:bg-white/15'
                       }`}
                     >
                       {move}
@@ -864,7 +867,7 @@ export function SolverWorkspace() {
                 type="button"
                 onClick={stepBackward}
                 disabled={currentStepIndex <= 0 || isPlaying}
-                className="p-1.5 rounded-full hover:bg-white/10 text-slate-300 transition-colors disabled:opacity-30 cursor-pointer"
+                className="liquid-clay-btn-secondary w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-slate-300 disabled:opacity-30 cursor-pointer"
                 title="Step Backward"
               >
                 <SkipBack className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -874,13 +877,13 @@ export function SolverWorkspace() {
                 type="button"
                 onClick={isPlaying ? pause : play}
                 disabled={moveCount === 0}
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-amber-500 to-cyan-400 text-slate-950 flex items-center justify-center shadow-[0_0_16px_rgba(0,240,255,0.5)] hover:scale-105 active:scale-95 transition-transform disabled:opacity-40 cursor-pointer"
+                className="liquid-clay-btn-amber rounded-full w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.6)] cursor-pointer disabled:opacity-40"
                 title={isPlaying ? 'Pause' : 'Play Solve'}
               >
                 {isPlaying ? (
-                  <Pause className="w-3.5 h-3.5 sm:w-4 sm:h-4 font-bold fill-current" />
+                  <Pause className="w-4 h-4 font-bold fill-current" />
                 ) : (
-                  <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 font-bold fill-current ml-0.5" />
+                  <Play className="w-4 h-4 font-bold fill-current ml-0.5" />
                 )}
               </button>
 
@@ -888,7 +891,7 @@ export function SolverWorkspace() {
                 type="button"
                 onClick={stepForward}
                 disabled={currentStepIndex >= moveCount - 1 || isPlaying}
-                className="p-1.5 rounded-full hover:bg-white/10 text-slate-300 transition-colors disabled:opacity-30 cursor-pointer"
+                className="liquid-clay-btn-secondary w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-slate-300 disabled:opacity-30 cursor-pointer"
                 title="Step Forward"
               >
                 <SkipForward className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -901,13 +904,13 @@ export function SolverWorkspace() {
                   onClick={() => setIsAutoPlay(!isAutoPlay)}
                   className={`w-7 h-4 rounded-full p-0.5 flex items-center transition-colors cursor-pointer ${
                     isAutoPlay
-                      ? 'bg-amber-500/30 justify-end border border-amber-500/60'
+                      ? 'bg-amber-500/30 justify-end border border-amber-500/60 shadow-[inset_0_1px_2px_rgba(245,158,11,0.5)]'
                       : 'bg-white/10 justify-start border border-white/20'
                   }`}
                 >
                   <div
-                    className={`w-2.5 h-2.5 rounded-full shadow-sm ${
-                      isAutoPlay ? 'bg-amber-400' : 'bg-slate-400'
+                    className={`w-2.5 h-2.5 rounded-full shadow-md ${
+                      isAutoPlay ? 'bg-amber-400 shadow-[0_0_8px_#f59e0b]' : 'bg-slate-400'
                     }`}
                   />
                 </div>
@@ -925,7 +928,7 @@ export function SolverWorkspace() {
                   step="50"
                   value={playbackSpeed}
                   onChange={(e) => setPlaybackSpeed(Number(e.target.value))}
-                  className="w-14 accent-cyan-400 h-1 bg-white/20 rounded cursor-pointer"
+                  className="w-14 accent-cyan-400 h-1.5 bg-white/20 rounded cursor-pointer"
                   title="Animation Speed"
                 />
               </div>

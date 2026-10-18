@@ -4,7 +4,7 @@ import { SCAN_FACE_ORDER, SCAN_FACE_METADATA } from '../../types/scan'
 
 export function ScanFaceProgress({ currentFace, capturedFrames, onSelectFace }) {
   return (
-    <div className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-[#06090F]/90 backdrop-blur-xl border border-white/[0.08] shadow-xl overflow-x-auto max-w-full scrollbar-none">
+    <div className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-[#060914]/80 backdrop-blur-2xl border border-white/10 shadow-inner overflow-x-auto max-w-full scrollbar-none">
       {SCAN_FACE_ORDER.map((faceKey) => {
         const meta = SCAN_FACE_METADATA[faceKey]
         const isCurrent = currentFace === faceKey
@@ -15,17 +15,17 @@ export function ScanFaceProgress({ currentFace, capturedFrames, onSelectFace }) 
             key={faceKey}
             type="button"
             onClick={() => onSelectFace && onSelectFace(faceKey)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all select-none ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all select-none cursor-pointer ${
               isCurrent
-                ? 'bg-gradient-to-r from-cyan-500 to-indigo-500 text-white font-bold shadow-md shadow-cyan-500/25 scale-105 border border-white/20'
+                ? 'liquid-clay-btn-cyan !py-1 text-slate-950 font-bold scale-105 shadow-[0_0_16px_rgba(0,240,255,0.4)]'
                 : isCaptured
-                ? 'bg-[#0C1322] text-slate-300 border border-white/[0.08] hover:bg-[#111C33]'
-                : 'bg-[#06090F]/40 text-slate-500 border border-white/[0.04] hover:text-slate-400'
+                ? 'liquid-clay-btn-secondary !py-1 text-emerald-300 border-emerald-500/30'
+                : 'liquid-clay-pill !py-1 text-slate-400 hover:text-slate-200 border-white/10'
             }`}
           >
             {/* Color Swatch Dot */}
             <span
-              className="w-2.5 h-2.5 rounded-full border border-black/40 shrink-0"
+              className="w-2.5 h-2.5 rounded-full border border-black/40 shrink-0 shadow-sm"
               style={{ backgroundColor: meta.color }}
             />
             <span>{faceKey}</span>

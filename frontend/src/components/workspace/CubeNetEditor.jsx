@@ -44,7 +44,7 @@ export function CubeNetEditor() {
     return (
       <div className="flex flex-col items-center">
         {/* Face Header Label */}
-        <div className="flex items-center gap-1.5 mb-1.5 px-2.5 py-0.5 rounded-lg bg-[#0C1322]/90 border border-white/[0.08] shadow-sm">
+        <div className="liquid-clay-pill flex items-center gap-1.5 mb-2 px-3 py-0.5 bg-[#060914]/90 border border-white/15 shadow-sm">
           <span
             className="w-2.5 h-2.5 rounded-full shadow-sm"
             style={{ backgroundColor: faceMeta.color }}
@@ -58,7 +58,7 @@ export function CubeNetEditor() {
         </div>
 
         {/* 3x3 Grid */}
-        <div className="grid grid-cols-3 gap-1 sm:gap-1.5 p-1.5 rounded-2xl bg-[#06090F] border border-white/[0.08] shadow-inner">
+        <div className="grid grid-cols-3 gap-1 sm:gap-1.5 p-2 rounded-2xl bg-[#060914]/90 border border-white/10 shadow-inner">
           {faceData.map((row, r) =>
             row.map((cellChar, c) => {
               const absIndex = range.start + r * 3 + c
@@ -77,13 +77,13 @@ export function CubeNetEditor() {
                   onMouseEnter={() => setHoveredStickerIndex(absIndex)}
                   onMouseLeave={() => setHoveredStickerIndex(null)}
                   title={getStickerPositionName(absIndex)}
-                  className={`relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-xl flex flex-col items-center justify-center font-mono font-extrabold text-xs transition-all duration-150 select-none shadow-md ${
+                  className={`relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-xl flex flex-col items-center justify-center font-mono font-black text-xs transition-all duration-150 select-none liquid-color-gem ${
                     isCenter
                       ? 'cursor-not-allowed opacity-95 ring-1 ring-amber-400/40'
                       : 'cursor-pointer hover:scale-105 active:scale-95'
                   } ${
                     isSelected
-                      ? 'ring-2 ring-cyan-400 ring-offset-2 ring-offset-[#06090F] z-10 scale-105'
+                      ? 'active-gem z-10 scale-105'
                       : ''
                   }`}
                   style={{
@@ -121,12 +121,12 @@ export function CubeNetEditor() {
   const activeHoverStickerName = hoveredStickerIndex !== null ? getStickerPositionName(hoveredStickerIndex) : null
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 sm:p-6 bg-[#080D1A]/80 rounded-2xl border border-white/[0.08] shadow-2xl backdrop-blur-md">
+    <div className="flex flex-col items-center justify-center p-2 sm:p-3">
       {/* Top Bar with Options */}
-      <div className="w-full flex items-center justify-between mb-4 pb-2 border-b border-white/[0.06] text-xs">
+      <div className="w-full flex items-center justify-between mb-4 pb-2.5 border-b border-white/10 text-xs">
         <div className="flex items-center gap-2">
-          <span className="text-slate-200 font-semibold flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+          <span className="text-white font-bold flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-cyan-400" />
             2D Interactive Cube Net Editor
           </span>
         </div>
@@ -135,10 +135,10 @@ export function CubeNetEditor() {
         <button
           type="button"
           onClick={() => setShowIndexLabels(!showIndexLabels)}
-          className={`px-2.5 py-1 rounded-lg border text-[11px] font-medium transition-all ${
+          className={`liquid-clay-btn-secondary px-3 py-1.5 rounded-xl text-[11px] font-semibold transition-all cursor-pointer ${
             showIndexLabels
-              ? 'bg-indigo-950/80 border-indigo-500/60 text-indigo-300'
-              : 'bg-[#0C1322] border-white/[0.08] text-slate-400 hover:text-slate-200'
+              ? '!border-cyan-400/50 !text-cyan-300 shadow-[0_0_12px_rgba(0,240,255,0.3)]'
+              : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           {showIndexLabels ? 'Show Face Colors' : 'Show Indices (0-53)'}

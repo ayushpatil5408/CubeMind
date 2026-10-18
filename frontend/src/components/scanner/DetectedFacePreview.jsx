@@ -43,9 +43,9 @@ export function DetectedFacePreview({
   const isFailed = level === CONFIDENCE_LEVEL.FAILED
 
   return (
-    <div className="flex flex-col h-full bg-[#06090F]/95 text-slate-100 overflow-y-auto p-4 sm:p-5 space-y-4">
+    <div className="flex flex-col h-full bg-[#060914]/90 backdrop-blur-2xl text-slate-100 overflow-y-auto p-4 sm:p-5 space-y-4">
       {/* Header Banner */}
-      <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
+      <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
         <div className="flex items-center gap-3">
           <div
             className="w-4 h-4 rounded-full border border-black/40 shadow-sm"
@@ -64,12 +64,12 @@ export function DetectedFacePreview({
         {/* Confidence Badge */}
         <div className="flex items-center gap-2">
           {isGuided && (
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+            <span className="liquid-clay-pill px-2.5 py-0.5 text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border-cyan-400/30">
               Guided
             </span>
           )}
           <span
-            className={`px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 border ${
+            className={`liquid-clay-pill px-3 py-1 text-xs font-semibold flex items-center gap-1.5 ${
               isGood
                 ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
                 : isWarning
@@ -88,13 +88,13 @@ export function DetectedFacePreview({
       {/* Main Content Area: Grid on left, Details on right */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
         {/* Left: 3x3 Detected Facelet Color Grid */}
-        <div className="flex flex-col items-center bg-[#0C1322] p-4 rounded-2xl border border-white/[0.08]">
-          <div className="text-xs font-semibold text-slate-300 mb-3 flex items-center gap-1.5">
+        <div className="flex flex-col items-center liquid-clay-pod p-4 rounded-2xl">
+          <div className="text-xs font-semibold text-slate-200 mb-3 flex items-center gap-1.5">
             <Eye className="w-3.5 h-3.5 text-cyan-400" />
             <span>Extracted 3×3 Sticker Colors</span>
           </div>
 
-          <div className="w-48 h-48 grid grid-cols-3 grid-rows-3 gap-1.5 p-2 bg-[#06090F] rounded-xl border border-white/[0.08] shadow-inner">
+          <div className="w-48 h-48 grid grid-cols-3 grid-rows-3 gap-1.5 p-2.5 bg-[#060914]/90 rounded-2xl border border-white/10 shadow-inner">
             {stickers.map((stk) => {
               const isSelected = stk.index === selectedStickerIdx
               const isCenter = stk.index === 4
@@ -104,10 +104,10 @@ export function DetectedFacePreview({
                   type="button"
                   onClick={() => setSelectedStickerIdx(stk.index)}
                   title={`Cell ${stk.index} (${stk.name}): ${stk.color.hex}`}
-                  className={`relative rounded-lg flex items-center justify-center transition-all duration-150 shadow-md ${
+                  className={`relative rounded-xl flex items-center justify-center transition-all duration-150 select-none liquid-color-gem ${
                     isSelected
-                      ? 'ring-2 ring-cyan-400 ring-offset-2 ring-offset-[#06090F] scale-105 z-10'
-                      : 'hover:scale-98 opacity-95 hover:opacity-100'
+                      ? 'active-gem scale-105 z-10'
+                      : 'hover:scale-102 opacity-95 hover:opacity-100'
                   }`}
                   style={{ backgroundColor: stk.color.hex }}
                 >
@@ -127,11 +127,11 @@ export function DetectedFacePreview({
         </div>
 
         {/* Right: Selected Cell Color Profile & Metrics */}
-        <div className="flex flex-col bg-[#0C1322] p-4 rounded-2xl border border-white/[0.08] space-y-3">
+        <div className="flex flex-col liquid-clay-pod p-4 rounded-2xl space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div
-                className="w-5 h-5 rounded-md border border-white/20 shadow-sm"
+                className="w-5 h-5 rounded-lg border border-white/20 shadow-sm"
                 style={{ backgroundColor: selectedSticker?.color?.hex || '#000' }}
               />
               <span className="text-xs font-bold text-slate-200">

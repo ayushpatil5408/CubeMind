@@ -7,21 +7,21 @@ export function Badge({
   dot = false,
   className = '',
 }) {
-  const baseStyles = 'inline-flex items-center font-medium rounded-full border transition-colors select-none'
+  const baseStyles = 'liquid-clay-pill inline-flex items-center font-semibold select-none transition-all duration-200'
 
   const sizeStyles = {
-    sm: 'px-2 py-0.5 text-[10px] gap-1',
-    md: 'px-2.5 py-0.5 text-xs gap-1.5',
-    lg: 'px-3 py-1 text-xs sm:text-sm gap-2',
+    sm: 'px-2.5 py-0.5 text-[10px] gap-1',
+    md: 'px-3 py-1 text-xs gap-1.5',
+    lg: 'px-4 py-1.5 text-xs sm:text-sm gap-2',
   }
 
   const variantStyles = {
-    neutral: 'bg-[#111C33]/80 text-slate-300 border-white/10',
-    success: 'bg-emerald-950/40 text-emerald-300 border-emerald-500/30',
-    warning: 'bg-amber-950/40 text-amber-300 border-amber-500/30',
-    error: 'bg-red-950/40 text-red-300 border-red-500/30',
-    info: 'bg-cyan-950/40 text-cyan-300 border-cyan-500/30',
-    indigo: 'bg-indigo-950/40 text-indigo-300 border-indigo-500/30',
+    neutral: 'bg-slate-900/80 text-slate-200 border-white/20',
+    success: 'bg-emerald-950/80 text-emerald-300 border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.25)]',
+    warning: 'bg-amber-950/80 text-amber-300 border-amber-500/40 shadow-[0_0_12px_rgba(245,158,11,0.25)]',
+    error: 'bg-rose-950/80 text-rose-300 border-rose-500/40 shadow-[0_0_12px_rgba(244,63,94,0.25)]',
+    info: 'bg-cyan-950/80 text-cyan-300 border-cyan-400/40 shadow-[0_0_12px_rgba(0,240,255,0.25)]',
+    indigo: 'bg-indigo-950/80 text-indigo-300 border-indigo-500/40 shadow-[0_0_12px_rgba(99,102,241,0.25)]',
   }
 
   const dotColors = {

@@ -13,27 +13,29 @@ export function Button({
   ...props
 }) {
   const baseStyles =
-    'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-150 ease-out focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#06090F] disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none active:scale-[0.98] select-none tracking-tight'
+    'inline-flex items-center justify-center font-semibold rounded-2xl transition-all duration-200 ease-out focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#06090F] disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none active:scale-[0.97] select-none tracking-tight cursor-pointer'
 
   const sizeStyles = {
-    sm: 'px-3 py-1.5 text-xs gap-1.5 min-h-[30px]',
-    md: 'px-4 py-2 text-xs sm:text-sm gap-2 min-h-[36px]',
-    lg: 'px-5 py-2.5 text-sm sm:text-base gap-2.5 min-h-[44px]',
+    sm: 'px-3 py-1.5 text-xs gap-1.5 min-h-[32px] rounded-xl',
+    md: 'px-4.5 py-2 text-xs sm:text-sm gap-2 min-h-[38px] rounded-2xl',
+    lg: 'px-6 py-2.5 text-sm sm:text-base gap-2.5 min-h-[46px] rounded-2xl',
   }
 
   const variantStyles = {
     primary:
-      'bg-gradient-to-r from-cyan-600 via-indigo-600 to-cyan-500 hover:from-cyan-500 hover:to-indigo-500 text-white shadow-sm shadow-cyan-950/30 border border-cyan-400/25',
+      'liquid-clay-btn-cyan',
+    amber:
+      'liquid-clay-btn-amber',
     secondary:
-      'bg-[#111C33]/90 hover:bg-[#162444] text-slate-100 border border-white/10 hover:border-white/20 shadow-sm',
+      'liquid-clay-btn-secondary',
     outline:
-      'bg-transparent hover:bg-[#111C33]/60 text-slate-300 hover:text-white border border-white/10 hover:border-cyan-500/30',
+      'liquid-clay-btn bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 hover:text-white border border-white/15 hover:border-cyan-400/40',
     danger:
-      'bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white shadow-sm shadow-red-950/30 border border-red-400/25',
+      'liquid-clay-btn bg-gradient-to-r from-red-600/90 to-rose-600/90 hover:from-red-500 hover:to-rose-500 text-white border-red-400/30 border-t-red-200/50 shadow-[0_8px_20px_rgba(239,68,68,0.35)]',
     success:
-      'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-sm shadow-emerald-950/30 border border-emerald-400/25',
+      'liquid-clay-btn bg-gradient-to-r from-emerald-600/90 to-teal-600/90 hover:from-emerald-500 hover:to-teal-500 text-white border-emerald-400/30 border-t-emerald-200/50 shadow-[0_8px_20px_rgba(16,185,129,0.35)]',
     ghost:
-      'bg-transparent hover:bg-white/5 text-slate-400 hover:text-slate-200 border-none',
+      'bg-transparent hover:bg-white/5 text-slate-400 hover:text-slate-200 border-none rounded-xl',
   }
 
   return (

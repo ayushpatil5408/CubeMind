@@ -148,7 +148,7 @@ export function BenchmarkView() {
           <div className="space-y-6 animate-in fade-in duration-200">
             {/* KPI Telemetry Pods */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              <div className="p-4 rounded-2xl bg-[#06090F] border border-white/[0.08] shadow-sm">
+              <div className="p-4 rounded-2xl liquid-clay-pod shadow-md">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400">
                     Total Solves
@@ -158,48 +158,48 @@ export function BenchmarkView() {
                   </Badge>
                 </div>
                 <p className="text-2xl font-bold text-white font-mono mt-2">{results.total}</p>
-                <span className="text-[10px] text-slate-500 mt-1 block">10 / 10 Verification Passed</span>
+                <span className="text-[10px] text-slate-400 mt-1 block">10 / 10 Verification Passed</span>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#06090F] border border-white/[0.08] shadow-sm">
+              <div className="p-4 rounded-2xl liquid-clay-pod shadow-md">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400">
                     Avg Backend Solve
                   </span>
-                  <span className="text-[10px] font-mono text-cyan-400">IDA* Engine</span>
+                  <span className="text-[10px] font-mono text-cyan-400 font-bold">IDA* Engine</span>
                 </div>
                 <p className="text-2xl font-bold text-cyan-400 font-mono mt-2">
                   {results.avgSolveTime.toFixed(1)} <span className="text-sm font-normal text-slate-400">ms</span>
                 </p>
-                <span className="text-[10px] text-slate-500 mt-1 block">
+                <span className="text-[10px] text-slate-400 mt-1 block">
                   Range: {results.minSolveTime.toFixed(1)} – {results.maxSolveTime.toFixed(1)} ms
                 </span>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#06090F] border border-white/[0.08] shadow-sm">
+              <div className="p-4 rounded-2xl liquid-clay-pod shadow-md">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400">
                     Avg Total Roundtrip
                   </span>
-                  <span className="text-[10px] font-mono text-indigo-400">FastAPI</span>
+                  <span className="text-[10px] font-mono text-indigo-400 font-bold">FastAPI</span>
                 </div>
                 <p className="text-2xl font-bold text-indigo-400 font-mono mt-2">
                   {results.avgClientTime.toFixed(1)} <span className="text-sm font-normal text-slate-400">ms</span>
                 </p>
-                <span className="text-[10px] text-slate-500 mt-1 block">Network + JSON overhead</span>
+                <span className="text-[10px] text-slate-400 mt-1 block">Network + JSON overhead</span>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#06090F] border border-white/[0.08] shadow-sm">
+              <div className="p-4 rounded-2xl liquid-clay-pod-amber shadow-md">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400">
+                  <span className="text-[10px] uppercase font-mono tracking-wider text-amber-300">
                     Avg Move Count
                   </span>
-                  <span className="text-[10px] font-mono text-amber-400">Optimal</span>
+                  <span className="text-[10px] font-mono text-amber-400 font-bold">Optimal</span>
                 </div>
                 <p className="text-2xl font-bold text-amber-400 font-mono mt-2">
                   {results.avgMoves.toFixed(1)} <span className="text-sm font-normal text-slate-400">moves</span>
                 </p>
-                <span className="text-[10px] text-slate-500 mt-1 block">God's Number ≤ 20</span>
+                <span className="text-[10px] text-amber-300/70 mt-1 block">God's Number ≤ 20</span>
               </div>
             </div>
 
